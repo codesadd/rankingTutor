@@ -1,0 +1,106 @@
+<div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
+    <div flex>
+
+        <md-card>
+            <md-content layout-align="center">
+                <div layout="row" layout-align="center center">
+                    <img ng-src="{{ ul.school.info.photoURL }}" class="avatar-profile" alt="Profile Picture">
+                </div>
+                <md-card-title>
+                    <md-card-title-text layout-align="center center">
+                        <span class="md-title">{{ ul.school.schoolName }}</span>
+                        <span class="md-caption">by</span>
+                        <span class="md-body-1">{{ ul.school.info.displayName }}</span>
+                    </md-card-title-text>
+                </md-card-title>
+
+            </md-content>
+        </md-card>
+        <md-card md-theme-watch>
+            <md-card-content>
+                <span class="md-subhead">Biography</span>
+                <p>
+                    {{ul.school.biography}}
+                </p>
+            </md-card-content>
+        </md-card>
+    </div>
+    <div flex>
+        <md-card>
+            <md-content layout-padding>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-title">Status</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <canvas id="radar" class="chart chart-radar" chart-data="data" chart-options="options" chart-labels="labels"></canvas>
+            </md-content>
+        </md-card>
+        <md-card md-theme-watch>
+            <md-card-actions layout="row" layout-align="center center">
+                <md-button ng-disabled="true">{{ul.school.like}}
+                    Like</md-button>
+                <md-button ng-disabled="true">{{ul.school.view}}
+                    View</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>
+<div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
+    <div flex>
+        <md-card>
+            <md-content layout-padding>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-headline">Edit Profile School</span>
+                    </md-card-title-text>
+                </md-card-title>
+                <div>
+                    <form name="userForm">
+                        <div layout-gt-xs="row">
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>ชื่อโรงเรียน</label>
+                                <input ng-model="school.schoolName">
+                            </md-input-container>
+                        </div>
+                        <md-input-container class="md-block">
+                            <label>ที่อยู่</label>
+                            <input ng-model="school.address">
+                        </md-input-container>
+                        <div layout-gt-sm="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>อำเภอ</label>
+                                <input ng-model="school.city">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>จังหวัด</label>
+                                <input ng-model="school.state">
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>รหัสไปรษณีย์</label>
+                                <input name="postalCode" ng-model="school.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                                <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+                                    <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                                    <div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
+                                    </div>
+                                    <div ng-message="md-maxlength" class="my-message">
+                                        Don't use the long version silly...we don't need to be that specific...
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <input type="hidden" ng-model="school.like" value="0">
+                            <input type="hidden" ng-model="school.view" value="0">
+                        </div>
+                        <md-input-container class="md-block">
+                            <label>Biography</label>
+                            <textarea ng-model="school.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                        </md-input-container>
+                        <div layout="row" layout-align="center">
+                            <md-button class="md-primary" ng-click="ul.updateInfoSchool(school)">UPDATE</md-button>
+                        </div>
+                    </form>
+                </div>
+            </md-content>
+        </md-card>
+    </div>
+</div>

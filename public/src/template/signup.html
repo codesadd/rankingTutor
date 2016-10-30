@@ -1,0 +1,57 @@
+
+
+  <md-dialog>
+        <div layout="row" layout-xs="column" ng-controller="signUpCtrl">
+            <div flex>
+                <form name="signupForm" ng-cloak>
+                    <div md-whiteframe="2">
+                        <md-toolbar>
+                            <div class="md-toolbar-tools">
+                                <h2>สมัครสมาชิก</h2>
+                                <span flex></span>
+                            </div>
+                        </md-toolbar>
+                        <md-content>
+                            <div layout="column" layout-padding ng-cloak>
+                                <md class="md-no-momentum">
+                                    <md-radio-group ng-model="user.select" layout="row" layout-align="center center" ng-required="true">
+                                        <md-radio-button value="tutor" class="md-primary" ng-click="check=true">ติวเตอร์</md-radio-button>
+                                        <md-radio-button value="student" ng-click="check=true">นักเรียน</md-radio-button>
+                                        <md-radio-button value="school" ng-click="check=false">โรงเรียน</md-radio-button>
+                                    </md-radio-group>
+                                    <br>
+                                    <md-input-container class="md-block">
+                                        <!-- Use floating placeholder instead of label -->
+                                        <input ng-model="user.email" type="email" placeholder="Email" ng-required="true" name="email">
+                                        <div ng-messages="signupForm.email.$error">
+                                            <div ng-message="required">กรอกอีเมล.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="md-block">
+                                        <!-- Use floating label instead of placeholder -->
+                                        <label>Password</label>
+                                        <input ng-model="user.password" type="text" ng-required="true" name="password">
+                                        <div ng-messages="signupForm.password.$error">
+                                            <div ng-message="required">กรอกพาสเวิร์ด.</div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-container layout="row" layout-align="center center">
+                                        <md-button class="md-raised" ng-click="signUp('email',user)" ng-disabled="signupForm.$invalid">Signin</md-button>
+                                        หรือ
+                                        <md-button class="md-primary md-raised" ng-click="signUp('facebook',user)">
+                                          Facebook
+                                        </md-button>
+                                        <md-button class="md-primary md-raised" ng-click="signUp('google',user)">
+                                          Google+
+                                        </md-button>
+                                    </md-container>
+                                    
+
+                                </md>
+                            </div>
+                        </md-content>
+                    </div>
+                </form>
+            </div>
+        </div>
+</md-dialog>

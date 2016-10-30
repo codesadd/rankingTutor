@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>Ranking of Tuturial School</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        <link rel="stylesheet" href="node_modules/angular-material/angular-material.css"/>
+        <link rel="stylesheet" href="assets/app.css"/>
+        <link rel="stylesheet" href="assets/font-awesome-4.6.3/css/font-awesome.min.css"/>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+        <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Prompt&subset=thai,latin' rel='stylesheet' type='text/css'>
+        <style type="text/css">
+            .ng-cloak,
+            .x-ng-cloak,
+            [data-ng-cloak],
+            [ng-cloak],
+            [ng\:cloak],
+            [x-ng-cloak] {
+                display: none !important;
+            }
+
+        </style>
+    </head>
+
+    <body ng-app="starterApp" layout="column" layout-fill ng-cloak>
+        <md-toolbar md-scroll-shrink ng-if="true" md-whiteframe="1">
+            <div class="md-toolbar-tools screen-nav-margin" ng-controller="slidebarCtrl">
+                <!-- <md-button class="md-icon-button" aria-label="More" ng-click="toggleLeft()">
+                    <md-icon md-svg-icon="more"></md-icon>
+                </md-button> -->
+                <h2>
+                    <md-button ng-href="#/" class="button-logo">Funfunc</md-button>
+                </h2>
+                <span flex></span>
+                <div ng-controller="navCtrl as ul">
+                    <div hide-xs ng-hide="hide">
+                        <md-button class="md-accent md-raised" ng-click="signin($event)">เข้าสู่ระบบ</md-button>
+                        <md-button class="md-accent md-raised" ng-click="signup($event)">สมัครสมาชิก</md-button>
+                    </div>
+                    <div layout-xs hide-gt-xs ng-hide="hide">
+                        <md-menu>
+                            <md-button class="md-icon-button" aria-label="More">
+                                <md-icon md-svg-icon="more" ng-click="$mdOpenMenu($event)"></md-icon>
+                            </md-button>
+                            <md-menu-content width="4">
+                                <md-menu-item>
+                                    <md-button ng-click="signin($event)">เข้าสู่ระบบ</md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-click="signup($event)">สมัครสมาชิก</md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </div>
+                    
+                    <md-menu ng-show="hide">
+                        <md-button class="md-icon-button" aria-label="More">
+                            <md-icon md-svg-icon="more" ng-click="$mdOpenMenu($event)"></md-icon>
+                        </md-button>
+                        <md-menu-content width="4">
+                            <md-menu-item ng-show="ul.checkSchoolNav">
+                                <md-button ng-href="#/profile-school">
+                                    <p>Profile</p>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-show="ul.checkSchoolNav">
+                                <md-button ng-href="#/dashboard-school">
+                                    <p>dashboard</p>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-show="ul.checkStdNav">
+                                <md-button ng-href="#/profile">
+                                    <p>Profile</p>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-controller="signInCtrl">
+                                <md-button ng-click="logout()">
+                                    <p>Logout</p>
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </div>
+        </md-toolbar>
+        <!-- <md-sidenav class="md-sidenav-left" md-component-id="left" md-whiteframe="1">
+            <md-content layout-padding>
+                <md-button ng-click="close()" class="md-primary" hide-gt-md>
+                    Close Sidenav Left
+                </md-button>
+                <p hide show-gt-md>
+                    This sidenav is locked open on your device. To go back to the default behavior, narrow your display.
+                </p>
+            </md-content>
+        </md-sidenav> -->
+        <md-content class="main-content">
+            <div ng-view></div>
+        </md-content>
+        <div layout="row" flex="noshrink" layout-align="center center">
+            <div id="license-footer" flex>
+                Copyright ©2016.
+                <b>Funfunc</b>
+                | All rights reserved.
+                <a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" class="md-default-theme md-accent">Contact Us</a>.
+            </div>
+        </div>
+        <script src="node_modules/angular/angular.js"></script>
+        <script src="node_modules/angular-animate/angular-animate.js"></script>
+        <script src="node_modules/angular-aria/angular-aria.js"></script>
+        <script src="node_modules/angular-route/angular-route.js"></script>
+        <script src="node_modules/angularfire/dist/angularfire.min.js"></script>
+        <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+        <script type="text/javascript" src="node_modules/angular-material/angular-material.js"></script>
+        <script src="node_modules/chart/dist/Chart.js"></script>
+        <script src="node_modules/angular-chart/dist/angular-chart.js"></script>
+        <script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
+
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+        <script src="./src/module.js"></script>
+        <script src="./src/dataService.js"></script>
+        <!-- Controller -->
+        <script src="./src/ctrl/profileCtrl.js"></script>
+        <script src="./src/ctrl/profileSchoolCtrl.js"></script>
+        <script src="./src/ctrl/signUpCtrl.js"></script>
+        <script src="./src/ctrl/signInCtrl.js"></script>
+        <script src="./src/ctrl/navCtrl.js"></script>
+        <script src="./src/ctrl/slidebarCtrl.js"></script>
+        <script src="./src/ctrl/dashboardSchoolCtrl.js"></script>
+        <script src="./src/ctrl/dashboardIndexCtrl.js"></script>
+        <script src="./src/ctrl/infoSchoolCtrl.js"></script>
+        <script src="./src/ctrl/infoCourseCtrl.js"></script>
+        <!-- <script src="./src/app.js"></script> -->
+        <script type="text/javascript">
+
+            angular.module('starterApp', [
+                'funfun',
+                'ngRoute',
+                'firebase',
+                'LocalStorageModule',
+                'chart.js',
+                'angularUtils.directives.dirPagination'
+            ]).config(ApplicationConfig);
+
+            function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, localStorageServiceProvider, ChartJsProvider) {
+                $mdIconProvider.defaultIconSet("./assets/svg/avatars.svg", 512).icon("menu", "./assets/svg/menu.svg", 512).icon("more", "./assets/svg/ic_more_vert_white_24px.svg", 512).icon("share", "./assets/svg/share.svg", 512).icon("google_plus", "./assets/svg/google_plus.svg", 512).icon("hangouts", "./assets/svg/hangouts.svg", 512).icon("twitter", "./assets/svg/twitter.svg", 512).icon("setting", "./assets/svg/ic_settings_applications_white_24px.svg", 512).icon("deleteForever", "./assets/svg/ic_delete_forever_white_48px.svg", 512).icon("addTutor", "./assets/svg/ic_perm_contact_calendar_white_48px.svg", 512).icon("edit", "./assets/svg/ic_tune_white_48px.svg", 512).icon("info", "./assets/svg/ic_portrait_white_48px.svg", 512).icon("waiting", "./assets/svg/ic_hourglass_empty_white_48px.svg", 512).icon("done", "./assets/svg/ic_done_white_48px.svg", 512).icon("phone", "./assets/svg/phone.svg", 512);
+
+                $mdThemingProvider.theme('default').primaryPalette('blue-grey').accentPalette('blue-grey');
+
+                $routeProvider.when('/', {
+                    templateUrl: 'src/template/index.html',
+                    controller: 'dashboardIndexCtrl as ul'
+                }).when('/profile', {
+                    templateUrl: 'src/template/profile.html',
+                    controller: 'ProfileCtrl as ul'
+                }).when('/profile-school', {
+                    templateUrl: 'src/template/school/profile-school.html',
+                    controller: 'ProfileSchoolCtrl as ul'
+                }).when('/info-school', {
+                    templateUrl: 'src/template/school/info-school.html',
+                    controller: 'infoSchoolCtrl as ul'
+                }).when('/info-course', {
+                    templateUrl: 'src/template/school/info-course.html',
+                    controller: 'infoCourseCtrl as ul'
+                }).when('/dashboard-school', {
+                    templateUrl: 'src/template/school/dashboard-school.html',
+                    controller: 'dashboardSchoolCtrl'
+                }).when('/manage-school', {
+                    templateUrl: 'src/template/school/manage-school.html',
+                    controller: 'manageSchoolCtrl'
+                }).otherwise({redirectTo: '/'});
+
+                localStorageServiceProvider.setPrefix('starterApp');
+
+                ChartJsProvider.setOptions({
+                    colors: [
+                        '#97BBCD',
+                        '#DCDCDC',
+                        '#F7464A',
+                        '#46BFBD',
+                        '#FDB45C',
+                        '#949FB1',
+                        '#4D5360'
+                    ]
+                });
+                // Configure all doughnut charts
+                ChartJsProvider.setOptions('doughnut', {cutoutPercentage: 60});
+                ChartJsProvider.setOptions('bubble', {
+                    tooltips: {
+                        enabled: false
+                    }
+                });
+            }
+        </script>
+    </body>
+
+</html>

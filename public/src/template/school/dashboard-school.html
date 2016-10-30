@@ -1,0 +1,155 @@
+<md-content class="md-padding" layout-xs="column" layout="row" layout-align="space-around center">
+    <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+</md-content>
+<md-content class="md-padding" layout-xs="column" layout="row" layout-align="space-around center">
+    <div flex-xs="" flex-gt-xs="25">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">วิชาที่เปิดทั้งหมด</span>
+                    <span class="md-subhead">Courses</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-sm card-media"></div>
+                    <div layout="row" layout-align="end center">
+                        <span class="md-headline">{{ courseLength }}</span>
+                    </div>
+                </md-card-title-media>
+            </md-card-title>
+            <HR>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="openCreateForm($event)">Create Course</md-button>
+                <md-button ng-disabled="true">Action 1</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+    <div flex-xs="" flex-gt-xs="25" layout="column">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">นักเรียนในโรงเรียน</span>
+                    <span class="md-subhead">Students</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-sm card-media"></div>
+                    <div layout="row" layout-align="end center">
+                        <span class="md-headline">{{ studentLength }}</span>
+                    </div>
+                </md-card-title-media>
+            </md-card-title>
+            <HR>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>Action 1</md-button>
+                <md-button>Action 2</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+    <div flex-xs="" flex-gt-xs="25" layout="column">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">ติวเตอร์ในโรงเรียน</span>
+                    <span class="md-subhead">Tutors</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-sm card-media"></div>
+                    <div layout="row" layout-align="end center">
+                        <span class="md-headline">{{ tutorLength }}</span>
+                    </div>
+                </md-card-title-media>
+            </md-card-title>
+            <HR>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>Action 1</md-button>
+                <md-button>Action 2</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+    <div flex-xs="" flex-gt-xs="25" layout="column">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-title">{{ clock  | date:'EEEE dd/MM/yyyy'}}</span>
+                    <span class="md-subhead">{{ clock  | date:'HH:mm:ss'}}</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-sm card-media"></div>
+                    <div layout="row" layout-align="end center">
+                        <span class="md-headline">Date Time</span>
+                    </div>
+                </md-card-title-media>
+            </md-card-title>
+            <HR>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>Event</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</md-content>
+<md-content class="md-padding">
+    <md-tabs md-dynamic-height="" md-border-bottom="">
+        <div ng-repeat="i in course">
+            <md-tab label="{{ i.name }}">
+                <md-content class="md-padding">
+                    <md-fab-toolbar md-direction="left">
+                        <md-fab-trigger class="align-with-text">
+                            <md-button aria-label="menu" class="md-fab md-primary">
+                                <md-icon md-svg-icon="setting"></md-icon>
+                            </md-button>
+                            <md-tooltip md-visible="demo.showTooltip" md-direction="bottom">
+                                Insert Drive
+                            </md-tooltip>
+                        </md-fab-trigger>
+                        <md-toolbar>
+                            <md-fab-actions class="md-toolbar-tools">
+                            <span>{{ i.createTime | date:'EEEE dd-MM-yyyy HH:mm:ss' }}</span>
+                            <span flex></span>
+                                <md-button aria-label="comment" class="md-icon-button">
+                                    <md-icon md-svg-icon="deleteForever"></md-icon>
+                                </md-button>
+                                <md-button aria-label="label" class="md-icon-button">
+                                    <md-icon md-svg-icon="edit"></md-icon>
+                                </md-button>
+                                <md-button aria-label="photo" class="md-icon-button">
+                                    <md-icon md-svg-icon="addTutor" ng-click="test()"></md-icon>
+                                </md-button>
+                            </md-fab-actions>
+                        </md-toolbar>
+                    </md-fab-toolbar>
+                    <BR>
+                    <div layout="row">
+                        <div flex="80" flex-offset="10">
+                            <table class="md-api-table">
+                                <thead>
+                                    <tr>
+                                        <th>ชื่อ</th>
+                                        <th>email</th>
+                                        <th layout-align="center center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="test in i.students">
+                                        <td>{{ test.name }}</td>
+                                        <td>{{ test.email }}</td>
+                                        <td>
+                                            <md-button class="md-fab md-mini md-warn" aria-label="Eat cake">
+                                                <md-icon md-svg-icon="waiting"></md-icon>
+                                            </md-button>
+                                            <md-button class="md-fab md-mini md-primary" aria-label="Eat cake">
+                                                <md-icon md-svg-icon="info"></md-icon>
+                                            </md-button>
+                                            <md-button class="md-fab md-mini" aria-label="Eat cake">
+                                                <md-icon md-svg-icon="done"></md-icon>
+                                            </md-button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div flex></div>
+                    </div>
+                </md-content>
+            </md-tab>
+        </div>
+    </md-tabs>
+</md-content>

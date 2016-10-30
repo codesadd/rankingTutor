@@ -1,0 +1,18 @@
+<md-card layout="row" layout-sm="column" layout-align="center center" layout-wrap class="pagination" ng-if="1 < pages.length || !autoHide">
+    <md-button ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }" ng-click="setCurrent(1)">
+        &laquo;
+    </md-button>
+    <md-button ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }" ng-click="setCurrent(pagination.current - 1)">
+        &lsaquo;
+    </md-button>
+    <md-button ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }" ng-click="setCurrent(pageNumber)">
+        {{ pageNumber }}
+    </md-button>
+
+    <md-button ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }" ng-click="setCurrent(pagination.current + 1)">
+        &rsaquo;
+    </md-button>
+    <md-button ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == pagination.last }" ng-click="setCurrent(pagination.last)">
+        &raquo;
+    </md-button>
+</md-card>
