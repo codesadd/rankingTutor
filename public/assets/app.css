@@ -1404,3 +1404,7 @@ table.md-api-table tr td:first-child {
     text-transform: capitalize;
     font-size: inherit;
 }
+
+.form-signin{
+    border-right: 1px solid #D7D7D7;
+}

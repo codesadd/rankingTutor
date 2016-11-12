@@ -13,7 +13,7 @@
         $firebaseAuth().$onAuthStateChanged(function(user) {
             user != null ? $scope.hide = true : $scope.hide = false;
             localStorageService.get("status") == "school" ? self.checkSchoolNav = true : self.checkSchoolNav = false;
-            localStorageService.get("status") == "student" ? self.checkStdNav = true : self.checkStdNav = false;
+            localStorageService.get("status") == "student" || localStorageService.get("status") == "tutor" ? self.checkStdNav = true : self.checkStdNav = false;
         });
 
         $scope.signup = function(ev) {

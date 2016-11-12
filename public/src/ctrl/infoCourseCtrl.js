@@ -8,48 +8,67 @@
 
     function infoCourseCtrl(dataService, $location, localStorageService, $scope, $firebaseAuth) {
         var self = this;
-        self.schoolSelected = []
-        self.course = []
-        self.currentUser = []
-        self.disbleRegister = false
-        self.register = register
-
+        self.schoolSelected = [];
+        self.course = [];
+        self.currentUser = [];
+        self.disbleRegister;
+        self.lengthRegister = [];
+        self.register = register;
         getInfoChart()
-        getCurrentUser()
-        getSchool(localStorageService.get("schoolSelectId"))
-        getInfoThisCourse(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"))
-        setDisbleButton()
-        
-        
-        function setDisbleButton() {
-            localStorageService.get("status") != "student" ? self.disbleRegister = true : self.disbleRegister = false
-            self.disbleRegister == true ? $scope.labalRegister = "กรุณาสมัครสมาชิก หรือเข้าสู่ระบบเพื่อลงทะเบียน!!" : $scope.labalRegister = "ลงทะเบียน"
+
+        $firebaseAuth().$onAuthStateChanged(function(user) {
+            self.currentUser = user
+            if (user != null && localStorageService.get("status") != "school") {
+                getInfoThisCourse()
+                getSchool()
+                checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"))
+                checkLengthStudent()
+            } else {
+                getInfoThisCourse()
+                getSchool()
+                setDisbleButton(localStorageService.get("status"))
+                checkLengthStudent()
+            }
+        });
+
+        function setDisbleButton(param) {
+            param == "student" ? self.disbleRegister = false : self.disbleRegister = true
+            self.disbleRegister != true ? $scope.labalRegister = "ลงทะเบียน" : $scope.labalRegister = "กรุณาสมัครสมาชิก หรือเข้าสู่ระบบเพื่อลงทะเบียน!!"
         }
-        
-        function setEnabledRegister() {
-            self.disbleRegister == true ? $scope.labalRegister = "ลงทะเบียนแล้วว" : $scope.labalRegister = "ลงทะเบียน"
+
+        function checkRegister(schoolId, courseId) {
+            dataService.checkRegister(schoolId, courseId).then(function(snp) {
+                console.log(snp.find(checkId));
+                snp.find(checkId) != null ? self.disbleRegister = true : self.disbleRegister = false
+                snp.find(checkId) != null ? $scope.labalRegister = "คุณลงทะเบียนวิชานี้แล้วว" : $scope.labalRegister = "ลงทะเบียน"
+            })
         }
-        
+        // function Array ไว้ตรวจสอบว่ามีข้อมูลตรงตามที่ต้องการ
+        function checkId(check) {
+            return check.$id === self.currentUser.uid;
+        }
+
+        function checkLengthStudent() {
+            dataService.checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId")).then(function(snp) {
+                self.lengthRegister = snp.length
+            })
+        }
+
         function register() {
             dataService.registerStd(self.schoolSelected, self.course, self.currentUser)
+            checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"))
         }
 
-        function getSchool(schoolId) {
-            dataService.loadInfoSchool(schoolId).then(function(school) {
-                    self.schoolSelected = school;
-                })
+        function getInfoThisCourse() {
+            dataService.loadInfoCourse(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId")).then(function(course) {
+                self.course = course;
+            })
         }
 
-        function getInfoThisCourse(schoolId, courseId) {
-            dataService.loadInfoCourse(schoolId, courseId).then(function(course) {
-                    self.course = course;
-                })
-        }
-
-        function getCurrentUser() {
-            $firebaseAuth().$onAuthStateChanged(function(user) {
-                self.currentUser = user
-            });
+        function getSchool() {
+            dataService.loadInfoSchool(localStorageService.get("schoolSelectId")).then(function(school) {
+                self.schoolSelected = school;
+            })
         }
 
         function getInfoChart() {

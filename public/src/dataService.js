@@ -4,10 +4,9 @@
     angular.module('funfun')
         .service('dataService', ['$q', '$http', '$firebaseArray', '$firebaseObject', UserService]);
     var config = {
-        apiKey: "AIzaSyDIpDDBTd08Lwh8uYYybwJQvHwZEe6ACjE",
         authDomain: "fun-fun-53400.firebaseapp.com",
-        databaseURL: "https://fun-fun-53400.firebaseio.com",
-        storageBucket: "fun-fun-53400.appspot.com"
+        apiKey: "AIzaSyDIpDDBTd08Lwh8uYYybwJQvHwZEe6ACjE",
+        databaseURL: "https://fun-fun-53400.firebaseio.com"
     };
     firebase.initializeApp(config);
 
@@ -19,7 +18,7 @@
             loadSchool: function(uid) {
                 return $q.when($firebaseObject(firebase.database().ref('schools').child(uid)));
             },
-            updateSchoolInfo: function(param,id) {
+            updateSchoolInfo: function(param, id) {
                 firebase.database().ref('schools').child(id).update(param);
             },
             // this service for info school controller --------------
@@ -27,25 +26,26 @@
                 return $q.when($firebaseObject(firebase.database().ref('schools').child(uid)));
             },
             loadAllCourse: function(uid) {
-                return $q.when($firebaseArray(firebase.database().ref('schools/'+ uid).child('courses')));
+                return $q.when($firebaseArray(firebase.database().ref('schools/' + uid).child('courses')));
             },
-            updateLike: function(param, id) {
-                console.log(param, id);
-                firebase.database().ref('demo').child(id).set(param);
-            },
-            updateView: function(param, id) {
+            updateLikeSchool: function(param, id) {
                 console.log(param, id);
                 firebase.database().ref('schools').child(id).update(param);
             },
+            updateViewSchool: function(param, id) {
+                firebase.database().ref('schools').child(id).update(param);
+            },
             // this service for info course controller ---------
-            loadInfoCourse: function(schoolId,courseId) {
-                return $q.when($firebaseObject(firebase.database().ref('schools/'+ schoolId + '/courses').child(courseId)));
+            loadInfoCourse: function(schoolId, courseId) {
+                return $q.when($firebaseObject(firebase.database().ref('schools/' + schoolId + '/courses').child(courseId)));
             },
-            registerStd: function(schoolId,courseId,studentId) {
-                firebase.database().ref('schools/'+ schoolId.$id + '/courses/' + courseId.$id +'/students').child(studentId.uid).set({id:studentId.uid})
+            registerStd: function(schoolId, courseId, studentId) {
+                firebase.database().ref('schools/' + schoolId.$id + '/courses/' + courseId.$id + '/students').child(studentId.uid).set({
+                    id: studentId.uid
+                })
             },
-            checkRegister: function(schoolId,courseId,studentId) {
-                return $q.when($firebaseObject(firebase.database().ref('schools/'+ schoolId.$id + '/courses/' + courseId.$id +'/students').child(studentId.uid)))
+            checkRegister: function(schoolId, courseId) {
+                return $q.when($firebaseArray(firebase.database().ref('schools/' + schoolId + '/courses/' + courseId).child('students')))
             },
             // -----------
             loadAllUsers: function() {

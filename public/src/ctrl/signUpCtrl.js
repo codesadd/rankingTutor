@@ -7,6 +7,13 @@
         ]);
 
     function signUpCtrl($scope, $mdDialog, $location, $firebaseAuth, $window, localStorageService) {
+        $scope.max = 3;
+        $scope.selectedIndex = 0;
+        $scope.nextTab = function() {
+            var index = ($scope.selectedIndex == $scope.max) ? $scope.max : $scope.selectedIndex + 1;
+            $scope.selectedIndex = index;
+
+        };
         var schoolRef = firebase.database().ref('schools');
         $scope.check = true;
         $scope.signUp = function(data, text) {
@@ -17,18 +24,16 @@
                 // login with Email
                 var email = text.email;
                 var password = text.password;
-                //console.log(data, email, password);
+                console.log(data, text);
                 auth.$createUserWithEmailAndPassword(email, password).then(function(firebaseUser) {
                     if (text.select != "school") { // check if not school Register
-                        addUserToDb(firebaseUser, text.select);
+                        addUserToDb(firebaseUser, text);
                         localStorageService.set("status", text.select);
-                        $mdDialog.hide();
                         $location.path('/profile');
                     } else {
-                        addUserToDb(firebaseUser, text.select); // add new user to DB 
-                        addSchoolFromEmailToDB(firebaseUser); // add new Register school
+                        addUserToDb(firebaseUser, text); // add new user to DB
+                        addSchoolFromEmailToDB(firebaseUser, text); // add new Register school
                         localStorageService.set("status", text.select); // create localStorage status
-                        $mdDialog.hide();
                         $location.path('/profile-school');
                     }
                     // Add Sweet  Alert
@@ -42,13 +47,13 @@
                 var providerData = data;
                 auth.$signInWithPopup(providerData).then(function(firebaseUser) {
                     if (text.select != "school") {
-                        addUserToDb(firebaseUser, text.select);
+                        addUserToDb(firebaseUser, text);
                         localStorageService.set("status", text.select);
                         $mdDialog.hide();
                         $location.path('/profile');
                     } else {
-                        addUserToDb(firebaseUser, text.select);
-                        addSchoolFromProviderToDB(firebaseUser);
+                        addUserToDb(firebaseUser, text);
+                        addSchoolFromProviderToDB(firebaseUser, text);
                         localStorageService.set("status", text.select);
                         $mdDialog.hide();
                         $location.path('/profile-school');
@@ -62,7 +67,9 @@
             }
         }
 
-        function addUserToDb(firebaseUser, tp) {
+
+        function addUserToDb(firebaseUser, param) {
+            console.log(param);
             var clock = Date.now()
             if (firebaseUser.uid == null) {
                 // add user from Facebook , Google+
@@ -72,9 +79,8 @@
                     email: firebaseUser.user.email,
                     emailVerified: firebaseUser.user.emailVerified,
                     photoURL: firebaseUser.user.photoURL,
-                    isAnonymous: firebaseUser.user.isAnonymous,
-                    providerData: firebaseUser.user.providerData,
-                    status: tp,
+                    status: param.select,
+                    tel:param.tel,
                     createTime: Date.now()
                 });
             } else {
@@ -82,33 +88,42 @@
                 // bug dissplayName,photoURL was null cant add to Database
                 console.log(firebaseUser);
                 firebase.database().ref('users/' + firebaseUser.uid).set({
-                    displayName: firebaseUser.displayName,
+                    displayName: param.firstname +" "+ param.lastname,
                     email: firebaseUser.email,
                     emailVerified: firebaseUser.emailVerified,
-                    photoURL: firebaseUser.photoURL,
-                    isAnonymous: firebaseUser.isAnonymous,
-                    providerData: firebaseUser.providerData,
-                    status: tp,
+                    photoURL: 'https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png',
+                    status: param.select,
+                    tel:param.tel,
                     createTime: Date.now()
                 });
             }
         }
 
-        function addSchoolFromProviderToDB(firebaseUser) {
+        function addSchoolFromProviderToDB(firebaseUser, param) {
             firebase.database().ref('schools').child(firebaseUser.user.uid).set({
-                info: firebaseUser.user.providerData[0],
+                displayName: firebaseUser.user.displayName,
+                email: firebaseUser.user.email,
+                emailVerified: firebaseUser.user.emailVerified,
+                photoURL: firebaseUser.user.photoURL,
+                status: param.select,
+                tel:param.tel,
                 like: 0,
                 view: 0,
                 createTime: Date.now()
             });
         }
 
-        function addSchoolFromEmailToDB(firebaseUser) {
+        function addSchoolFromEmailToDB(firebaseUser, param) {
             firebase.database().ref('schools').child(firebaseUser.uid).set({
-                info: firebaseUser.providerData[0],
                 like: 0,
                 view: 0,
-                createTime: Date.now()
+                displayName: param.firstname +" "+ param.lastname,
+                email: firebaseUser.email,
+                emailVerified: firebaseUser.emailVerified,
+                photoURL: 'https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png',
+                status: param.select,
+                tel:param.tel,
+                createTime: Date.now(),
             });
         }
     }

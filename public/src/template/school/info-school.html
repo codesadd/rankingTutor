@@ -1,16 +1,19 @@
+<md-content class="md-padding" layout-xs="column" layout="row" layout-align="space-around center">
+    <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
+</md-content>
 <div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
     <div flex>
 
         <md-card>
             <md-content layout-align="center">
                 <div layout="row" layout-align="center center">
-                    <img ng-src="{{ ul.schoolSelected.info.photoURL }}" class="avatar-profile" alt="Profile Picture">
+                    <img ng-src="{{ ul.schoolSelected.photoURL }}" class="avatar-profile" alt="Profile Picture">
                 </div>
                 <md-card-title>
                     <md-card-title-text layout-align="center center">
                         <span class="md-title">{{ ul.schoolSelected.schoolName }}</span>
                         <span class="md-caption">by</span>
-                        <span class="md-body-1">{{ ul.schoolSelected.info.displayName }}</span>
+                        <span class="md-body-1">{{ ul.schoolSelected.displayName }}</span>
                     </md-card-title-text>
                 </md-card-title>
 
@@ -24,7 +27,7 @@
             </md-card-content>
         </md-card>
         <md-card md-theme-watch>
-            <md-button aria-label="like">
+            <md-button aria-label="like" ng-click="ul.updateLike()">
                 <md-icon md-svg-icon="./assets/svg/ic_thumb_up_48px.svg" style="fill:#2196F3"></md-icon>
             </md-button>
         </md-card>

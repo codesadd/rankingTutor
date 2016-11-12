@@ -13,7 +13,7 @@
 
         function AuthenticationControl() {
             $firebaseAuth().$onAuthStateChanged(function(user) {
-                if (user == null || localStorageService.get("status") != "student") {
+                if (user == null) {
                     $location.path('/');
                 } else {
                     $scope.user = $firebaseObject(firebase.database().ref('users').child(user.uid));

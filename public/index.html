@@ -29,17 +29,16 @@
     <body ng-app="starterApp" layout="column" layout-fill ng-cloak>
         <md-toolbar md-scroll-shrink ng-if="true" md-whiteframe="1">
             <div class="md-toolbar-tools screen-nav-margin" ng-controller="slidebarCtrl">
-                <!-- <md-button class="md-icon-button" aria-label="More" ng-click="toggleLeft()">
-                    <md-icon md-svg-icon="more"></md-icon>
-                </md-button> -->
                 <h2>
                     <md-button ng-href="#/" class="button-logo">Funfunc</md-button>
                 </h2>
                 <span flex></span>
+                <md-button class="md-accent" href="#/" aria-label="funfunc.com">หน้าหลัก</md-button>
+                <md-button class="md-accent">การใช้งาน</md-button>
                 <div ng-controller="navCtrl as ul">
                     <div hide-xs ng-hide="hide">
                         <md-button class="md-accent md-raised" ng-click="signin($event)">เข้าสู่ระบบ</md-button>
-                        <md-button class="md-accent md-raised" ng-click="signup($event)">สมัครสมาชิก</md-button>
+                        <!-- <md-button class="md-accent md-raised" ng-click="signup($event)">สมัครสมาชิก</md-button> -->
                     </div>
                     <div layout-xs hide-gt-xs ng-hide="hide">
                         <md-menu>
@@ -56,7 +55,6 @@
                             </md-menu-content>
                         </md-menu>
                     </div>
-                    
                     <md-menu ng-show="hide">
                         <md-button class="md-icon-button" aria-label="More">
                             <md-icon md-svg-icon="more" ng-click="$mdOpenMenu($event)"></md-icon>
@@ -109,20 +107,21 @@
             </div>
         </div>
         <script src="node_modules/angular/angular.js"></script>
+        <script src="node_modules/angular-messages/angular-messages.js"></script>
         <script src="node_modules/angular-animate/angular-animate.js"></script>
         <script src="node_modules/angular-aria/angular-aria.js"></script>
         <script src="node_modules/angular-route/angular-route.js"></script>
         <script src="node_modules/angularfire/dist/angularfire.min.js"></script>
         <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
-        <script type="text/javascript" src="node_modules/angular-material/angular-material.js"></script>
+        <script src="node_modules/angular-material/angular-material.js"></script>
         <script src="node_modules/chart/dist/Chart.js"></script>
         <script src="node_modules/angular-chart/dist/angular-chart.js"></script>
         <script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
-
         <!-- Firebase -->
         <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
         <script src="./src/module.js"></script>
         <script src="./src/dataService.js"></script>
+        <script src="./src/directive.js"></script>
         <!-- Controller -->
         <script src="./src/ctrl/profileCtrl.js"></script>
         <script src="./src/ctrl/profileSchoolCtrl.js"></script>
@@ -134,68 +133,7 @@
         <script src="./src/ctrl/dashboardIndexCtrl.js"></script>
         <script src="./src/ctrl/infoSchoolCtrl.js"></script>
         <script src="./src/ctrl/infoCourseCtrl.js"></script>
-        <!-- <script src="./src/app.js"></script> -->
-        <script type="text/javascript">
-
-            angular.module('starterApp', [
-                'funfun',
-                'ngRoute',
-                'firebase',
-                'LocalStorageModule',
-                'chart.js',
-                'angularUtils.directives.dirPagination'
-            ]).config(ApplicationConfig);
-
-            function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, localStorageServiceProvider, ChartJsProvider) {
-                $mdIconProvider.defaultIconSet("./assets/svg/avatars.svg", 512).icon("menu", "./assets/svg/menu.svg", 512).icon("more", "./assets/svg/ic_more_vert_white_24px.svg", 512).icon("share", "./assets/svg/share.svg", 512).icon("google_plus", "./assets/svg/google_plus.svg", 512).icon("hangouts", "./assets/svg/hangouts.svg", 512).icon("twitter", "./assets/svg/twitter.svg", 512).icon("setting", "./assets/svg/ic_settings_applications_white_24px.svg", 512).icon("deleteForever", "./assets/svg/ic_delete_forever_white_48px.svg", 512).icon("addTutor", "./assets/svg/ic_perm_contact_calendar_white_48px.svg", 512).icon("edit", "./assets/svg/ic_tune_white_48px.svg", 512).icon("info", "./assets/svg/ic_portrait_white_48px.svg", 512).icon("waiting", "./assets/svg/ic_hourglass_empty_white_48px.svg", 512).icon("done", "./assets/svg/ic_done_white_48px.svg", 512).icon("phone", "./assets/svg/phone.svg", 512);
-
-                $mdThemingProvider.theme('default').primaryPalette('blue-grey').accentPalette('blue-grey');
-
-                $routeProvider.when('/', {
-                    templateUrl: 'src/template/index.html',
-                    controller: 'dashboardIndexCtrl as ul'
-                }).when('/profile', {
-                    templateUrl: 'src/template/profile.html',
-                    controller: 'ProfileCtrl as ul'
-                }).when('/profile-school', {
-                    templateUrl: 'src/template/school/profile-school.html',
-                    controller: 'ProfileSchoolCtrl as ul'
-                }).when('/info-school', {
-                    templateUrl: 'src/template/school/info-school.html',
-                    controller: 'infoSchoolCtrl as ul'
-                }).when('/info-course', {
-                    templateUrl: 'src/template/school/info-course.html',
-                    controller: 'infoCourseCtrl as ul'
-                }).when('/dashboard-school', {
-                    templateUrl: 'src/template/school/dashboard-school.html',
-                    controller: 'dashboardSchoolCtrl'
-                }).when('/manage-school', {
-                    templateUrl: 'src/template/school/manage-school.html',
-                    controller: 'manageSchoolCtrl'
-                }).otherwise({redirectTo: '/'});
-
-                localStorageServiceProvider.setPrefix('starterApp');
-
-                ChartJsProvider.setOptions({
-                    colors: [
-                        '#97BBCD',
-                        '#DCDCDC',
-                        '#F7464A',
-                        '#46BFBD',
-                        '#FDB45C',
-                        '#949FB1',
-                        '#4D5360'
-                    ]
-                });
-                // Configure all doughnut charts
-                ChartJsProvider.setOptions('doughnut', {cutoutPercentage: 60});
-                ChartJsProvider.setOptions('bubble', {
-                    tooltips: {
-                        enabled: false
-                    }
-                });
-            }
-        </script>
+        <script src="./src/config.js"></script>
     </body>
 
 </html>

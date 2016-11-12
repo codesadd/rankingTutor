@@ -9,11 +9,12 @@
         var self = this;
         var param
         self.goingToCoursePage = goingToCoursePage
+        self.updateLike = updateLike
         self.schoolSelected = []
         self.courses = []
         $scope.currentPage = 1
         $scope.pageSize = 5
-        
+
         getInfoChart()
         getSchool(localStorageService.get("schoolSelectId"))
         getInfoCourse(localStorageService.get("schoolSelectId"))
@@ -38,7 +39,13 @@
         }
 
         function updateView(param) {
-            dataService.updateView(param, localStorageService.get("schoolSelectId"))
+            dataService.updateViewSchool(param, localStorageService.get("schoolSelectId"))
+        }
+
+        function updateLike() {
+            console.log(self.schoolSelected.like);
+            param = {like: self.schoolSelected.like + 1}
+            dataService.updateLikeSchool(param, localStorageService.get("schoolSelectId"))
         }
 
         function getInfoChart() {

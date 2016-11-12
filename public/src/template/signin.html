@@ -1,18 +1,18 @@
+<md-dialog>
+    <div layout="row" layout-xs="column" ng-controller="signInCtrl">
+        <div flex>
+            <form name="signinForm" ng-cloak>
+                <div md-whiteframe="2">
 
-
-  <md-dialog>
-        <div layout="row" layout-xs="column" ng-controller="signInCtrl">
-            <div flex>
-                <form name="signinForm" ng-cloak>
-                    <div md-whiteframe="2">
-                        <md-toolbar>
-                            <div class="md-toolbar-tools">
-                                <h2>Signin</h2>
-                                <span flex></span>
-                            </div>
-                        </md-toolbar>
-                        <md-content>
-                            <div layout="column" layout-padding ng-cloak>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">
+                            <h2>เข้าสู่ระบบ</h2>
+                            <span flex></span>
+                        </div>
+                    </md-toolbar>
+                    <md-content>
+                        <div layout="row" layout-xs="column" layout-align="center center" style="width:600px" layout-padding ng-cloak>
+                            <div class="form-signin" flex>
                                 <md class="md-no-momentum">
                                     <md-input-container class="md-block">
                                         <!-- Use floating placeholder instead of label -->
@@ -29,23 +29,33 @@
                                             <div ng-message="required">กรอกพาสเวิร์ด.</div>
                                         </div>
                                     </md-input-container>
+                                    <section layout="row" layout-sm="column" layout-align="space-between start" layout-wrap>
+                                        <a href="#" class="md-body-1">ลืมรหัสผ่าน</a>
+                                        <a ng-click="goToRegisterPage()" href="#/register" class="md-body-1">ลงทะเบียน</a>
+                                    </section>
                                     <md-container layout="row" layout-align="center center">
                                         <md-button class="md-raised" ng-click="signIn('email',user)" ng-disabled="signinForm.$invalid">Signin</md-button>
-                                        หรือ
-                                        <md-button class="md-primary md-raised" ng-click="signIn('facebook')">
-                                          Facebook
-                                        </md-button>
-                                        <md-button class="md-primary md-raised" ng-click="signIn('google')">
-                                          Google+
-                                        </md-button>
                                     </md-container>
-                                    
-
                                 </md>
                             </div>
-                        </md-content>
-                    </div>
-                </form>
-            </div>
+                            <div flex>
+                                <md class="md-no-momentum">
+                                    <md-container layout="column">
+                                        <md-button class="md-primary md-raised" ng-click="signIn('facebook')">
+                                            Facebook
+                                        </md-button>
+                                        <md-button class="md-primary md-raised" ng-click="signIn('google')">
+                                            Google+
+                                        </md-button>
+                                    </md-container>
+                                </md>
+                            </div>
+
+                        </div>
+                    </md-content>
+
+                </div>
+            </form>
         </div>
+    </div>
 </md-dialog>

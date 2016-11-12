@@ -41,9 +41,9 @@
         }
         $scope.logout = function() {
             firebase.auth().signOut().then(function() {
-                //localStorageService.clearAll();
+                localStorageService.remove("status");
                 console.log("Logouted");
-                $location.path("/");
+                //$location.path("/");
             }).catch(function(error) {
                 console.log("Authentication failed:", error);
             });
@@ -74,6 +74,9 @@
                     localStorageService.clearAll();
                 });
             });
+        }
+        $scope.goToRegisterPage = function () {
+            $mdDialog.hide();
         }
     }
 
