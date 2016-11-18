@@ -24,9 +24,9 @@
                 .loadInfoSchool(id)
                 .then(function(school) {
                     self.schoolSelected = school
-                    updateView(param = {
-                        view: self.schoolSelected.view + 1
-                    })
+                    // updateView(param = {
+                    //     view: self.schoolSelected[0].value.view + 1
+                    // })
                 })
         }
 
@@ -43,8 +43,7 @@
         }
 
         function updateLike() {
-            console.log(self.schoolSelected.like);
-            param = {like: self.schoolSelected.like + 1}
+            console.log(self.schoolSelected[0].value.like);
             dataService.updateLikeSchool(param, localStorageService.get("schoolSelectId"))
         }
 

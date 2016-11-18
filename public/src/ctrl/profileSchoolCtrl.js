@@ -10,8 +10,8 @@
 
     function ProfileSchoolCtrl($scope, localStorageService, $firebaseAuth, $location, $firebaseObject, ChartJs, dataService) {
         var self = this;
-        self.user = [ ];
-        self.school = [ ];
+        self.user = [];
+        self.school = [];
         self.selectedId = null;
         self.updateInfoSchool = updateInfoSchool;
 
@@ -19,15 +19,18 @@
             if (user == null || localStorageService.get("status") != "school") {
                 $location.path('/');
             } else {
-                dataService.loadSchool(user.uid).then(function(snp) {
-                  self.school = snp;
-                  console.log(snp);
+                dataService.loadInfoSchool(user.uid).then(function(snp) {
+                    self.school = snp;
+                    console.log(snp);
                 });
             }
         });
+
         function updateInfoSchool(param) {
-          console.log(param,self.school.$id);
-          dataService.updateSchoolInfo(param, self.school.$id);
+            dataService.updateSchoolInfo(param, self.school[0].id).then(function(snp) {
+                self.school = snp;
+                console.log(snp);
+            })
 
         }
         // data chart -------------------------

@@ -2,14 +2,15 @@
     angular
         .module('funfun')
         .controller('dashboardIndexCtrl', [
-            'dataService', '$location','localStorageService',
+            'dataService', '$location', '$http', '$scope', 'localStorageService',
             dashboardIndexCtrl
         ]);
 
-    function dashboardIndexCtrl(dataService, $location, localStorageService) {
+    function dashboardIndexCtrl(dataService, $location, $http, $scope, localStorageService) {
         var self = this;
-        self.shools = [];
-        self.goToSchoolPage = goToSchoolPage;
+        self.shools = []
+        self.goToSchoolPage = goToSchoolPage
+
         dataService
             .loadAllSchools()
             .then(function(schools) {

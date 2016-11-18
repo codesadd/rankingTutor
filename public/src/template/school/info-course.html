@@ -4,13 +4,13 @@
         <md-card>
             <md-content layout-align="center">
                 <div layout="row" layout-align="center center">
-                    <img ng-src="{{ ul.schoolSelected.info.photoURL }}" class="avatar-profile" alt="Profile Picture">
+                    <img ng-src="{{ ul.schoolSelected[0].value.photoURL }}" class="avatar-profile" alt="Profile Picture">
                 </div>
                 <md-card-title>
                     <md-card-title-text layout-align="center center">
-                        <span class="md-title">{{ ul.schoolSelected.schoolName }}</span>
+                        <span class="md-title">{{ ul.schoolSelected[0].value.schoolName }}</span>
                         <span class="md-caption">by</span>
-                        <span class="md-body-1">{{ ul.schoolSelected.info.displayName }}</span>
+                        <span class="md-body-1">{{ ul.schoolSelected[0].value.displayName }}</span>
                     </md-card-title-text>
                 </md-card-title>
 
@@ -20,13 +20,8 @@
             <md-card-content>
                 <span class="md-subhead">Biography</span>
                 -
-                <span class="md-body-1">{{ul.schoolSelected.biography}}</span>
+                <span class="md-body-1">{{ul.schoolSelected[0].value.biography}}</span>
             </md-card-content>
-        </md-card>
-        <md-card md-theme-watch>
-            <md-button aria-label="like">
-                <md-icon md-svg-icon="./assets/svg/ic_thumb_up_48px.svg" style="fill:#2196F3"></md-icon>
-            </md-button>
         </md-card>
     </div>
     <div flex>
@@ -43,13 +38,7 @@
         <div layout="row" layout-xs="column" layout-wrap>
             <div flex>
                 <md-card md-theme-watch>
-                    <md-button aria-label="like" ng-disabled="true">{{ul.schoolSelected.like}}
-                        Like</md-button>
-                </md-card>
-            </div>
-            <div flex>
-                <md-card md-theme-watch>
-                    <md-button aria-label="view" ng-disabled="true">{{ul.schoolSelected.view}}
+                    <md-button aria-label="view" ng-disabled="true">{{ul.schoolSelected[0].value.view}}
                         view</md-button>
                 </md-card>
             </div>

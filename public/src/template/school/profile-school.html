@@ -4,13 +4,13 @@
         <md-card>
             <md-content layout-align="center">
                 <div layout="row" layout-align="center center">
-                    <img ng-src="{{ ul.school.photoURL }}" class="avatar-profile" alt="Profile Picture">
+                    <img ng-src="{{ ul.school[0].value.photoURL }}" class="avatar-profile" alt="Profile Picture">
                 </div>
                 <md-card-title>
                     <md-card-title-text layout-align="center center">
-                        <span class="md-title">{{ ul.school.schoolName }}</span>
+                        <span class="md-title">{{ ul.school[0].value.schoolName }}</span>
                         <span class="md-caption">by</span>
-                        <span class="md-body-1">{{ ul.school.displayName }}</span>
+                        <span class="md-body-1">{{ ul.school[0].value.displayName }}</span>
                     </md-card-title-text>
                 </md-card-title>
 
@@ -20,7 +20,7 @@
             <md-card-content>
                 <span class="md-subhead">Biography</span>
                 <p>
-                    {{ul.school.biography}}
+                    {{ul.school[0].value.biography}}
                 </p>
             </md-card-content>
         </md-card>
@@ -38,9 +38,9 @@
         </md-card>
         <md-card md-theme-watch>
             <md-card-actions layout="row" layout-align="center center">
-                <md-button ng-disabled="true">{{ul.school.like}}
+                <md-button ng-disabled="true">{{ul.school[0].value.like}}
                     Like</md-button>
-                <md-button ng-disabled="true">{{ul.school.view}}
+                <md-button ng-disabled="true">{{ul.school[0].value.view}}
                     View</md-button>
             </md-card-actions>
         </md-card>

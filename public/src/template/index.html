@@ -40,7 +40,6 @@
         <HR>
     </div>
 </div>
-
 <div layout="row" layout-xs="column" layout-margin class="screen-margin">
     <div flex>
         <p class="lead">new Tuturial School</p>
@@ -51,19 +50,19 @@
         <md-card md-theme-watch>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-title">{{ it.schoolName }}</span>
-                    <span class="md-subhead">{{ it.createTime }}</span>
+                    <span class="md-title">{{ it.value.schoolName }}</span>
+                    <span class="md-subhead">{{ it.value.createTime }}</span>
                 </md-card-title-text>
                 <md-card-title-media>
                     <div class="md-media-sm card-media"></div>
                 </md-card-title-media>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-disabled="true">{{it.like + 0}} like</md-button>
-                <md-button ng-disabled="true">{{it.view + 0}} view</md-button>
-                <md-button ng-click="ul.goToSchoolPage(it.$id)">info</md-button>
+                <md-button ng-disabled="true">{{it.value.like + 0}} like</md-button>
+                <md-button ng-disabled="true">{{it.value.view + 0}} view</md-button>
+                <md-button ng-click="ul.goToSchoolPage(it.id)">info</md-button>
             </md-card-actions>
-            
+
         </md-card>
     </div>
 

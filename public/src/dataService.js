@@ -14,28 +14,7 @@
         var self = this;
         // Promise-based API
         return {
-            // service for profil school controller ----------
-            loadSchool: function(uid) {
-                return $q.when($firebaseObject(firebase.database().ref('schools').child(uid)));
-            },
-            updateSchoolInfo: function(param, id) {
-                firebase.database().ref('schools').child(id).update(param);
-            },
-            // this service for info school controller --------------
-            loadInfoSchool: function(uid) {
-                return $q.when($firebaseObject(firebase.database().ref('schools').child(uid)));
-            },
-            loadAllCourse: function(uid) {
-                return $q.when($firebaseArray(firebase.database().ref('schools/' + uid).child('courses')));
-            },
-            updateLikeSchool: function(param, id) {
-                console.log(param, id);
-                firebase.database().ref('schools').child(id).update(param);
-            },
-            updateViewSchool: function(param, id) {
-                firebase.database().ref('schools').child(id).update(param);
-            },
-            // this service for info course controller ---------
+            updateSchoolInfo: updateSchoolInfo,
             loadInfoCourse: function(schoolId, courseId) {
                 return $q.when($firebaseObject(firebase.database().ref('schools/' + schoolId + '/courses').child(courseId)));
             },
@@ -47,26 +26,65 @@
             checkRegister: function(schoolId, courseId) {
                 return $q.when($firebaseArray(firebase.database().ref('schools/' + schoolId + '/courses/' + courseId).child('students')))
             },
-            // -----------
-            loadAllUsers: function() {
-                return $q.when($firebaseArray(firebase.database().ref().child('demo')));
-            },
-            loadAllSchools: function() {
-                return $q.when($firebaseArray(firebase.database().ref().child('schools')));
-            },
-            pushData: function(param) {
-                firebase.database().ref('demo').push(param);
-                //self.users.$add(param);
-            },
-            removeData: function(param, id) {
-                firebase.database().ref('demo').child(id).remove();
-                //self.users.$remove(param);
-            },
-            updateData: function(param, id) {
-                console.log(param, id);
-                firebase.database().ref('demo').child(id).set(param);
-            }
+            loadInfoSchool: loadInfoSchool,
+            loadAllCourse: loadAllCourse,
+            loadAllSchools: loadAllSchools,
         };
+
+
+        // ------- Http
+        function updateSchoolInfo(params, uid) {
+            // console.log(params, uid);
+            var request = $http({
+                method: "get",
+                url: "http://localhost:3000/updateschool/" +
+                    params.schoolName + "/" +
+                    params.address + "/" +
+                    params.city + "/" +
+                    params.state + "/" +
+                    params.postalCode + "/" +
+                    params.biography + "/" +
+                    uid
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function loadAllCourse(uid) {
+            var request = $http({
+                method: "get",
+                url: "http://localhost:3000/allcoures/" + uid + "/course"
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function loadAllSchools() {
+            var request = $http({
+                method: "get",
+                url: "http://localhost:3000/schools"
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function loadInfoSchool(uid) {
+            var request = $http({
+                method: "get",
+                url: "http://localhost:3000/infoschool/" + uid
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function handleError(response) {
+            if (!angular.isObject(response.data) ||
+                !response.data.message
+            ) {
+                return ($q.reject("An unknown error occurred."));
+            }
+            return ($q.reject(response.data.message));
+        }
+
+        function handleSuccess(response) {
+            return (response.data);
+        }
     }
 
 })();
