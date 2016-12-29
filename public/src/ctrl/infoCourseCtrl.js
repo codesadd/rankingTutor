@@ -18,16 +18,17 @@
 
         $firebaseAuth().$onAuthStateChanged(function(user) {
             self.currentUser = user
+                //console.log(self.currentUser.uid)
             if (user != null && localStorageService.get("status") != "school") {
                 getInfoThisCourse()
                 getSchool()
-                checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"))
-                checkLengthStudent()
+                checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                    // checkLengthStudent()
             } else {
                 getInfoThisCourse()
                 getSchool()
                 setDisbleButton(localStorageService.get("status"))
-                checkLengthStudent()
+                    // checkLengthStudent()
             }
         });
 
@@ -36,16 +37,11 @@
             self.disbleRegister != true ? $scope.labalRegister = "ลงทะเบียน" : $scope.labalRegister = "กรุณาสมัครสมาชิก หรือเข้าสู่ระบบเพื่อลงทะเบียน!!"
         }
 
-        function checkRegister(schoolId, courseId) {
-            dataService.checkRegister(schoolId, courseId).then(function(snp) {
-                console.log(snp.find(checkId));
-                snp.find(checkId) != null ? self.disbleRegister = true : self.disbleRegister = false
-                snp.find(checkId) != null ? $scope.labalRegister = "คุณลงทะเบียนวิชานี้แล้วว" : $scope.labalRegister = "ลงทะเบียน"
+        function checkRegister(schoolId, courseId, studentId) {
+            dataService.checkRegister(schoolId, courseId, studentId).then(function(snp) {
+                snp != null ? self.disbleRegister = true : self.disbleRegister = false
+                snp != null ? $scope.labalRegister = "คุณลงทะเบียนวิชานี้แล้วว" : $scope.labalRegister = "ลงทะเบียน"
             })
-        }
-        // function Array ไว้ตรวจสอบว่ามีข้อมูลตรงตามที่ต้องการ
-        function checkId(check) {
-            return check.$id === self.currentUser.uid;
         }
 
         function checkLengthStudent() {
@@ -55,13 +51,37 @@
         }
 
         function register() {
-            dataService.registerStd(self.schoolSelected, self.course, self.currentUser)
-            checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"))
+            dataService.registerStd(self.schoolSelected, self.course, self.currentUser).then(function(snp) {
+                if (snp != "") {
+                    checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                }
+            })
         }
 
         function getInfoThisCourse() {
-            dataService.loadInfoCourse(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId")).then(function(course) {
-                self.course = course;
+            dataService.loadInfoCourse(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId")).then(function(snp) {
+                self.course = []
+                var keys = Object.keys(snp)
+                keys.sort()
+                keys.forEach(function(item) {
+                    if (snp[item].value.students == undefined) {
+                        var item = {
+                            courseId: snp[item].id,
+                            std_length: 0,
+                            value: snp[item].value
+                        }
+                    } else {
+                        var item = {
+                            courseId: snp[item].id,
+                            std_length: Object.keys(snp[item].value.students).length,
+                            value: snp[item].value
+                        }
+                    }
+                    self.course.push(item)
+                })
+                console.log(self.course);
+                //self.count = Object.keys(self.course.student).length
+
             })
         }
 

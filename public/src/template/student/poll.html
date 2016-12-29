@@ -1,0 +1,78 @@
+<div layout="row" layout-xs="column" class="screen-margin">
+    <md-card flex>
+        <md-card-title>
+            <md-card-title-text layout-align="center center">
+                <span class="md-display-2">วิชา
+                                        {{ul.course[0].value.name }}</span>
+                <span class="md-display-1">สถาบันกวดวิชา
+                                        {{ul.school[0].value.schoolName }}</span>
+            </md-card-title-text>
+            <md-card-title-media>
+                <div class="md-media-sm card-media"></div>
+            </md-card-title-media>
+        </md-card-title>
+    </md-card>
+</div>
+<div layout="row" layout-xs="column" class="screen-margin">
+    <md-card layout-margin flex flex-xs>
+        <p class="md-display-2">
+            <u>แบบประเมินผู้เรียน</u>
+        </p>
+        <div layout="row" layout-align="center center">
+            <p class="md-subhead">เปรียบเทียบคะแนนดังนี้ 1 = ไม่พอใจเลย, 2 = ไม่ค่อยพอใจ, 3 = พอใจ, 4 = พอใจมาก, 5 = พอใจมากที่สุด</p>
+        </div>
+        <div flex layout-padding>
+            <div layout ng-repeat="item in ul.pollUser">
+                <div flex="40" layout layout-align="start center">
+                    <span class="md-subhead">{{item.title}}</span>
+                </div>
+                <md-slider flex md-discrete class="md-primary" ng-model="item.data" ng-init="item.data=3" step="1" min="1" max="5" aria-label="rating"></md-slider>
+                <div flex="10" layout layout-align="center center">
+                    <span class="md-subhead">{{0+item.data}}
+                        P</span>
+                </div>
+            </div>
+        </div>
+        <hr class="hr">
+        <p class="md-display-2">
+            <u>แบบประเมินผู้สอน</u>
+        </p>
+        <div layout="row" layout-align="center center">
+            <p class="md-subhead">เปรียบเทียบคะแนนดังนี้ 1 = ไม่พอใจเลย, 2 = ไม่ค่อยพอใจ, 3 = พอใจ, 4 = พอใจมาก, 5 = พอใจมากที่สุด</p>
+        </div>
+        <div flex layout-padding>
+            <div layout ng-repeat="item in ul.pollTutor">
+                <div flex="40" layout layout-align="start center">
+                    <span class="md-subhead">{{item.title}}</span>
+                </div>
+                <md-slider flex md-discrete class="md-primary" ng-model="item.data" ng-init="item.data=3" step="1" min="1" max="5" aria-label="rating"></md-slider>
+                <div flex="10" layout layout-align="center center">
+                    <span class="md-subhead">{{0+item.data}}
+                        P</span>
+                </div>
+            </div>
+        </div>
+        <hr class="hr">
+        <p class="md-display-2">
+            <u>แบบประเมินโรงเรียน</u>
+        </p>
+        <div layout="row" layout-align="center center">
+            <p class="md-subhead">เปรียบเทียบคะแนนดังนี้ 1 = ไม่พอใจเลย, 2 = ไม่ค่อยพอใจ, 3 = พอใจ, 4 = พอใจมาก, 5 = พอใจมากที่สุด</p>
+        </div>
+        <div flex layout-padding>
+            <div layout ng-repeat="item in ul.pollSchool">
+                <div flex="40" layout layout-align="start center">
+                    <span class="md-subhead">{{item.title}}</span>
+                </div>
+                <md-slider flex md-discrete class="md-primary" ng-model="item.data" ng-init="item.data=3" step="1" min="1" max="5`" aria-label="rating"></md-slider>
+                <div flex="10" layout layout-align="center center">
+                    <span class="md-subhead">{{0+item.data}}
+                    P</span>
+                </div>
+            </div>
+        </div>
+        <md-button ng-click="ul.sendPoll(ul.pollTutor, ul.pollSchool, ul.pollUser)">
+            <p class="md-display-1">ส่งแบบประเมิน</p>
+        </md-button>
+    </md-card>
+</div>

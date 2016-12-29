@@ -14,45 +14,156 @@
         var self = this;
         // Promise-based API
         return {
+            createCourse: createCourse,
             updateSchoolInfo: updateSchoolInfo,
-            loadInfoCourse: function(schoolId, courseId) {
-                return $q.when($firebaseObject(firebase.database().ref('schools/' + schoolId + '/courses').child(courseId)));
-            },
-            registerStd: function(schoolId, courseId, studentId) {
-                firebase.database().ref('schools/' + schoolId.$id + '/courses/' + courseId.$id + '/students').child(studentId.uid).set({
-                    id: studentId.uid
-                })
-            },
-            checkRegister: function(schoolId, courseId) {
-                return $q.when($firebaseArray(firebase.database().ref('schools/' + schoolId + '/courses/' + courseId).child('students')))
-            },
             loadInfoSchool: loadInfoSchool,
             loadAllCourse: loadAllCourse,
             loadAllSchools: loadAllSchools,
+            registerStd: registerStd,
+            checkRegister: checkRegister,
+            getUser: getUser,
+            loadInfoCourse: loadInfoCourse,
+            getDashboardSchool: getDashboardSchool,
+            deleteCourse: deleteCourse,
+            acceptStudent: acceptStudent,
+            submitPoll: submitPoll
         };
 
 
         // ------- Http
-        function updateSchoolInfo(params, uid) {
-            // console.log(params, uid);
+        function submitPoll(pollSchool,pollTutor, pollUser, id, currentUserId){
+            var request = $http({
+                method: "post",
+                url: "http://localhost:3000/api/v1/submitpoll",
+                data: {
+                    pollSchool: pollSchool,
+                    polltutor: pollTutor,
+                    pollUser: pollUser,
+                    schoolId: id.schoolId,
+                    courseId: id.courseId,
+                    currentUserId: currentUserId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function acceptStudent(schoolId, courseId, studentId) {
+            var request = $http({
+                method: "post",
+                url: "http://localhost:3000/api/v1/accept",
+                data: {
+                    schoolId: schoolId,
+                    courseId: courseId,
+                    studentId: studentId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function deleteCourse(courseId, schoolId) {
+            // body...
+            console.log(courseId);
+            var request = $http({
+                method: "post",
+                url: "http://localhost:3000/api/v1/delete/course",
+                data: {
+                    courseId: courseId,
+                    schoolId: schoolId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function getDashboardSchool(param) {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/updateschool/" +
-                    params.schoolName + "/" +
-                    params.address + "/" +
-                    params.city + "/" +
-                    params.state + "/" +
-                    params.postalCode + "/" +
-                    params.biography + "/" +
-                    uid
+                url: "http://localhost:3000/api/v1/get/dashboard",
+                params: {
+                    uid: param
+                },
+                headers: { 'Content-Type': 'application/json' }
             });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function loadInfoCourse(schoolId, courseId) {
+            var request = $http({
+                method: "get",
+                url: "http://localhost:3000/api/v1/coures/" + schoolId + "/" + courseId
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function checkRegister(schoolId, courseId, studentId) {
+            //console.log(schoolId, courseId, studentId);
+            var request = $http({
+                method: "post",
+                url: "http://localhost:3000/api/v1/cregister",
+                data: {
+                    schoolId: schoolId,
+                    courseId: courseId,
+                    studentId: studentId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function registerStd(school, course, student) {
+            // body...
+            //console.log(school[0].id, course.$id, student);
+            var params = {
+                    schoolId: school[0].id,
+                    courseId: course[0].courseId,
+                    student: student
+                }
+                //console.log(params);
+            var request = $http({
+                method: "post",
+                url: "http://localhost:3000/api/v1/register",
+                data: params,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function createCourse(value, uid) {
+            //console.log(params, uid);
+            var request = $http({
+                method: "post",
+                url: "http://localhost:3000/api/v1/create_course",
+                data: {
+                    params: value,
+                    uid: uid
+                }
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function updateSchoolInfo(params, uid) {
+
+            var request = $http({
+                method: "post",
+                url: "http://localhost:3000/api/v1/updateschool/" + uid,
+                data: params,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
             return (request.then(handleSuccess, handleError));
         }
 
         function loadAllCourse(uid) {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/allcoures/" + uid + "/course"
+                url: "http://localhost:3000/api/v1/allcoures/" + uid
             });
             return (request.then(handleSuccess, handleError));
         }
@@ -60,15 +171,25 @@
         function loadAllSchools() {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/schools"
+                url: "http://localhost:3000/api/v1/schools"
             });
             return (request.then(handleSuccess, handleError));
         }
 
         function loadInfoSchool(uid) {
+            //console.log(uid);
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/infoschool/" + uid
+                url: "http://localhost:3000/api/v1/infoschool/" + uid
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getUser(uid) {
+            //console.log(uid);
+            var request = $http({
+                method: "get",
+                url: "http://localhost:3000/api/v1/user/" + uid
             });
             return (request.then(handleSuccess, handleError));
         }

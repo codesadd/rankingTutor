@@ -75,9 +75,8 @@
                 });
             });
         }
-        $scope.goToRegisterPage = function () {
+        $scope.goToRegisterPage = function() {
             $mdDialog.hide();
         }
     }
-
 })();

@@ -1,6 +1,5 @@
 <div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
     <div flex>
-
         <md-card>
             <md-content layout-align="center">
                 <div layout="row" layout-align="center center">
@@ -13,7 +12,6 @@
                         <span class="md-body-1">{{ ul.school[0].value.displayName }}</span>
                     </md-card-title-text>
                 </md-card-title>
-
             </md-content>
         </md-card>
         <md-card md-theme-watch>
@@ -38,10 +36,10 @@
         </md-card>
         <md-card md-theme-watch>
             <md-card-actions layout="row" layout-align="center center">
-                <md-button ng-disabled="true">{{ul.school[0].value.like}}
-                    Like</md-button>
-                <md-button ng-disabled="true">{{ul.school[0].value.view}}
-                    View</md-button>
+                <md-button ng-disabled="true">{{ul.school[0].value.like}} Like
+                </md-button>
+                <md-button ng-disabled="true">{{ul.school[0].value.view}} View
+                </md-button>
             </md-card-actions>
         </md-card>
     </div>
@@ -88,8 +86,6 @@
                                     </div>
                                 </div>
                             </md-input-container>
-                            <input type="hidden" ng-model="school.like" value="0">
-                            <input type="hidden" ng-model="school.view" value="0">
                         </div>
                         <md-input-container class="md-block">
                             <label>Biography</label>

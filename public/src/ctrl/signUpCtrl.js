@@ -45,17 +45,16 @@
             } else {
                 // login with Facebook
                 var providerData = data;
+                console.log(providerData, text);
                 auth.$signInWithPopup(providerData).then(function(firebaseUser) {
                     if (text.select != "school") {
                         addUserToDb(firebaseUser, text);
                         localStorageService.set("status", text.select);
-                        $mdDialog.hide();
                         $location.path('/profile');
                     } else {
                         addUserToDb(firebaseUser, text);
                         addSchoolFromProviderToDB(firebaseUser, text);
                         localStorageService.set("status", text.select);
-                        $mdDialog.hide();
                         $location.path('/profile-school');
                     }
                 }).catch(function(error) {
@@ -80,7 +79,7 @@
                     emailVerified: firebaseUser.user.emailVerified,
                     photoURL: firebaseUser.user.photoURL,
                     status: param.select,
-                    tel:param.tel,
+                    tel: ' ',
                     createTime: Date.now()
                 });
             } else {
@@ -88,12 +87,12 @@
                 // bug dissplayName,photoURL was null cant add to Database
                 console.log(firebaseUser);
                 firebase.database().ref('users/' + firebaseUser.uid).set({
-                    displayName: param.firstname +" "+ param.lastname,
+                    displayName: param.firstname + " " + param.lastname,
                     email: firebaseUser.email,
                     emailVerified: firebaseUser.emailVerified,
                     photoURL: 'https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png',
                     status: param.select,
-                    tel:param.tel,
+                    tel: param.tel,
                     createTime: Date.now()
                 });
             }
@@ -106,7 +105,7 @@
                 emailVerified: firebaseUser.user.emailVerified,
                 photoURL: firebaseUser.user.photoURL,
                 status: param.select,
-                tel:param.tel,
+                tel: ' ',
                 like: 0,
                 view: 0,
                 createTime: Date.now()
@@ -117,12 +116,12 @@
             firebase.database().ref('schools').child(firebaseUser.uid).set({
                 like: 0,
                 view: 0,
-                displayName: param.firstname +" "+ param.lastname,
+                displayName: param.firstname + " " + param.lastname,
                 email: firebaseUser.email,
                 emailVerified: firebaseUser.emailVerified,
                 photoURL: 'https://cdn3.iconfinder.com/data/icons/user-avatars-1/512/users-10-3-128.png',
                 status: param.select,
-                tel:param.tel,
+                tel: param.tel,
                 createTime: Date.now(),
             });
         }
