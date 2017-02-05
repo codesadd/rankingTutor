@@ -29,14 +29,12 @@
 </head>
 
 <body ng-app="starterApp" layout="column" layout-fill ng-cloak>
-    <md-toolbar md-scroll-shrink ng-if="true" md-whiteframe="1">
+    <md-toolbar ng-if="true" md-whiteframe="1">
         <div class="md-toolbar-tools screen-nav-margin" ng-controller="slidebarCtrl">
             <h2>
                     <md-button ng-href="#/" class="button-logo">Funfunc</md-button>
             </h2>
             <span flex></span>
-            <md-button class="md-accent" href="#/hotTutorial" aria-label="hot Tuturial">อันดับโรงเรียนกวดวิชา</md-button>
-            <md-button class="md-accent" href="#/hotTutor" aria-label="hot Tutor">อันดับติวเตอร์</md-button>
             <div ng-controller="navCtrl as ul">
                 <div hide-xs ng-hide="hide">
                     <md-button class="md-accent md-raised" ng-click="signin($event)">เข้าสู่ระบบ</md-button>
@@ -50,9 +48,6 @@
                         <md-menu-content width="4">
                             <md-menu-item>
                                 <md-button ng-click="signin($event)">เข้าสู่ระบบ</md-button>
-                            </md-menu-item>
-                            <md-menu-item>
-                                <md-button ng-click="signup($event)">สมัครสมาชิก</md-button>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
