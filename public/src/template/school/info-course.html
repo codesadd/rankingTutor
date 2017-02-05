@@ -23,8 +23,14 @@
                 <span class="md-body-1">{{ul.schoolSelected[0].value.biography}}</span>
             </md-card-content>
         </md-card>
+        <md-card md-theme-watch ng-show="checkStd">
+            <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.registerStd()">{{labalRegister}}</md-button>
+        </md-card>
+        <md-card md-theme-watch ng-show="checkTutor">
+            <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.registerTutor()">{{labalRegister}}สอน</md-button>
+        </md-card>
     </div>
-    <div flex>
+    <!-- <div flex>
         <md-card>
             <md-content layout-padding>
                 <md-card-title>
@@ -55,7 +61,7 @@
         <md-card md-theme-watch ng-show="checkTutor">
             <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.registerTutor()">{{labalRegister}}สอน</md-button>
         </md-card>
-    </div>
+    </div> -->
 </div>
 <div layout="column" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
     <md-chips></md-chips>

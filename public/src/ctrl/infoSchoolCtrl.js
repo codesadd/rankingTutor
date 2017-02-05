@@ -30,7 +30,8 @@
             dataService
                 .loadAllCourse(id)
                 .then(function(snp) {
-                    getInfoChart(snp.resultPoll[0])
+                  console.log(snp);
+                    //getInfoChart(snp.resultPoll[0])
                     self.courses = []
                     var keys = Object.keys(snp.courses)
                     keys.sort()

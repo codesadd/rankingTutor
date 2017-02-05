@@ -27,7 +27,7 @@
             </md-card-content>
         </md-card>
     </div>
-    <div flex>
+    <!-- <div flex>
         <md-card>
             <md-content layout-padding>
                 <canvas id="radar" class="chart chart-radar" chart-data="ul.data" chart-options="ul.options" chart-labels="ul.labels"></canvas>
@@ -47,7 +47,7 @@
                 </md-card>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 <div layout="column" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
     <md-chips></md-chips>
@@ -56,17 +56,17 @@
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">วิชา {{ it.value.name }}</span>
-                    <span class="md-subhead">by ครูเอ๊</span>
+                    <!-- <span class="md-subhead">by ครูเอ๊</span> -->
                 </md-card-title-text>
                 <md-card-title-media>
                     <div class="md-media-sm card-media"></div>
                 </md-card-title-media>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-disabled="true">{{it.value.like + 0}}
+                <!-- <md-button ng-disabled="true">{{it.value.like + 0}}
                     like</md-button>
                 <md-button ng-disabled="true">{{it.value.view + 0}}
-                    view</md-button>
+                    view</md-button> -->
                 <md-button ng-disabled="true">{{it.std_length}}
                     registered</md-button>
                 <md-button ng-click="ul.goingToCoursePage(it.courseId)">info</md-button>
