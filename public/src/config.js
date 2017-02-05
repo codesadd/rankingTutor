@@ -7,27 +7,27 @@ angular.module('starterApp', [
     'angularUtils.directives.dirPagination',
     'ngMessages',
     'md.data.table',
-    'oitozero.ngSweetAlert'
+    'oitozero.ngSweetAlert',
 ]).config(ApplicationConfig);
 
 function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, localStorageServiceProvider, ChartJsProvider, $httpProvider) {
 
     $mdIconProvider.defaultIconSet("./assets/svg/avatars.svg", 512)
-    .icon("menu", "./assets/svg/menu.svg", 512)
-    .icon("cancel", "./assets/svg/ic_cancel_white_48px.svg", 512)
-    .icon("more", "./assets/svg/ic_more_vert_white_24px.svg", 512)
-    .icon("share", "./assets/svg/share.svg", 512)
-    .icon("google_plus", "./assets/svg/google_plus.svg", 512)
-    .icon("hangouts", "./assets/svg/hangouts.svg", 512)
-    .icon("twitter", "./assets/svg/twitter.svg", 512)
-    .icon("setting", "./assets/svg/ic_settings_applications_white_24px.svg", 512)
-    .icon("deleteForever", "./assets/svg/ic_delete_forever_white_48px.svg", 512)
-    .icon("addTutor", "./assets/svg/ic_perm_contact_calendar_white_48px.svg", 512)
-    .icon("edit", "./assets/svg/ic_tune_white_48px.svg", 512)
-    .icon("info", "./assets/svg/ic_portrait_white_48px.svg", 512)
-    .icon("waiting", "./assets/svg/ic_hourglass_empty_white_48px.svg", 512)
-    .icon("done", "./assets/svg/ic_done_white_48px.svg", 512)
-    .icon("phone", "./assets/svg/phone.svg", 512);
+        .icon("menu", "./assets/svg/menu.svg", 512)
+        .icon("cancel", "./assets/svg/ic_cancel_white_48px.svg", 512)
+        .icon("more", "./assets/svg/ic_more_vert_white_24px.svg", 512)
+        .icon("share", "./assets/svg/share.svg", 512)
+        .icon("google_plus", "./assets/svg/google_plus.svg", 512)
+        .icon("hangouts", "./assets/svg/hangouts.svg", 512)
+        .icon("twitter", "./assets/svg/twitter.svg", 512)
+        .icon("setting", "./assets/svg/ic_settings_applications_white_24px.svg", 512)
+        .icon("deleteForever", "./assets/svg/ic_delete_forever_white_48px.svg", 512)
+        .icon("addTutor", "./assets/svg/ic_perm_contact_calendar_white_48px.svg", 512)
+        .icon("edit", "./assets/svg/ic_tune_white_48px.svg", 512)
+        .icon("info", "./assets/svg/ic_portrait_white_48px.svg", 512)
+        .icon("waiting", "./assets/svg/ic_hourglass_empty_white_48px.svg", 512)
+        .icon("done", "./assets/svg/ic_done_white_48px.svg", 512)
+        .icon("phone", "./assets/svg/phone.svg", 512);
 
     $mdThemingProvider.theme('default').primaryPalette('blue-grey').accentPalette('blue-grey');
 
@@ -61,6 +61,12 @@ function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, 
     }).when('/doing-poll', {
         templateUrl: 'src/template/student/poll.html',
         controller: 'pollUserCtrl as ul'
+    }).when('/dashboard-tutor', {
+        templateUrl: 'src/template/tutor/dashboard-tutor.html',
+        controller: 'dashboardUserCtrl as ul'
+    }).when('/admin', {
+        templateUrl: 'src/template/admin.html',
+        controller: 'adminCtrl as ul'
     }).otherwise({
         redirectTo: '/'
     });

@@ -49,8 +49,11 @@
                 </md-card>
             </div>
         </div>
-        <md-card md-theme-watch>
-            <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.register()">{{labalRegister}}</md-button>
+        <md-card md-theme-watch ng-show="checkStd">
+            <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.registerStd()">{{labalRegister}}</md-button>
+        </md-card>
+        <md-card md-theme-watch ng-show="checkTutor">
+            <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.registerTutor()">{{labalRegister}}สอน</md-button>
         </md-card>
     </div>
 </div>

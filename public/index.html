@@ -9,7 +9,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="node_modules/angular-material/angular-material.css" />
     <link rel="stylesheet" href="node_modules/angular-material-data-table/dist/md-data-table.css">
-    <link href="lib/sweetAlert/sweet-alert.css" rel="stylesheet"/>
+    <link href="lib/sweetAlert/sweet-alert.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/app.css" />
     <link rel="stylesheet" href="assets/font-awesome-4.6.3/css/font-awesome.min.css" />
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
@@ -82,6 +82,16 @@
                                 <p>dashboard</p>
                             </md-button>
                         </md-menu-item>
+                        <md-menu-item ng-show="ul.checkTutorNav">
+                            <md-button ng-href="#/profile">
+                                <p>Profile</p>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-show="ul.checkTutorNav">
+                            <md-button ng-href="#/dashboard-tutor">
+                                <p>dashboard</p>
+                            </md-button>
+                        </md-menu-item>
                         <md-menu-item ng-controller="signInCtrl">
                             <md-button ng-click="logout()">
                                 <p>Logout</p>
@@ -103,13 +113,13 @@
     <script src="node_modules/angularfire/dist/angularfire.min.js"></script>
     <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="node_modules/angular-material/angular-material.js"></script>
-    <script src="node_modules/chart/dist/Chart.js"></script>
-    <script src="node_modules/angular-chart/dist/angular-chart.js"></script>
+   <script src="node_modules/chart/dist/Chart.js"></script>
+<script src="node_modules/angular-chart/dist/angular-chart.js"></script>
+
     <script src="node_modules/angular-utils-pagination/dirPagination.js"></script>
     <script src="node_modules/angular-material-data-table/dist/md-data-table.js"></script>
     <script src="lib/sweetAlert/sweetAlert.js"></script>
     <script src="lib/sweetAlert/sweet-alert.min.js"></script>
-
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
     <script src="./src/module.js"></script>
@@ -128,6 +138,7 @@
     <script src="./src/ctrl/infoCourseCtrl.js"></script>
     <script src="./src/ctrl/dashboardUserCtrl.js"></script>
     <script src="./src/ctrl/pollUserCtrl.js"></script>
+    <script src="./src/ctrl/adminCtrl.js"></script>
     <script src="./src/config.js"></script>
 </body>
 

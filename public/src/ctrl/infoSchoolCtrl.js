@@ -50,7 +50,6 @@
                         }
                         self.courses.push(item)
                     })
-                    console.log(self.courses);
                 })
         }
 
@@ -70,25 +69,33 @@
             r4 = parseInt((poll.p4 / (5 * poll.n)) * 100)
             r5 = parseInt((poll.p5 / (5 * poll.n)) * 100)
             r6 = parseInt((poll.p6 / (5 * poll.n)) * 100)
-                // self.labels = ["Location", "document", "Designing", "Coding", "Cycling", "test"]
-                // self.data = [
-                //     [80, 93, 84, 89, 86, 85]
-                // ]
 
-            self.labels = ["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling"];
+            self.labels = ["สถานที่เหมาะสม", "สิ่งอำนวยความสะดวก", "การจัดการเวลา", "ความสะอาด", "เอกสาร", "อาหาร"];
 
             self.data = [
                 [r1, r2, r3, r4, r5, r6]
             ];
             self.options = {
-                responsive: true,
-                maintainAspectRatio: true,
-                barDatasetSpacing: 1,
-                barShowStroke: true,
-                barStrokeWidth: 2,
-                barValueSpacing: 5
+                title: {
+                    display: true,
+                    text: 'Status',
+                    fontSize: 18
+                },
+                legend: {
+                    display: false,
+                    fontSize: 18
+                },
+                scale: {
+                    reverse: false,
+                    ticks: {
+                        beginAtZero: 100
+                    }
+                },
+                tooltips: {
+                    enabled: true,
+                    titleFontSize: 16
+                }
             }
-            console.log(self.data);
         }
 
         function goingToCoursePage(id) {

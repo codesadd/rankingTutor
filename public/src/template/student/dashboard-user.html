@@ -73,7 +73,7 @@
                                     </md-button>
                                     <md-button ng-disabled="true">สมัครวันที่ {{value.infoRegister.dateRegister}}
                                     </md-button>
-                                    <md-button ng-click="ul.doingPoll(value.course.courseId, value.school.schoolId)" ng-show="{{value.checkPoll}}">ทำแบบประเมิน</md-button>
+                                    <md-button ng-click="ul.doingPoll(value.course.courseId, value.school.schoolId)" ng-show="!{{value.checkPoll}}" ng-disabled="ul.ckeckPending(value.infoRegister.status)">ทำแบบประเมิน</md-button>
                                 </md-card-actions>
                             </md-card>
                         </div>
@@ -101,7 +101,7 @@
                                     </md-button>
                                     <md-button ng-disabled="true">สมัครวันที่ {{value.infoRegister.dateRegister}}
                                     </md-button>
-                                    <md-button ng-click="ul.doingPoll(value.course.courseId, value.school.schoolId)">เพิ่มเติม</md-button>
+                                    <md-button ng-click="ul.doingPoll(value.course.courseId, value.school.schoolId)">ทำแบบประเมิน</md-button>
                                 </md-card-actions>
                             </md-card>
                         </div>
@@ -129,7 +129,7 @@
                                     </md-button>
                                     <md-button ng-disabled="true">สมัครวันที่ {{value.infoRegister.dateRegister}}
                                     </md-button>
-                                    <md-button ng-click="ul.goToSchoolPage(it.id)">เพิ่มเติม</md-button>
+                                    <md-button ng-click="ul.goToSchoolPage(it.id)" ng-disabled="ul.ckeckPending(value.infoRegister.status)">ทำแบบประเมิน</md-button>
                                 </md-card-actions>
                             </md-card>
                         </div>

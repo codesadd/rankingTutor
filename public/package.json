@@ -26,6 +26,7 @@
     "angular-material-data-table": "^0.10.10",
     "angular-messages": "^1.5.5",
     "angular-route": "^1.5.8",
+    "angular-touch": "^1.6.1",
     "angularfire": "^2.0.2",
     "chart.js": "^2.3.0",
     "firebase": "^3.3.0",

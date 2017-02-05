@@ -4,25 +4,35 @@
         .controller('infoCourseCtrl', [
             'dataService', '$location', 'localStorageService', '$scope', '$firebaseAuth',
             infoCourseCtrl
-        ]);
+        ])
 
     function infoCourseCtrl(dataService, $location, localStorageService, $scope, $firebaseAuth) {
-        var self = this;
-        self.schoolSelected = [];
-        self.course = [];
-        self.currentUser = [];
-        self.disbleRegister;
-        self.lengthRegister = [];
-        self.register = register;
+        var self = this
+        self.schoolSelected = []
+        self.course = []
+        self.currentUser = []
+        self.disbleRegister
+        self.lengthRegister = []
+        self.registerStd = registerStd
+        self.registerTutor = registerTutor
+        $scope.checkStd = false
+        $scope.checkTutor = false
         getInfoChart()
 
         $firebaseAuth().$onAuthStateChanged(function(user) {
             self.currentUser = user
                 //console.log(self.currentUser.uid)
-            if (user != null && localStorageService.get("status") != "school") {
+            if (user != null && localStorageService.get("status") == "tutor") {
                 getInfoThisCourse()
                 getSchool()
-                checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                checkRegisterTutor(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                $scope.checkTutor = true
+                    // checkLengthStudent()
+            } else if (user != null && localStorageService.get("status") == "student") {
+                getInfoThisCourse()
+                getSchool()
+                checkRegisterStudent(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                $scope.checkStd = true
                     // checkLengthStudent()
             } else {
                 getInfoThisCourse()
@@ -30,15 +40,22 @@
                 setDisbleButton(localStorageService.get("status"))
                     // checkLengthStudent()
             }
-        });
+        })
 
         function setDisbleButton(param) {
             param == "student" ? self.disbleRegister = false : self.disbleRegister = true
             self.disbleRegister != true ? $scope.labalRegister = "ลงทะเบียน" : $scope.labalRegister = "กรุณาสมัครสมาชิก หรือเข้าสู่ระบบเพื่อลงทะเบียน!!"
         }
 
-        function checkRegister(schoolId, courseId, studentId) {
-            dataService.checkRegister(schoolId, courseId, studentId).then(function(snp) {
+        function checkRegisterStudent(schoolId, courseId, studentId) {
+            dataService.checkRegisterStudent(schoolId, courseId, studentId).then(function(snp) {
+                snp != null ? self.disbleRegister = true : self.disbleRegister = false
+                snp != null ? $scope.labalRegister = "คุณลงทะเบียนวิชานี้แล้วว" : $scope.labalRegister = "ลงทะเบียน"
+            })
+        }
+
+        function checkRegisterTutor(schoolId, courseId, tutorId) {
+            dataService.checkRegisterTutor(schoolId, courseId, tutorId).then(function(snp) {
                 snp != null ? self.disbleRegister = true : self.disbleRegister = false
                 snp != null ? $scope.labalRegister = "คุณลงทะเบียนวิชานี้แล้วว" : $scope.labalRegister = "ลงทะเบียน"
             })
@@ -50,10 +67,18 @@
             })
         }
 
-        function register() {
+        function registerStd() {
             dataService.registerStd(self.schoolSelected, self.course, self.currentUser).then(function(snp) {
                 if (snp != "") {
-                    checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                    checkRegisterStudent(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                }
+            })
+        }
+
+        function registerTutor() {
+            dataService.registerTutor(self.schoolSelected, self.course, self.currentUser).then(function(snp) {
+                if (snp != "") {
+                    checkRegisterTutor(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
                 }
             })
         }
@@ -79,7 +104,7 @@
                     }
                     self.course.push(item)
                 })
-                console.log(self.course);
+                console.log(self.course)
                 //self.count = Object.keys(self.course.student).length
 
             })
@@ -87,7 +112,7 @@
 
         function getSchool() {
             dataService.loadInfoSchool(localStorageService.get("schoolSelectId")).then(function(school) {
-                self.schoolSelected = school;
+                self.schoolSelected = school
             })
         }
 
@@ -98,4 +123,4 @@
             ]
         }
     }
-})();
+})()

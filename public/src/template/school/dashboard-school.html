@@ -59,7 +59,7 @@
                 <md-card-title-media>
                     <div class="md-media-sm card-media"></div>
                     <div layout="row" layout-align="end center">
-                        <span class="md-headline">{{ tutorLength }}</span>
+                        <span class="md-headline">{{ ul.countTutor }} คน</span>
                     </div>
                 </md-card-title-media>
             </md-card-title>
@@ -77,7 +77,7 @@
         <md-card md-theme="default" md-theme-watch>
             <md-tabs md-dynamic-height md-border-bottom md-autoselect md-selected="selectedIndex">
                 <div ng-repeat="i in ul.course">
-                    <md-tab label="{{ i.course.name }}">
+                    <md-tab label="course-{{ i.course.name }}" md-active="true">
                         <md-toolbar>
                             <div class="md-toolbar-tools">
                                 <span>เริ่มสอนวันที่
@@ -109,6 +109,92 @@
                                 </md-button>
                             </div>
                         </md-toolbar>
+                        <div layout="row" layout-xs="column">
+                            <div flex layout-margin>
+                                <md-toolbar class="md-table-toolbar md-default">
+                                    <div class="md-toolbar-tools">
+                                        <span>ติวเตอร์ที่สอน</span>
+                                    </div>
+                                </md-toolbar>
+                                <!-- exact table from live demo -->
+                                <md-table-container>
+                                    <div layout="row" layout-align="center center" ng-show="countAccTutor.length == 0">
+                                        <p class="md-display-1">ไม่มีข้อมูล</p>
+                                    </div>
+                                    <table md-table ng-hide="countAccTutor.length == 0">
+                                        <thead md-head>
+                                            <tr md-row>
+                                                <th md-column>
+                                                    <span>ชื่อ</span>
+                                                </th>
+                                                <th md-column md-numeric>เบอร์โทรศัพท์</th>
+                                                <th md-column md-numeric hide-gt-xs>อีเมล</th>
+                                                <th md-column md-numeric>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody md-body>
+                                            <tr md-row ng-repeat="el in i.tutors | limitTo: query.limit: (query.page - 1) * query.limit | filter : { tutor_status: 'accepted' } as countAccTutor">
+                                                <td md-cell>{{el.value.displayName}}</td>
+                                                <td md-cell>{{el.value.tel}}</td>
+                                                <td md-cell hide-gt-xs>{{el.value.email}}</td>
+                                                <td md-cell>
+                                                    <md-button class="md-fab md-mini md-primary" aria-label="Eat cake">
+                                                        <md-icon md-svg-icon="info"></md-icon>
+                                                        <md-tooltip md-delay="500">
+                                                            รายละเอียด
+                                                        </md-tooltip>
+                                                    </md-button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </md-table-container>
+                                <md-table-pagination ng-hide="countAccTutor.length == 0" md-limit="query.limit" md-page="query.page" md-total="{{i.tutors.length}}" md-page-select></md-table-pagination>
+                            </div>
+                            <div flex layout-margin>
+                                <md-toolbar class="md-table-toolbar md-default">
+                                    <div class="md-toolbar-tools">
+                                        <span>รายชื่อติวเตอร์ที่สมัครเข้าสอน</span>
+                                    </div>
+                                </md-toolbar>
+                                <md-table-container>
+                                    <div layout="row" layout-align="center center" ng-show="countAccPending.length == 0">
+                                        <p class="md-display-1">ไม่มีข้อมูล</p>
+                                    </div>
+                                    <table md-table ng-hide="countAccPending.length == 0">
+                                        <thead md-head md-on-reorder="ul.course">
+                                            <tr md-row>
+                                                <th md-column>
+                                                    <span>ชื่อ</span>
+                                                </th>
+                                                <th md-column md-numeric hide-xs>เบอร์โทรศัพท์</th>
+                                                <th md-column md-numeric layout-align="center">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody md-body>
+                                            <tr layout-align="center" md-row ng-repeat="el in i.tutors | limitTo: query.limit: (query.page - 1) * query.limit | filter :{ tutor_status: 'pending' } as countAccPending">
+                                                <td md-cell>{{el.value.displayName}}</td>
+                                                <td md-cell hide-xs>{{el.value.tel}}</td>
+                                                <td md-cell>
+                                                    <md-button class="md-fab md-mini md-primary" aria-label="Eat cake" ng-click="ul.acceptTutor(el, i.courseId, i)">
+                                                        <md-icon md-svg-icon="done"></md-icon>
+                                                        <md-tooltip md-delay="500">
+                                                            ยืนยันการสมัคร
+                                                        </md-tooltip>
+                                                    </md-button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td md-cell colspan="4" align="center" ng-show="countAccPending.length == 0">
+                                                    ไม่มีข้อมูล</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </md-table-container>
+                                <md-table-pagination ng-hide="countAccPending.length == 0" md-limit="query.limit" md-page="query.page" md-total="{{i.tutors.length}}" md-page-select></md-table-pagination>
+                            </div>
+                        </div>
+                        <hr class="hr">
                         <div layout="row" layout-xs="column">
                             <div flex layout-margin>
                                 <md-toolbar class="md-table-toolbar md-default">
@@ -175,6 +261,9 @@
                                                 <td md-cell>
                                                     <md-button class="md-fab md-mini md-primary" aria-label="Eat cake" ng-click="ul.acceptStudent(el, i.courseId, i)">
                                                         <md-icon md-svg-icon="done"></md-icon>
+                                                        <md-tooltip md-delay="500">
+                                                            ยืนยันการสมัคร
+                                                        </md-tooltip>
                                                     </md-button>
                                                 </td>
                                             </tr>

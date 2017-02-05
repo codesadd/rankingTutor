@@ -18,15 +18,27 @@
             if (user == null) {
                 $location.path('/');
             } else {
-                dataService.getUser(user.uid).then(function(snp) {
-                    self.user = snp[0]
-                    if (snp[1] == undefined) {
-                        console.log("ยังไม่มีวิชาที่ลงเรียน่")
-                    } else {
-                        self.course = snp[1].course
-                        console.log(self.course);
-                    }
-                })
+                if (localStorageService.get("status") == "tutor") {
+                    dataService.getTutor(user.uid).then(function(snp) {
+                        self.user = snp[0]
+                        if (snp[1] == undefined) {
+                            console.log("ยังไม่มีวิชาที่ลงเรียน่")
+                        } else {
+                            self.course = snp[1].course
+                            console.log(self.course);
+                        }
+                    })
+                } else if (localStorageService.get("status") == "student") {
+                    dataService.getStudent(user.uid).then(function(snp) {
+                        self.user = snp[0]
+                        if (snp[1] == undefined) {
+                            console.log("ยังไม่มีวิชาที่ลงเรียน่")
+                        } else {
+                            self.course = snp[1].course
+                            console.log(self.course);
+                        }
+                    })
+                }
             }
         });
 

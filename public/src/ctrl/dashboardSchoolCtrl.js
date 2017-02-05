@@ -15,10 +15,11 @@
         $scope.selectedIndex = 0
         self.deleteCourse = deleteCourse
         self.acceptStudent = acceptStudent
+        self.acceptTutor = acceptTutor
         self.AuthenticationControl = AuthenticationControl
 
-        $scope.studentLength = "loading data..."
-        $scope.tutorLength = "loading data..."
+        self.countTutor = "loading data..."
+        self.countStudent = "loading data..."
         $scope.isLoading = true
         $scope.query = {
             limit: 5,
@@ -78,7 +79,8 @@
                     dataService.getDashboardSchool(user.uid).then(function(snp) {
                         self.course = snp[0].data
                         self.countStudent = snp[0].countStudent
-                        console.log(self.course);
+                        self.countTutor = snp[0].countTutor
+                        console.log(snp);
                     })
                 }
             })
@@ -88,7 +90,7 @@
             var index = self.course.indexOf(course)
             SweetAlert.swal({
                     title: "ต้องการลบวิชา " + course.course.name + " ?",
-                    text: "Your will not be able to recover this Data !!",
+                    text: "Your will not be able to change this Data !!",
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonColor: "#DD6B55",
@@ -106,7 +108,7 @@
                             showConfirmButton: false
                         })
                         dataService.deleteCourse(course.courseId, self.currentId).then(function(snp) {
-                            self.course = snp
+                            self.course = snp[0].data
                         })
                         setTimeout(function() {
                             SweetAlert.swal("ลบข้อมูลเรียบร้อยแล้ว!", "This data has been deleted.", "success")
@@ -123,7 +125,7 @@
             var index = self.course.indexOf(i)
             SweetAlert.swal({
                     title: "ยืนยันการเข้าเรียนของ " + student.value.displayName + " ?",
-                    text: "Your will not be able to recover this Data !!",
+                    text: "Your will not be able to change this Data !!",
                     type: "info",
                     showCancelButton: true,
                     confirmButtonColor: "#A5DC86",
@@ -141,7 +143,42 @@
                             showConfirmButton: false
                         })
                         dataService.acceptStudent(self.currentId, courseId, student.std_id).then(function(snp) {
-                            self.course = snp
+                            self.course = snp[0].data
+                        })
+                        setTimeout(function() {
+                            SweetAlert.swal("ยืนยันข้อมูลเรียบร้อยแล้ว!", "This data has been accepted.", "success")
+                            $scope.selectedIndex = index
+                        }, 2000)
+
+                    } else {
+                        SweetAlert.swal("ยกเลิกการยืนยันข้อมูลเรียบร้อย", "This data is pending :)", "error")
+                    }
+                })
+        }
+
+        function acceptTutor(tutor, courseId, i) {
+            var index = self.course.indexOf(i)
+            SweetAlert.swal({
+                    title: "ยืนยันการเข้าสอนของ " + tutor.value.displayName + " ?",
+                    text: "Your will not be able to recover this Data !!",
+                    type: "info",
+                    showCancelButton: true,
+                    confirmButtonColor: "#A5DC86",
+                    confirmButtonText: "Yes, accept this user!",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        swal({
+                            title: "กำลังยืนยันข้อมูล..",
+                            text: "I will close in few seconds.",
+                            timer: 1000,
+                            showConfirmButton: false
+                        })
+                        dataService.acceptTutor(self.currentId, courseId, tutor.tutor_id).then(function(snp) {
+                            self.course = snp[0].data
                         })
                         setTimeout(function() {
                             SweetAlert.swal("ยืนยันข้อมูลเรียบร้อยแล้ว!", "This data has been accepted.", "success")

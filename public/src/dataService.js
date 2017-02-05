@@ -20,21 +20,35 @@
             loadAllCourse: loadAllCourse,
             loadAllSchools: loadAllSchools,
             registerStd: registerStd,
-            checkRegister: checkRegister,
-            getUser: getUser,
+            registerTutor: registerTutor,
+            checkRegisterStudent: checkRegisterStudent,
+            checkRegisterTutor: checkRegisterTutor,
+            getStudent: getStudent,
+            getTutor: getTutor,
             loadInfoCourse: loadInfoCourse,
             getDashboardSchool: getDashboardSchool,
             deleteCourse: deleteCourse,
             acceptStudent: acceptStudent,
-            submitPoll: submitPoll
+            acceptTutor: acceptTutor,
+            submitPoll: submitPoll,
+            getDashboardAdmin: getDashboardAdmin
         };
 
 
         // ------- Http
-        function submitPoll(pollSchool,pollTutor, pollUser, id, currentUserId){
+         function getDashboardAdmin() {
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/get/admin",
+                headers: { 'Content-Type': 'application/json' }
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function submitPoll(pollSchool, pollTutor, pollUser, id, currentUserId) {
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/submitpoll",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/submitpoll",
                 data: {
                     pollSchool: pollSchool,
                     polltutor: pollTutor,
@@ -52,11 +66,27 @@
         function acceptStudent(schoolId, courseId, studentId) {
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/accept",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/accept-student",
                 data: {
                     schoolId: schoolId,
                     courseId: courseId,
                     studentId: studentId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function acceptTutor(schoolId, courseId, tutorId) {
+            console.log(schoolId, courseId, tutorId);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/accept-tutor",
+                data: {
+                    schoolId: schoolId,
+                    courseId: courseId,
+                    tutorId: tutorId
                 },
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -69,7 +99,7 @@
             console.log(courseId);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/delete/course",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/delete/course",
                 data: {
                     courseId: courseId,
                     schoolId: schoolId
@@ -83,7 +113,7 @@
         function getDashboardSchool(param) {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/get/dashboard",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/get/dashboard",
                 params: {
                     uid: param
                 },
@@ -95,16 +125,16 @@
         function loadInfoCourse(schoolId, courseId) {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/coures/" + schoolId + "/" + courseId
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/coures/" + schoolId + "/" + courseId
             });
             return (request.then(handleSuccess, handleError));
         }
 
-        function checkRegister(schoolId, courseId, studentId) {
+        function checkRegisterStudent(schoolId, courseId, studentId) {
             //console.log(schoolId, courseId, studentId);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/cregister",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/check-register-student",
                 data: {
                     schoolId: schoolId,
                     courseId: courseId,
@@ -127,7 +157,42 @@
                 //console.log(params);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/register",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/register-student",
+                data: params,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+         function checkRegisterTutor(schoolId, courseId, tutorId) {
+            //console.log(schoolId, courseId, studentId);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/check-register-tutor",
+                data: {
+                    schoolId: schoolId,
+                    courseId: courseId,
+                    tutorId: tutorId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function registerTutor(school, course, tutor) {
+            // body...
+            //console.log(school[0].id, course.$id, student);
+            var params = {
+                    schoolId: school[0].id,
+                    courseId: course[0].courseId,
+                    tutor: tutor
+                }
+                //console.log(params);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/register-tutor",
                 data: params,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -139,7 +204,7 @@
             //console.log(params, uid);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/create_course",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/create_course",
                 data: {
                     params: value,
                     uid: uid
@@ -152,7 +217,7 @@
 
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/updateschool/" + uid,
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/updateschool/" + uid,
                 data: params,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -163,7 +228,7 @@
         function loadAllCourse(uid) {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/allcoures/" + uid
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/allcoures/" + uid
             });
             return (request.then(handleSuccess, handleError));
         }
@@ -171,7 +236,7 @@
         function loadAllSchools() {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/schools"
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/schools"
             });
             return (request.then(handleSuccess, handleError));
         }
@@ -180,16 +245,25 @@
             //console.log(uid);
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/infoschool/" + uid
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/infoschool/" + uid
             });
             return (request.then(handleSuccess, handleError));
         }
 
-        function getUser(uid) {
+        function getStudent(uid) {
             //console.log(uid);
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/user/" + uid
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/student/" + uid
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getTutor(uid) {
+            //console.log(uid);
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/tutor/" + uid
             });
             return (request.then(handleSuccess, handleError));
         }
