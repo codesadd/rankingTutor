@@ -1,70 +1,93 @@
-<div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
-    <div flex flex-xs="50">
-        <div class="medium-7 large-6 columns">
-            <h1>อันดับโรงเรียนกวดวิชา</h1>
-            <p class="subheader">There is beauty in space, and it is orderly. There is no weather, and there is regularity. It is predictable. Everything in space obeys the laws of physics. If you know these laws, and obey them, space will treat you kindly.</p>
-        </div>
-    </div>
-    <div flex="25" hide-sm hide-xs>
-
-        <p><img src="http://placehold.it/400x370&text=Pegasi B" width="50%" alt="image of a planet called Pegasi B"></p>
-
-    </div>
-    <div flex="30" flex-xs="50">
-        <form ng-cloak>
-            <div md-whiteframe="2">
-                <md-content>
-                    <div layout="column" layout-padding ng-cloak>
-                        <md class="md-no-momentum">
-                            <md-input-container class="md-block">
-                                <input ng-model="finding.course" type="text" placeholder="ค้นหาวิชาที่ต้องการ">
-                            </md-input-container>
-                            <md-input-container class="md-block">
-                                <input ng-model="finding.school" type="text" placeholder="ระบุชื่อสถาบัน">
-                            </md-input-container>
-                            <HR>
-                            <BR>
-                            <md-container layout="row" layout-align="center">
-                                <md-button class="md-raised" ng-click="signIn(finding)">Search Now</md-button>
-                            </md-container>
-                        </md>
-                    </div>
-                </md-content>
-            </div>
-        </form>
-    </div>
+<div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin" style="padding-top:30px">
+    <md-input-container class="md-block" flex-gt-sm>
+        <label>วิชาที่สนใจ</label>
+        <input ng-model="search.course">
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+        <label>ช่วงเวลา</label>
+        <md-select ng-model="search.location">
+            <md-option value="morning">เช้า 9.00 - 12.00 น.</md-option>
+            <md-option value="sunny">บ่าย 13.00 - 16.00 น.</md-option>
+            <md-option value="evening">เย็น 18.00 - 20.00 น.</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container class="md-block" flex-gt-sm>
+        <label>จังหวัด</label>
+        <md-select ng-model="search.location">
+            <md-option value="prachinburi">ปราจีนบุรี</md-option>
+        </md-select>
+    </md-input-container>
+    <md-input-container class="md-block">
+        <md-button class="md-raised md-primary">ค้นหา</md-button>
+    </md-input-container>
 </div>
-
-<div layout="row" layout-xs="column" layout-margin class="screen-margin">
+<div layout="row" layout-xs="column" class="screen-margin">
     <div flex>
-        <HR>
+        <HR class="hr">
     </div>
 </div>
-
-<div layout="row" layout-xs="column" layout-margin class="screen-margin">
-    <div flex>
-        <p class="lead">new Tuturial School</p>
+<div layout="row" layout-xs="column" class="screen-margin">
+    <div flex layout-margin>
+        <p class="md-display-1">Hot! Tutorial School</p>
     </div>
 </div>
-<div layout="row" layout-xs="column" layout-align="space-between center" class="screen-margin" layout-wrap layout-margin>
-    <div flex ng-repeat="it in ul.schools">
+<div layout="row" layout-xs="column" layout-align="space-between center" class="screen-margin" layout-wrap>
+    <div flex ng-repeat="it in ul.schools | limitTo : 4">
         <md-card md-theme-watch>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-title">{{ it.schoolName }}</span>
-                    <span class="md-subhead">{{ it.createTime }}</span>
+                    <span class="md-title">{{ it.value.schoolName }}</span>
+                    <span class="md-subhead">{{ it.value.createTime }}</span>
                 </md-card-title-text>
                 <md-card-title-media>
                     <div class="md-media-sm card-media"></div>
                 </md-card-title-media>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-disabled="true">{{it.like + 0}} like</md-button>
-                <md-button ng-disabled="true">{{it.view + 0}} view</md-button>
-                <md-button ng-click="ul.goToSchoolPage(it.$id)">info</md-button>
+                <md-button ng-disabled="true">{{it.value.like + 0}} like
+                </md-button>
+                <md-button ng-disabled="true">{{it.value.view + 0}} view
+                </md-button>
+                <md-button ng-click="ul.goToSchoolPage(it.id)">info</md-button>
             </md-card-actions>
-            
         </md-card>
     </div>
-
 </div>
+<div layout="row" layout-xs="column" class="screen-margin">
+    <div flex>
+        <HR class="hr">
+    </div>
+</div>
+<div layout="row" layout-xs="column" class="screen-margin">
+    <div flex layout-margin>
+        <p class="md-display-1">Hot! Tutor</p>
+    </div>
+</div>
+<div layout="row" layout-xs="column" layout-align="space-between center" class="screen-margin" layout-wrap>
+    <div flex ng-repeat="it in ul.schools | limitTo : 4">
+        <md-card md-theme-watch>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-title">{{ it.value.schoolName }}</span>
+                    <span class="md-subhead">{{ it.value.createTime }}</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-sm card-media"></div>
+                </md-card-title-media>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-disabled="true">{{it.value.like + 0}} like
+                </md-button>
+                <md-button ng-disabled="true">{{it.value.view + 0}} view
+                </md-button>
+                <md-button ng-click="ul.goToSchoolPage(it.id)">info</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>
+<div layout="row" layout-xs="column" class="screen-margin">
+    <div flex>
+        <HR class="hr">
+    </div>
+</div>
+

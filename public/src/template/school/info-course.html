@@ -4,13 +4,13 @@
         <md-card>
             <md-content layout-align="center">
                 <div layout="row" layout-align="center center">
-                    <img ng-src="{{ ul.schoolSelected.info.photoURL }}" class="avatar-profile" alt="Profile Picture">
+                    <img ng-src="{{ ul.schoolSelected[0].value.photoURL }}" class="avatar-profile" alt="Profile Picture">
                 </div>
                 <md-card-title>
                     <md-card-title-text layout-align="center center">
-                        <span class="md-title">{{ ul.schoolSelected.schoolName }}</span>
+                        <span class="md-title">{{ ul.schoolSelected[0].value.schoolName }}</span>
                         <span class="md-caption">by</span>
-                        <span class="md-body-1">{{ ul.schoolSelected.info.displayName }}</span>
+                        <span class="md-body-1">{{ ul.schoolSelected[0].value.displayName }}</span>
                     </md-card-title-text>
                 </md-card-title>
 
@@ -20,13 +20,8 @@
             <md-card-content>
                 <span class="md-subhead">Biography</span>
                 -
-                <span class="md-body-1">{{ul.schoolSelected.biography}}</span>
+                <span class="md-body-1">{{ul.schoolSelected[0].value.biography}}</span>
             </md-card-content>
-        </md-card>
-        <md-card md-theme-watch>
-            <md-button aria-label="like">
-                <md-icon md-svg-icon="./assets/svg/ic_thumb_up_48px.svg" style="fill:#2196F3"></md-icon>
-            </md-button>
         </md-card>
     </div>
     <div flex>
@@ -43,25 +38,22 @@
         <div layout="row" layout-xs="column" layout-wrap>
             <div flex>
                 <md-card md-theme-watch>
-                    <md-button aria-label="like" ng-disabled="true">{{ul.schoolSelected.like}}
-                        Like</md-button>
-                </md-card>
-            </div>
-            <div flex>
-                <md-card md-theme-watch>
-                    <md-button aria-label="view" ng-disabled="true">{{ul.schoolSelected.view}}
+                    <md-button aria-label="view" ng-disabled="true">{{ul.schoolSelected[0].value.view}}
                         view</md-button>
                 </md-card>
             </div>
             <div flex>
                 <md-card md-theme-watch>
-                    <md-button aria-label="countRegister" ng-disabled="true">{{ul.lengthRegister}}
+                    <md-button aria-label="countRegister" ng-disabled="true">{{ul.course[0].std_length}}
                         Registered</md-button>
                 </md-card>
             </div>
         </div>
-        <md-card md-theme-watch>
-            <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.register()">{{labalRegister}}</md-button>
+        <md-card md-theme-watch ng-show="checkStd">
+            <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.registerStd()">{{labalRegister}}</md-button>
+        </md-card>
+        <md-card md-theme-watch ng-show="checkTutor">
+            <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.registerTutor()">{{labalRegister}}สอน</md-button>
         </md-card>
     </div>
 </div>
@@ -71,13 +63,13 @@
         <div class="md-whiteframe-1dp">
             <md-content flex layout-padding>
                 <h1 class="md-display-3">Course -
-                    {{ul.course.name}}</h1>
+                    {{ul.course[0].value.name}}</h1>
                 <h2 class="md-display-1">by ครู โบ๊ทท</h2>
                 <h3 class="md-headline">เริ่มเรียน
-                    {{ul.course.dateTime}}</h3>
+                    {{ul.course[0].value.dateTime}}</h3>
                 <h3 class="md-title">เวลาสอน
-                    {{ul.course.eventTime}}</h3>
-                <p>{{ ul.course.details }}</p>
+                    {{ul.course[0].value.eventTime}}</h3>
+                <p>{{ ul.course[0].value.details }}</p>
             </div>
         </div>
     </div>

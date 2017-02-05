@@ -14,59 +14,272 @@
         var self = this;
         // Promise-based API
         return {
-            // service for profil school controller ----------
-            loadSchool: function(uid) {
-                return $q.when($firebaseObject(firebase.database().ref('schools').child(uid)));
-            },
-            updateSchoolInfo: function(param, id) {
-                firebase.database().ref('schools').child(id).update(param);
-            },
-            // this service for info school controller --------------
-            loadInfoSchool: function(uid) {
-                return $q.when($firebaseObject(firebase.database().ref('schools').child(uid)));
-            },
-            loadAllCourse: function(uid) {
-                return $q.when($firebaseArray(firebase.database().ref('schools/' + uid).child('courses')));
-            },
-            updateLikeSchool: function(param, id) {
-                console.log(param, id);
-                firebase.database().ref('schools').child(id).update(param);
-            },
-            updateViewSchool: function(param, id) {
-                firebase.database().ref('schools').child(id).update(param);
-            },
-            // this service for info course controller ---------
-            loadInfoCourse: function(schoolId, courseId) {
-                return $q.when($firebaseObject(firebase.database().ref('schools/' + schoolId + '/courses').child(courseId)));
-            },
-            registerStd: function(schoolId, courseId, studentId) {
-                firebase.database().ref('schools/' + schoolId.$id + '/courses/' + courseId.$id + '/students').child(studentId.uid).set({
-                    id: studentId.uid
-                })
-            },
-            checkRegister: function(schoolId, courseId) {
-                return $q.when($firebaseArray(firebase.database().ref('schools/' + schoolId + '/courses/' + courseId).child('students')))
-            },
-            // -----------
-            loadAllUsers: function() {
-                return $q.when($firebaseArray(firebase.database().ref().child('demo')));
-            },
-            loadAllSchools: function() {
-                return $q.when($firebaseArray(firebase.database().ref().child('schools')));
-            },
-            pushData: function(param) {
-                firebase.database().ref('demo').push(param);
-                //self.users.$add(param);
-            },
-            removeData: function(param, id) {
-                firebase.database().ref('demo').child(id).remove();
-                //self.users.$remove(param);
-            },
-            updateData: function(param, id) {
-                console.log(param, id);
-                firebase.database().ref('demo').child(id).set(param);
-            }
+            createCourse: createCourse,
+            updateSchoolInfo: updateSchoolInfo,
+            loadInfoSchool: loadInfoSchool,
+            loadAllCourse: loadAllCourse,
+            loadAllSchools: loadAllSchools,
+            registerStd: registerStd,
+            registerTutor: registerTutor,
+            checkRegisterStudent: checkRegisterStudent,
+            checkRegisterTutor: checkRegisterTutor,
+            getStudent: getStudent,
+            getTutor: getTutor,
+            loadInfoCourse: loadInfoCourse,
+            getDashboardSchool: getDashboardSchool,
+            deleteCourse: deleteCourse,
+            acceptStudent: acceptStudent,
+            acceptTutor: acceptTutor,
+            submitPoll: submitPoll,
+            getDashboardAdmin: getDashboardAdmin
         };
+
+
+        // ------- Http
+         function getDashboardAdmin() {
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/get/admin",
+                headers: { 'Content-Type': 'application/json' }
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function submitPoll(pollSchool, pollTutor, pollUser, id, currentUserId) {
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/submitpoll",
+                data: {
+                    pollSchool: pollSchool,
+                    polltutor: pollTutor,
+                    pollUser: pollUser,
+                    schoolId: id.schoolId,
+                    courseId: id.courseId,
+                    currentUserId: currentUserId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function acceptStudent(schoolId, courseId, studentId) {
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/accept-student",
+                data: {
+                    schoolId: schoolId,
+                    courseId: courseId,
+                    studentId: studentId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function acceptTutor(schoolId, courseId, tutorId) {
+            console.log(schoolId, courseId, tutorId);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/accept-tutor",
+                data: {
+                    schoolId: schoolId,
+                    courseId: courseId,
+                    tutorId: tutorId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function deleteCourse(courseId, schoolId) {
+            // body...
+            console.log(courseId);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/delete/course",
+                data: {
+                    courseId: courseId,
+                    schoolId: schoolId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function getDashboardSchool(param) {
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/get/dashboard",
+                params: {
+                    uid: param
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function loadInfoCourse(schoolId, courseId) {
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/coures/" + schoolId + "/" + courseId
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function checkRegisterStudent(schoolId, courseId, studentId) {
+            //console.log(schoolId, courseId, studentId);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/check-register-student",
+                data: {
+                    schoolId: schoolId,
+                    courseId: courseId,
+                    studentId: studentId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function registerStd(school, course, student) {
+            // body...
+            //console.log(school[0].id, course.$id, student);
+            var params = {
+                    schoolId: school[0].id,
+                    courseId: course[0].courseId,
+                    student: student
+                }
+                //console.log(params);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/register-student",
+                data: params,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+         function checkRegisterTutor(schoolId, courseId, tutorId) {
+            //console.log(schoolId, courseId, studentId);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/check-register-tutor",
+                data: {
+                    schoolId: schoolId,
+                    courseId: courseId,
+                    tutorId: tutorId
+                },
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function registerTutor(school, course, tutor) {
+            // body...
+            //console.log(school[0].id, course.$id, student);
+            var params = {
+                    schoolId: school[0].id,
+                    courseId: course[0].courseId,
+                    tutor: tutor
+                }
+                //console.log(params);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/register-tutor",
+                data: params,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError))
+        }
+
+        function createCourse(value, uid) {
+            //console.log(params, uid);
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/create_course",
+                data: {
+                    params: value,
+                    uid: uid
+                }
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function updateSchoolInfo(params, uid) {
+
+            var request = $http({
+                method: "post",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/updateschool/" + uid,
+                data: params,
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function loadAllCourse(uid) {
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/allcoures/" + uid
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function loadAllSchools() {
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/schools"
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function loadInfoSchool(uid) {
+            //console.log(uid);
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/infoschool/" + uid
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getStudent(uid) {
+            //console.log(uid);
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/student/" + uid
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function getTutor(uid) {
+            //console.log(uid);
+            var request = $http({
+                method: "get",
+                url: "https://morning-brushlands-60119.herokuapp.com/api/v1/tutor/" + uid
+            });
+            return (request.then(handleSuccess, handleError));
+        }
+
+        function handleError(response) {
+            if (!angular.isObject(response.data) ||
+                !response.data.message
+            ) {
+                return ($q.reject("An unknown error occurred."));
+            }
+            return ($q.reject(response.data.message));
+        }
+
+        function handleSuccess(response) {
+            return (response.data);
+        }
     }
 
 })();

@@ -15,7 +15,6 @@
         $scope.currentPage = 1
         $scope.pageSize = 5
 
-        getInfoChart()
         getSchool(localStorageService.get("schoolSelectId"))
         getInfoCourse(localStorageService.get("schoolSelectId"))
 
@@ -24,17 +23,33 @@
                 .loadInfoSchool(id)
                 .then(function(school) {
                     self.schoolSelected = school
-                    updateView(param = {
-                        view: self.schoolSelected.view + 1
-                    })
                 })
         }
 
         function getInfoCourse(id) {
             dataService
                 .loadAllCourse(id)
-                .then(function(courses) {
-                    self.courses = courses
+                .then(function(snp) {
+                    getInfoChart(snp.resultPoll[0])
+                    self.courses = []
+                    var keys = Object.keys(snp.courses)
+                    keys.sort()
+                    keys.forEach(function(item) {
+                        if (snp.courses[item].value.students == undefined) {
+                            var item = {
+                                courseId: snp.courses[item].id,
+                                std_length: 0,
+                                value: snp.courses[item].value
+                            }
+                        } else {
+                            var item = {
+                                courseId: snp.courses[item].id,
+                                std_length: Object.keys(snp.courses[item].value.students).length,
+                                value: snp.courses[item].value
+                            }
+                        }
+                        self.courses.push(item)
+                    })
                 })
         }
 
@@ -43,16 +58,44 @@
         }
 
         function updateLike() {
-            console.log(self.schoolSelected.like);
-            param = {like: self.schoolSelected.like + 1}
+            console.log(self.schoolSelected[0].value.like);
             dataService.updateLikeSchool(param, localStorageService.get("schoolSelectId"))
         }
 
-        function getInfoChart() {
-            self.labels = ["Eating", "Location", "document", "Designing", "Coding", "Cycling", "test"]
+        function getInfoChart(poll) {
+            r1 = parseInt((poll.p1 / (5 * poll.n)) * 100)
+            r2 = parseInt((poll.p2 / (5 * poll.n)) * 100)
+            r3 = parseInt((poll.p3 / (5 * poll.n)) * 100)
+            r4 = parseInt((poll.p4 / (5 * poll.n)) * 100)
+            r5 = parseInt((poll.p5 / (5 * poll.n)) * 100)
+            r6 = parseInt((poll.p6 / (5 * poll.n)) * 100)
+
+            self.labels = ["สถานที่เหมาะสม", "สิ่งอำนวยความสะดวก", "การจัดการเวลา", "ความสะอาด", "เอกสาร", "อาหาร"];
+
             self.data = [
-                [65, 59, 90, 81, 56, 55, 77]
-            ]
+                [r1, r2, r3, r4, r5, r6]
+            ];
+            self.options = {
+                title: {
+                    display: true,
+                    text: 'Status',
+                    fontSize: 18
+                },
+                legend: {
+                    display: false,
+                    fontSize: 18
+                },
+                scale: {
+                    reverse: false,
+                    ticks: {
+                        beginAtZero: 100
+                    }
+                },
+                tooltips: {
+                    enabled: true,
+                    titleFontSize: 16
+                }
+            }
         }
 
         function goingToCoursePage(id) {
