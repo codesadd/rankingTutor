@@ -22,8 +22,12 @@
                     console.log("Hello Admin")
                     localStorageService.set("checkAdmin", text)
                     $mdDialog.hide()
-                    location.reload();
-                    $location.path('/admin');
+                    setTimeout(function() {
+                        location.reload();
+                        setTimeout(function() {
+                            $location.path('/admin');
+                        }, 1000)
+                    }, 1000)
                 } else {
                     auth.$signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
                         checkLoginFromDb(firebaseUser)
