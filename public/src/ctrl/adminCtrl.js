@@ -70,11 +70,12 @@
             } else {
                 $scope.labels = [];
                 $scope.data = [];
-                var count = 0
+
                 var t1, t2, t3, t4, t5, t6
                 t1 = t2 = t3 = t4 = t5 = t6 = 0
-                //console.log(item);
-                Object.keys(item).forEach(function(course) {                                                                                                                                                                                                                                                                                                                                                                                                                            console.log(item[course].dataPoll);
+                console.log(item);
+                Object.keys(item).forEach(function(course) {
+                  var count = 0
                     Object.keys(item[course].dataPoll).forEach(function(id) {
                         count++
                         if (count == 1) {
@@ -105,6 +106,7 @@
                 self.data = [
                     [r1, r2, r3, r4, r5, r6]
                 ];
+                console.log(self.data);
                 self.series = [textTitle];
                 self.options = {
                     legend: {

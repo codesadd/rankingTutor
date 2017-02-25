@@ -110,6 +110,7 @@
                             })
                             setTimeout(function() {
                                 SweetAlert.swal("ส่งข้อมูลเรียบร้อยแล้ว!", "This data has been deleted.", "success")
+                                location.reload()
                                 $location.path('/dashboard-user')
                             }, 1000)
 
