@@ -1,39 +1,11 @@
-<!-- <div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin" style="padding-top:30px">
-    <md-input-container class="md-block" flex-gt-sm>
-        <label>วิชาที่สนใจ</label>
-        <input ng-model="search.course">
-    </md-input-container>
-    <md-input-container class="md-block" flex-gt-sm>
-        <label>ช่วงเวลา</label>
-        <md-select ng-model="search.location">
-            <md-option value="morning">เช้า 9.00 - 12.00 น.</md-option>
-            <md-option value="sunny">บ่าย 13.00 - 16.00 น.</md-option>
-            <md-option value="evening">เย็น 18.00 - 20.00 น.</md-option>
-        </md-select>
-    </md-input-container>
-    <md-input-container class="md-block" flex-gt-sm>
-        <label>จังหวัด</label>
-        <md-select ng-model="search.location">
-            <md-option value="prachinburi">ปราจีนบุรี</md-option>
-        </md-select>
-    </md-input-container>
-    <md-input-container class="md-block">
-        <md-button class="md-raised md-primary">ค้นหา</md-button>
-    </md-input-container>
-</div>
-<div layout="row" layout-xs="column" class="screen-margin">
-    <div flex>
-        <HR class="hr">
-    </div>
-</div> -->
 <div layout="row" layout-xs="column" class="screen-margin">
     <div flex layout-margin>
-        <p class="md-display-1">Hot! Tutorial School</p>
+        <p class="md-headline">อันดับโรงเรียนกวดวิชา</p>
     </div>
 </div>
-<div layout="row" layout-xs="column" layout-align="space-between center" class="screen-margin" layout-wrap>
-    <div flex ng-repeat="it in ul.schools | limitTo : 4">
-        <md-card md-theme-watch>
+<div layout="row" layout-align="space-between center" class="screen-margin" layout-wrap>
+    <div flex-xs flex-gt-xs="100" layout="column" ng-repeat="it in ul.schools | orderBy:'-persent'">
+        <md-card>
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-title">{{ it.value.schoolName }}</span>
@@ -44,46 +16,53 @@
                 </md-card-title-media>
             </md-card-title>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-disabled="true">{{it.value.like + 0}} like
-                </md-button>
                 <md-button ng-disabled="true">{{it.value.view + 0}} view
                 </md-button>
                 <md-button ng-click="ul.goToSchoolPage(it.id)">info</md-button>
             </md-card-actions>
         </md-card>
     </div>
-</div>
-<div layout="row" layout-xs="column" class="screen-margin">
-    <div flex>
-        <HR class="hr">
-    </div>
-</div>
-<div layout="row" layout-xs="column" class="screen-margin">
-    <div flex layout-margin>
-        <p class="md-display-1">Hot! Tutor</p>
-    </div>
-</div>
-<div layout="row" layout-xs="column" layout-align="space-between center" class="screen-margin" layout-wrap>
-    <div flex ng-repeat="it in ul.schools | limitTo : 4">
-        <md-card md-theme-watch>
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-title">{{ it.value.schoolName }}</span>
-                    <span class="md-subhead">{{ it.value.createTime }}</span>
-                </md-card-title-text>
-                <md-card-title-media>
-                    <div class="md-media-sm card-media"></div>
-                </md-card-title-media>
-            </md-card-title>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-disabled="true">{{it.value.like + 0}} like
-                </md-button>
-                <md-button ng-disabled="true">{{it.value.view + 0}} view
-                </md-button>
-                <md-button ng-click="ul.goToSchoolPage(it.id)">info</md-button>
-            </md-card-actions>
+    <div flex="100" hide-xs>
+        <md-card>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column>
+                                <span>อันดับ</span>
+                            </th>
+                            <th md-column>
+                                <span>ชื่อ</span>
+                            </th>
+                            <th md-column md-numeric>Ranking</th>
+                            <th md-column md-numeric>เบอร์โทรศัพท์</th>
+                            <th md-column md-numeric hide-gt-xs>อีเมล</th>
+                            <th md-column md-numeric>ตัวเลือก</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="it in ul.schools | limitTo : 4 | orderBy:'-persent'">
+                            <td md-cell>{{ $index+1 }}</td>
+                            <td md-cell>{{ it.value.schoolName }}</td>
+                            <td md-cell> {{ it.persent }}% จากนักเรียน {{ it.countPollByStd}} คน</td>
+                            <td md-cell>{{it.value.tel}}</td>
+                            <td md-cell hide-gt-xs>{{it.value.email}}</td>
+                            <td md-cell>
+                                <md-button class="md-fab md-mini md-primary" aria-label="Eat cake" ng-click="ul.goToSchoolPage(it.id)">
+                                    <md-icon md-svg-icon="info"></md-icon>
+                                    <md-tooltip md-delay="500">
+                                        รายละเอียด
+                                    </md-tooltip>
+                                </md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <!-- <md-table-pagination ng-hide="countAccTutor.length == 0" md-limit="query.limit" md-page="query.page" md-total="{{i.tutors.length}}" md-page-select></md-table-pagination> -->
         </md-card>
     </div>
+
 </div>
 <div layout="row" layout-xs="column" class="screen-margin">
     <div flex>

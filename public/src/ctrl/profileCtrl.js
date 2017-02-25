@@ -3,12 +3,13 @@
     angular
         .module('funfun')
         .controller('ProfileCtrl', [
-            '$scope', 'localStorageService', '$firebaseAuth', '$location', '$firebaseObject','ChartJs',
+            '$scope', 'localStorageService', '$firebaseAuth', '$location', '$firebaseObject', 'SweetAlert',
             ProfileCtrl
         ]);
 
 
-    function ProfileCtrl($scope, localStorageService, $firebaseAuth, $location, $firebaseObject, ChartJs) {
+    function ProfileCtrl($scope, localStorageService, $firebaseAuth, $location, $firebaseObject, SweetAlert) {
+        $scope.edit = true
         AuthenticationControl();
 
         function AuthenticationControl() {
@@ -22,11 +23,25 @@
             });
         }
 
-        $scope.labels = ["Eating", "Location", "document", "Designing", "Coding", "Cycling","test"];
+        $scope.updateProfileStd = function(user) {
+            var param = {
+                address: user.address,
+                city: user.city,
+                state: user.state,
+                postalCode: user.postalCode
+            }
+            firebase.database().ref('users').child(user.$id).update(param, function(error) {
+                // body...
+                if (error) {
+                    console.log("Data could not be saved." + error);
+                } else {
+                    SweetAlert.swal("อัพเดทข้อมูลเรียบร้อยแล้ว!", "This data has been updated.", "success")
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1000)
 
-        $scope.data = [
-            [65, 59, 90, 81, 56, 55,77]
-        ];
-
+                }
+            })
+        }
     }
 })();

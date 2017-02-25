@@ -1,6 +1,5 @@
 <div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
     <div flex>
-
         <md-card>
             <md-content layout-align="center">
                 <div layout="row" layout-align="center center">
@@ -16,10 +15,11 @@
 
             </md-content>
         </md-card>
+      </div>
+      <div flex>
         <md-card md-theme-watch>
             <md-card-content>
-                <span class="md-subhead">Biography</span>
-                -
+                <span class="md-subhead">Biography</span> -
                 <span class="md-body-1">{{ul.schoolSelected[0].value.biography}}</span>
             </md-card-content>
         </md-card>
@@ -68,14 +68,14 @@
     <div flex>
         <div class="md-whiteframe-1dp">
             <md-content flex layout-padding>
-                <h1 class="md-display-3">Course -
+                <h1 class="md-display-1">
                     {{ul.course[0].value.name}}</h1>
-                <h2 class="md-display-1">by ครู โบ๊ทท</h2>
                 <h3 class="md-headline">เริ่มเรียน
                     {{ul.course[0].value.dateTime}}</h3>
                 <h3 class="md-title">เวลาสอน
                     {{ul.course[0].value.eventTime}}</h3>
                 <p>{{ ul.course[0].value.details }}</p>
-            </div>
+            </md-content>
         </div>
     </div>
+</div>

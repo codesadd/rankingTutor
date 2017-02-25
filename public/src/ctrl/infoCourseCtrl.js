@@ -2,22 +2,23 @@
     angular
         .module('funfun')
         .controller('infoCourseCtrl', [
-            'dataService', '$location', 'localStorageService', '$scope', '$firebaseAuth',
+            'dataService', '$location', 'localStorageService', '$scope', '$firebaseAuth','SweetAlert',
             infoCourseCtrl
         ])
 
-    function infoCourseCtrl(dataService, $location, localStorageService, $scope, $firebaseAuth) {
+    function infoCourseCtrl(dataService, $location, localStorageService, $scope, $firebaseAuth,SweetAlert) {
         var self = this
         self.schoolSelected = []
         self.course = []
         self.currentUser = []
         self.disbleRegister
         self.lengthRegister = []
+        self.schoolSelectId = localStorageService.get("schoolSelectId")
+        self.courseSelectId = localStorageService.get("courseSelectId")
         self.registerStd = registerStd
         self.registerTutor = registerTutor
         $scope.checkStd = false
         $scope.checkTutor = false
-        getInfoChart()
 
         $firebaseAuth().$onAuthStateChanged(function(user) {
             self.currentUser = user
@@ -25,13 +26,13 @@
             if (user != null && localStorageService.get("status") == "tutor") {
                 getInfoThisCourse()
                 getSchool()
-                checkRegisterTutor(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                checkRegisterTutor(self.schoolSelectId, self.courseSelectId, self.currentUser.uid)
                 $scope.checkTutor = true
                     // checkLengthStudent()
             } else if (user != null && localStorageService.get("status") == "student") {
                 getInfoThisCourse()
                 getSchool()
-                checkRegisterStudent(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                checkRegisterStudent(self.schoolSelectId, self.courseSelectId, self.currentUser.uid)
                 $scope.checkStd = true
                     // checkLengthStudent()
             } else {
@@ -62,7 +63,7 @@
         }
 
         function checkLengthStudent() {
-            dataService.checkRegister(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId")).then(function(snp) {
+            dataService.checkRegister(self.schoolSelectId, self.courseSelectId).then(function(snp) {
                 self.lengthRegister = snp.length
             })
         }
@@ -70,7 +71,8 @@
         function registerStd() {
             dataService.registerStd(self.schoolSelected, self.course, self.currentUser).then(function(snp) {
                 if (snp != "") {
-                    checkRegisterStudent(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                  SweetAlert.swal("สมัครเรียนเรียบร้อยแล้ว!", "รอการยืนยันจากโรงเรียนกวดวิชา", "success")
+                    checkRegisterStudent(self.schoolSelectId, self.courseSelectId, self.currentUser.uid)
                 }
             })
         }
@@ -78,13 +80,13 @@
         function registerTutor() {
             dataService.registerTutor(self.schoolSelected, self.course, self.currentUser).then(function(snp) {
                 if (snp != "") {
-                    checkRegisterTutor(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId"), self.currentUser.uid)
+                    checkRegisterTutor(self.schoolSelectId, self.courseSelectId, self.currentUser.uid)
                 }
             })
         }
 
         function getInfoThisCourse() {
-            dataService.loadInfoCourse(localStorageService.get("schoolSelectId"), localStorageService.get("courseSelectId")).then(function(snp) {
+            dataService.loadInfoCourse(self.schoolSelectId, self.courseSelectId).then(function(snp) {
                 self.course = []
                 var keys = Object.keys(snp)
                 keys.sort()
@@ -111,16 +113,10 @@
         }
 
         function getSchool() {
-            dataService.loadInfoSchool(localStorageService.get("schoolSelectId")).then(function(school) {
+            dataService.loadInfoSchool(self.schoolSelectId).then(function(school) {
                 self.schoolSelected = school
             })
         }
 
-        function getInfoChart() {
-            self.labels = ["Eating", "Location", "document", "Designing", "Coding", "Cycling", "test"]
-            self.data = [
-                [65, 59, 90, 81, 56, 55, 77]
-            ]
-        }
     }
 })()

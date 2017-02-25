@@ -29,10 +29,7 @@
                                             <div ng-message="required">กรอกพาสเวิร์ด.</div>
                                         </div>
                                     </md-input-container>
-                                    <section layout="row" layout-sm="column" layout-align="space-between start" layout-wrap>
-                                        <a href="#" class="md-body-1">ลืมรหัสผ่าน</a>
-                                        <a ng-click="goToRegisterPage()" href="#/register" class="md-body-1">ลงทะเบียน</a>
-                                    </section>
+
                                     <md-container layout="row" layout-align="center center">
                                         <md-button class="md-raised" ng-click="signIn('email',user)" ng-disabled="signinForm.$invalid">Signin</md-button>
                                     </md-container>
@@ -52,6 +49,9 @@
                             </div>
 
                         </div>
+                        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap layout-padding>
+                            <a ng-click="goToRegisterPage()" href="#/register" class="md-body-1">ลงทะเบียน</a>
+                        </section>
                     </md-content>
 
                 </div>

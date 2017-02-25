@@ -31,7 +31,7 @@
                 .loadAllCourse(id)
                 .then(function(snp) {
                   console.log(snp);
-                    //getInfoChart(snp.resultPoll[0])
+                    getInfoChart(snp.resultPoll[0])
                     self.courses = []
                     var keys = Object.keys(snp.courses)
                     keys.sort()
@@ -79,12 +79,8 @@
             self.options = {
                 title: {
                     display: true,
-                    text: 'Status',
-                    fontSize: 18
-                },
-                legend: {
-                    display: false,
-                    fontSize: 18
+                    text: 'คะแนน',
+                    fontSize: 16
                 },
                 scale: {
                     reverse: false,
@@ -94,7 +90,7 @@
                 },
                 tooltips: {
                     enabled: true,
-                    titleFontSize: 16
+                    titleFontSize: 14
                 }
             }
         }

@@ -12,6 +12,7 @@
         self.course = []
         self.user = []
         self.id = null
+        self.tutorId = null
         self.sendPoll = sendPoll
         self.pollTutor = [{
             title: '1.ความรู้',
@@ -69,12 +70,12 @@
                 self.id = localStorageService.get("pol")
                 console.log(self.id)
                 dataService.loadInfoCourse(self.id.schoolId, self.id.courseId).then(function(snp) {
-                    console.log(snp)
                     self.course = snp
+                    self.tutorId = getTutorId()
                 })
                 dataService.loadInfoSchool(self.id.schoolId).then(function(snp) {
                     self.school = snp
-                    console.log(snp);
+                    // console.log(snp);
                 })
             }
         })
@@ -104,7 +105,7 @@
                                 timer: 2000,
                                 showConfirmButton: false
                             })
-                            dataService.submitPoll(pollSchool, pollTutor, pollUser, self.id, self.currentUser.uid).then(function(snp) {
+                            dataService.submitPoll(pollSchool, pollTutor, pollUser, self.id, self.tutorId, self.currentUser.uid).then(function(snp) {
                                 console.log(snp);
                             })
                             setTimeout(function() {
@@ -119,7 +120,22 @@
             }
         }
 
+        function getTutorId() {
+            var returnItem = null
+            if (self.course[0].value.tutors == undefined) {
+                SweetAlert.swal("ไม่มีข้อมูลติวเตอร์", "undefined tutor!", "error")
+                $location.path('/dashboard-user')
+            } else {
+                var keyTutor = Object.keys(self.course[0].value.tutors)
+                keyTutor.forEach(function(key) {
+                    returnItem = self.course[0].value.tutors[key].data.uid;
+                })
+                return returnItem
+            }
+        }
+
         function checkPoll(pollTutor, pollSchool, pollUser) {
+
             var pollTutorCheckItem = []
             var pollSchoolCheckItem = []
             var pollUserCheckItem = []

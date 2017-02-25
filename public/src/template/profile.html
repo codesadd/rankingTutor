@@ -1,8 +1,8 @@
 <div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
-    <div flex>
+    <div flex-xs flex-gt-xs="40">
         <md-card>
-            <md-content layout-align="center">
-                <div>
+            <md-content>
+                <div layout-align="center center" layout="row">
                     <img ng-src="{{ user.photoURL }}" class="avatar-profile" alt="Profile Picture">
                 </div>
                 <md-card-title>
@@ -11,30 +11,24 @@
                     </md-card-title-text>
                 </md-card-title>
                 <md-card-content>
-                    <span class="md-subhead">Biography</span>
-                    <p>
-                        ประวัติส่วนตัว
-                    </p>
-                    <HR>
-                    <div layout="row" layout-align="space-around center" layout-padding="1">
-                        <div>
-                            250 LIKE
-                        </div>
-                        <div>
-                            999 VIEWS
-                        </div>
-                    </div>
+                    <span class="md-subhead">status : {{ user.status }}</span>
                 </md-card-content>
             </md-content>
         </md-card>
     </div>
-    <div flex="70">
+    <div flex-xs flex-gt-xs="60">
         <md-card>
             <md-content layout-padding>
                 <md-card-title>
                     <md-card-title-text>
-                        <span class="md-headline">Edit Profile</span>
+                        <span class="md-headline">ข้อมูลส่วนตัว</span>
                     </md-card-title-text>
+                    <md-button aria-label="photo" class="md-icon-button" ng-click="edit=false">
+                        <i class="material-icons">settings</i>
+                        <md-tooltip md-delay="100">
+                            แก้ไขข้อมูลส่วนตัว
+                        </md-tooltip>
+                    </md-button>
                 </md-card-title>
                 <div>
                     <form name="userForm">
@@ -47,27 +41,34 @@
                                 <label>อีเมล</label>
                                 <input ng-model="user.email" disabled>
                             </md-input-container>
-                            <md-input-container>
-                                <label>วันเกิด</label>
-                                <md-datepicker ng-model="user.submissionDate"></md-datepicker>
+                        </div>
+                        <div layout-gt-xs="row">
+                            <md-input-container class="md-block" flex-gt-sm>
+                                <label>Phone Number</label>
+                                <input name="phone" ng-model="user.tel" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/" ng-disabled="edit" />
+                                <div class="hint" ng-show="showHints">###-###-####</div>
+                                <div ng-messages="userForm.tel.$error" ng-hide="showHints">
+                                    <div ng-message="pattern">###-###-#### - Please enter a valid phone number.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="md-block" flex-gt-xs>
+                                <label>ที่อยู่</label>
+                                <input ng-model="user.address" ng-disabled="edit">
                             </md-input-container>
                         </div>
-                        <md-input-container class="md-block">
-                            <label>ที่อยู่</label>
-                            <input ng-model="user.address">
-                        </md-input-container>
+
                         <div layout-gt-sm="row">
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>อำเภอ</label>
-                                <input ng-model="user.city">
+                                <input ng-model="user.city" ng-disabled="edit">
                             </md-input-container>
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>จังหวัด</label>
-                                <input ng-model="user.state">
+                                <input ng-model="user.state" ng-disabled="edit">
                             </md-input-container>
                             <md-input-container class="md-block" flex-gt-sm>
                                 <label>รหัสไปรษณีย์</label>
-                                <input name="postalCode" ng-model="user.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+                                <input name="postalCode" ng-model="user.postalCode" placeholder="12345" required ng-pattern="/^[0-9]{5}$/" md-maxlength="5" ng-disabled="edit">
                                 <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
                                     <div ng-message="required" class="my-message">You must supply a postal code.</div>
                                     <div ng-message="pattern" class="my-message">That doesn't look like a valid postal code.
@@ -78,12 +79,9 @@
                                 </div>
                             </md-input-container>
                         </div>
-                        <md-input-container class="md-block">
-                            <label>Biography</label>
-                            <textarea ng-model="user.biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-                        </md-input-container>
-                        <div layout="row" layout-align="center">
-                            <md-button class="md-primary">UPDATE</md-button>
+                        <div layout="row" layout-align="center" ng-hide="edit">
+                            <md-button class="md-primary" ng-click="updateProfileStd(user)">อัพเดท</md-button>
+                            <md-button class="md-primary" ng-click="edit=true">ยกเลิก</md-button>
                         </div>
                     </form>
                 </div>

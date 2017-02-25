@@ -2,8 +2,7 @@
     <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
 </md-content>
 <div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
-    <div flex>
-
+    <div flex-gt-xs="50">
         <md-card>
             <md-content layout-align="center">
                 <div layout="row" layout-align="center center">
@@ -19,35 +18,35 @@
 
             </md-content>
         </md-card>
-        <md-card md-theme-watch>
+        <md-card>
             <md-card-content>
-                <span class="md-subhead">Biography</span>
-                -
+                <span class="md-subhead">Biography</span> -
                 <span class="md-body-1">{{ul.schoolSelected[0].value.biography}}</span>
             </md-card-content>
         </md-card>
     </div>
-    <!-- <div flex>
-        <md-card>
-            <md-content layout-padding>
+    <div flex-gt-xs="50">
+        <md-card layout-padding>
+
                 <canvas id="radar" class="chart chart-radar" chart-data="ul.data" chart-options="ul.options" chart-labels="ul.labels"></canvas>
-            </md-content>
+
         </md-card>
         <div layout="row" layout-xs="column" layout-wrap>
             <div flex>
                 <md-card md-theme-watch>
-                    <md-button aria-label="like" ng-disabled="true">{{ul.schoolSelected[0].value.like}}
-                        Like</md-button>
+                    <md-button aria-label="like" ng-disabled="true">{{ul.schoolSelected[0].value.like}} Like
+                    </md-button>
                 </md-card>
             </div>
             <div flex>
                 <md-card md-theme-watch>
-                    <md-button aria-label="view" ng-disabled="true">{{ul.schoolSelected[0].value.view}}
-                        view</md-button>
+                    <md-button aria-label="view" ng-disabled="true">{{ul.schoolSelected[0].value.view}} view
+                    </md-button>
                 </md-card>
             </div>
         </div>
-    </div> -->
+    </div>
+
 </div>
 <div layout="column" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
     <md-chips></md-chips>
@@ -55,7 +54,7 @@
         <md-card md-theme-watch>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">วิชา {{ it.value.name }}</span>
+                    <span class="md-title">วิชา {{ it.value.name }}</span>
                     <!-- <span class="md-subhead">by ครูเอ๊</span> -->
                 </md-card-title-text>
                 <md-card-title-media>
@@ -67,8 +66,8 @@
                     like</md-button>
                 <md-button ng-disabled="true">{{it.value.view + 0}}
                     view</md-button> -->
-                <md-button ng-disabled="true">{{it.std_length}}
-                    registered</md-button>
+                <md-button ng-disabled="true">{{it.std_length}} registered
+                </md-button>
                 <md-button ng-click="ul.goingToCoursePage(it.courseId)">info</md-button>
             </md-card-actions>
         </md-card>

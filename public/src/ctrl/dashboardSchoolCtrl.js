@@ -54,7 +54,8 @@
                     showConfirmButton: false
                 })
                 dataService.createCourse(item, self.currentId).then(function(snp) {
-                    self.course = snp
+                    self.course = snp[0].data
+                    console.log(snp);
                 })
                 setTimeout(function() {
                     SweetAlert.swal("เพิ่มข้อมูลเรียบร้อยแล้ว!", "This data has been added.", "success")
