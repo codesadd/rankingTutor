@@ -4,7 +4,7 @@
     </div>
 </div>
 <div layout="row" layout-align="space-between center" class="screen-margin" layout-wrap>
-    <div flex-xs flex-gt-xs="100" layout="column" ng-repeat="it in ul.schools | orderBy:'-persent'">
+    <div flex="100" hide-gt-xs layout="column" ng-repeat="it in ul.schools | orderBy:'-persent'">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
@@ -22,7 +22,7 @@
             </md-card-actions>
         </md-card>
     </div>
-    <div flex="100" hide-xs>
+    <div flex-gt-xs="100" hide-xs>
         <md-card>
             <md-table-container>
                 <table md-table>
