@@ -20,7 +20,7 @@
         </md-card>
     </div>
     <div flex>
-        <md-card layout-padding>
+        <md-card layout-margin>
             <canvas id="radar" class="chart chart-radar" chart-data="ul.data" chart-options="ul.options" chart-labels="ul.labels"></canvas>
         </md-card>
         <div layout="row" layout-xs="column" layout-wrap>
@@ -35,7 +35,6 @@
 
 </div>
 <div layout="column" layout-xs="column" layout-align="center" class="screen-margin">
-    <md-chips></md-chips>
     <div flex>
         <div dir-paginate="it in ul.courses | filter:q | itemsPerPage: pageSize" current-page="currentPage">
             <md-card>
