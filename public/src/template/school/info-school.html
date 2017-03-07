@@ -1,16 +1,16 @@
 <div layout="row" layout-xs="column" layout-align="center" class="screen-margin">
     <div flex>
         <md-card>
-                <div layout="row" layout-align="center center">
-                    <img ng-src="{{ ul.schoolSelected[0].value.photoURL }}" class="avatar-profile" alt="Profile Picture">
-                </div>
-                <md-card-title>
-                    <md-card-title-text layout-align="center center">
-                        <span class="md-title">{{ ul.schoolSelected[0].value.schoolName }}</span>
-                        <span class="md-caption">by</span>
-                        <span class="md-body-1">{{ ul.schoolSelected[0].value.displayName }}</span>
-                    </md-card-title-text>
-                </md-card-title>
+            <div layout="row" layout-align="center center">
+                <img ng-src="{{ ul.schoolSelected[0].value.photoURL }}" class="avatar-profile" alt="Profile Picture">
+            </div>
+            <md-card-title>
+                <md-card-title-text layout-align="center center">
+                    <span class="md-title">{{ ul.schoolSelected[0].value.schoolName }}</span>
+                    <span class="md-caption">by</span>
+                    <span class="md-body-1">{{ ul.schoolSelected[0].value.displayName }}</span>
+                </md-card-title-text>
+            </md-card-title>
         </md-card>
         <md-card>
             <md-card-content>
@@ -36,29 +36,31 @@
 </div>
 <div layout="column" layout-xs="column" layout-align="center" class="screen-margin">
     <md-chips></md-chips>
-    <div dir-paginate="it in ul.courses | filter:q | itemsPerPage: pageSize" current-page="currentPage">
-        <md-card>
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-title">วิชา {{ it.value.name }}</span>
-                    <!-- <span class="md-subhead">by ครูเอ๊</span> -->
-                </md-card-title-text>
-                <md-card-title-media>
-                    <div class="md-media-sm card-media"></div>
-                </md-card-title-media>
-            </md-card-title>
-            <md-card-actions layout="row" layout-align="end center">
-                <!-- <md-button ng-disabled="true">{{it.value.like + 0}}
-                    like</md-button>
-                <md-button ng-disabled="true">{{it.value.view + 0}}
-                    view</md-button> -->
-                <md-button ng-disabled="true">{{it.std_length}} registered
-                </md-button>
-                <md-button ng-click="ul.goingToCoursePage(it.courseId)">info</md-button>
-            </md-card-actions>
-        </md-card>
+    <div flex>
+        <div dir-paginate="it in ul.courses | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text>
+                        <span class="md-title">วิชา {{ it.value.name }}</span>
+                        <!-- <span class="md-subhead">by ครูเอ๊</span> -->
+                    </md-card-title-text>
+                    <md-card-title-media>
+                        <div class="md-media-sm card-media"></div>
+                    </md-card-title-media>
+                </md-card-title>
+                <md-card-actions layout="row" layout-align="end center">
+                    <!-- <md-button ng-disabled="true">{{it.value.like + 0}}
+                      like</md-button>
+                  <md-button ng-disabled="true">{{it.value.view + 0}}
+                      view</md-button> -->
+                    <md-button ng-disabled="true">{{it.std_length}} registered
+                    </md-button>
+                    <md-button ng-click="ul.goingToCoursePage(it.courseId)">info</md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="src/template/pagination.html"></dir-pagination-controls>
+
     </div>
-
-    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="src/template/pagination.html"></dir-pagination-controls>
-
 </div>
