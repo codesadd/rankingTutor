@@ -1,12 +1,12 @@
 <md-content class="md-padding" layout-xs="column" layout="row" layout-align="space-around center">
     <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
 </md-content>
-<div layout="row" layout-xs="column" class="screen-margin" ng-hide="isLoading">
-    <div flex>
+<div hide-xs layout="row" class="screen-margin" ng-hide="isLoading">
+    <div flex-gt-xs="33">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">วิชาที่เปิดทั้งหมด</span>
+                    <span class="md-headline">วิชาทั้งหมด</span>
                     <span class="md-subhead">Courses</span>
                 </md-card-title-text>
                 <md-card-title-media>
@@ -28,11 +28,11 @@
             </md-card-actions>
         </md-card>
     </div>
-    <div flex>
+    <div flex-gt-xs="33">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">นักเรียนในโรงเรียน</span>
+                    <span class="md-headline">นักเรียน</span>
                     <span class="md-subhead">Students</span>
                 </md-card-title-text>
                 <md-card-title-media>
@@ -44,16 +44,15 @@
             </md-card-title>
             <HR>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button>Action 1</md-button>
-                <md-button>Action 2</md-button>
+                <md-button>เพิ่ม</md-button>
             </md-card-actions>
         </md-card>
     </div>
-    <div flex>
+    <div flex-gt-xs="33">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">ติวเตอร์ในโรงเรียน</span>
+                    <span class="md-headline">ติวเตอร์</span>
                     <span class="md-subhead">Tutors</span>
                 </md-card-title-text>
                 <md-card-title-media>
@@ -65,8 +64,57 @@
             </md-card-title>
             <HR>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button>Action 1</md-button>
-                <md-button>Action 2</md-button>
+                <md-button>เพิ่ม</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>
+<div hide-gt-xs layout="row" layout-xs="row" class="screen-margin" ng-hide="isLoading">
+    <div flex-xs="33">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text layout-align="center center">
+                    <span class="md-body-2">วิชาสอน</span>
+                    <span class="md-subhead">{{ ul.course.length }} วิชา</span>
+                </md-card-title-text>
+            </md-card-title>
+            <HR>
+            <md-card-actions layout="row" layout-align="center center">
+                <md-button ng-click="openCreateForm($event)">เพิ่มวิชา</md-button>
+                <!-- <md-button aria-label="label" class="md-icon-button">
+                    <i class="material-icons">history</i>
+                    <md-tooltip md-delay="500">
+                        ประวัติการเปิดวิชา
+                    </md-tooltip>
+                </md-button> -->
+            </md-card-actions>
+        </md-card>
+    </div>
+    <div flex-xs="33">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text layout-align="center center">
+                    <span class="md-body-2">นักเรียน</span>
+                    <span class="md-subhead">{{ ul.countStudent }} คน</span>
+                </md-card-title-text>
+            </md-card-title>
+            <HR>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>เพิ่มนักเรียน</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+    <div flex-xs="33">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text layout-align="center center">
+                    <span class="md-body-2">ติวเตอร์</span>
+                    <span class="md-subhead">{{ ul.countTutor }} คน</span>
+                </md-card-title-text>
+            </md-card-title>
+            <HR>
+            <md-card-actions layout="row" layout-align="center center">
+                <md-button>เพิ่มติวเตอร์</md-button>
             </md-card-actions>
         </md-card>
     </div>
