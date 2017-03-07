@@ -1,10 +1,6 @@
-<md-content class="md-padding" layout-xs="column" layout="row" layout-align="space-around center">
-    <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
-</md-content>
 <div layout="row" layout-xs="column" layout-align="center" class="screen-margin">
-    <div flex-gt-xs="50" flex-xs="100">
+    <div flex>
         <md-card>
-
                 <div layout="row" layout-align="center center">
                     <img ng-src="{{ ul.schoolSelected[0].value.photoURL }}" class="avatar-profile" alt="Profile Picture">
                 </div>
@@ -15,8 +11,6 @@
                         <span class="md-body-1">{{ ul.schoolSelected[0].value.displayName }}</span>
                     </md-card-title-text>
                 </md-card-title>
-
-
         </md-card>
         <md-card>
             <md-card-content>
@@ -25,17 +19,11 @@
             </md-card-content>
         </md-card>
     </div>
-    <div flex-gt-xs="50">
+    <div flex>
         <md-card layout-padding>
             <canvas id="radar" class="chart chart-radar" chart-data="ul.data" chart-options="ul.options" chart-labels="ul.labels"></canvas>
         </md-card>
         <div layout="row" layout-xs="column" layout-wrap>
-            <div flex>
-                <md-card>
-                    <md-button aria-label="like" ng-disabled="true">{{ul.schoolSelected[0].value.like}} Like
-                    </md-button>
-                </md-card>
-            </div>
             <div flex>
                 <md-card>
                     <md-button aria-label="view" ng-disabled="true">{{ul.schoolSelected[0].value.view}} view
