@@ -11,6 +11,8 @@
     firebase.initializeApp(config);
 
     function UserService($q, $http, $firebaseArray, $firebaseObject) {
+        var url = "https://sleepy-shore-93571.herokuapp.com/api/v1/"
+
         var self = this;
         // Promise-based API
         return {
@@ -40,7 +42,7 @@
         function getDashboardAdmin() {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/get/admin",
+                url: url + "get/admin",
                 headers: { 'Content-Type': 'application/json' }
             });
             return (request.then(handleSuccess, handleError));
@@ -49,7 +51,7 @@
         function submitPoll(pollSchool, pollTutor, pollUser, id, tutorId, currentUserId) {
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/submitpoll",
+                url: url + "submitpoll",
                 data: {
                     pollSchool: pollSchool,
                     polltutor: pollTutor,
@@ -68,7 +70,7 @@
         function acceptStudent(schoolId, courseId, studentId) {
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/accept-student",
+                url: url + "accept-student",
                 data: {
                     schoolId: schoolId,
                     courseId: courseId,
@@ -84,7 +86,7 @@
             console.log(schoolId, courseId, tutorId);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/accept-tutor",
+                url: url + "accept-tutor",
                 data: {
                     schoolId: schoolId,
                     courseId: courseId,
@@ -101,7 +103,7 @@
             console.log(courseId);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/delete/course",
+                url: url + "delete/course",
                 data: {
                     courseId: courseId,
                     schoolId: schoolId
@@ -117,7 +119,7 @@
             console.log(courseId);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/close/course",
+                url: url + "close/course",
                 data: {
                     courseId: courseId,
                     schoolId: schoolId
@@ -131,7 +133,7 @@
         function getDashboardSchool(param) {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/get/dashboard",
+                url: url + "get/dashboard",
                 params: {
                     uid: param
                 },
@@ -143,7 +145,7 @@
         function loadInfoCourse(schoolId, courseId) {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/coures/" + schoolId + "/" + courseId
+                url: url + "coures/" + schoolId + "/" + courseId
             });
             return (request.then(handleSuccess, handleError));
         }
@@ -152,7 +154,7 @@
             //console.log(schoolId, courseId, studentId);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/check-register-student",
+                url: " check-register-student",
                 data: {
                     schoolId: schoolId,
                     courseId: courseId,
@@ -175,7 +177,7 @@
                 //console.log(params);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/register-student",
+                url: url + "register-student",
                 data: params,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -187,7 +189,7 @@
             //console.log(schoolId, courseId, studentId);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/check-register-tutor",
+                url: url + "check-register-tutor",
                 data: {
                     schoolId: schoolId,
                     courseId: courseId,
@@ -210,7 +212,7 @@
                 //console.log(params);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/register-tutor",
+                url: url + "register-tutor",
                 data: params,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -222,7 +224,7 @@
             //console.log(params, uid);
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/create_course",
+                url: url + "create_course",
                 data: {
                     params: value,
                     uid: uid
@@ -235,7 +237,7 @@
 
             var request = $http({
                 method: "post",
-                url: "http://localhost:3000/api/v1/updateschool/" + uid,
+                url: url + "updateschool/" + uid,
                 data: params,
                 headers: { 'Content-Type': 'application/json' }
             });
@@ -246,7 +248,7 @@
         function loadAllCourse(uid) {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/allcoures/" + uid
+                url: url + "allcoures/" + uid
             });
             return (request.then(handleSuccess, handleError));
         }
@@ -254,7 +256,7 @@
         function loadAllSchools() {
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/schools"
+                url: url + "schools"
             });
             return (request.then(handleSuccess, handleError));
         }
@@ -263,7 +265,7 @@
             //console.log(uid);
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/infoschool/" + uid
+                url: url + "infoschool/" + uid
             });
             return (request.then(handleSuccess, handleError));
         }
@@ -272,7 +274,7 @@
             //console.log(uid);
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/student/" + uid
+                url: url + "student/" + uid
             });
             return (request.then(handleSuccess, handleError));
         }
@@ -281,7 +283,7 @@
             //console.log(uid);
             var request = $http({
                 method: "get",
-                url: "http://localhost:3000/api/v1/tutor/" + uid
+                url: url + "tutor/" + uid
             });
             return (request.then(handleSuccess, handleError));
         }
