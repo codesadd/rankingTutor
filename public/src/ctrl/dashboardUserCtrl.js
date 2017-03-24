@@ -20,6 +20,7 @@
             } else {
                 if (localStorageService.get("status") == "tutor") {
                     dataService.getTutor(user.uid).then(function(snp) {
+                        console.log(snp)
                         self.user = snp[0]
                         if (snp[1] == undefined) {
                             console.log("ยังไม่มีวิชาที่ลงเรียน่")

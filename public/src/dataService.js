@@ -11,7 +11,8 @@
     firebase.initializeApp(config);
 
     function UserService($q, $http, $firebaseArray, $firebaseObject) {
-        var url = "https://sleepy-shore-93571.herokuapp.com/api/v1/"
+        // var url = "https://sleepy-shore-93571.herokuapp.com/api/v1/"
+        var url = "Http://localhost:3000/api/v1/"
 
         var self = this;
         // Promise-based API
@@ -39,6 +40,8 @@
 
 
         // ------- Http
+
+
         function getDashboardAdmin() {
             var request = $http({
                 method: "get",
@@ -154,7 +157,7 @@
             //console.log(schoolId, courseId, studentId);
             var request = $http({
                 method: "post",
-                url: " check-register-student",
+                url: url + "check-register-student",
                 data: {
                     schoolId: schoolId,
                     courseId: courseId,

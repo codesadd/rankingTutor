@@ -1,18 +1,17 @@
-<div layout="row" layout-xs="column" layout-align="center" layout-padding layout-margin class="screen-margin">
+<div layout="row" layout-xs="column" layout-align="center" class="screen-margin">
     <div flex-xs flex-gt-xs="40">
         <md-card>
             <md-content>
-                <div layout-align="center center" layout="row">
+                <div layout="row" layout-align="center center">
                     <img ng-src="{{ user.photoURL }}" class="avatar-profile" alt="Profile Picture">
                 </div>
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-title">{{ user.displayName }}</span>
+                        <span class="md-subhead">email: {{user.email}}</span>
+                        <span class="md-subhead">status: {{user.status}}</span>
                     </md-card-title-text>
                 </md-card-title>
-                <md-card-content>
-                    <span class="md-subhead">status : {{ user.status }}</span>
-                </md-card-content>
             </md-content>
         </md-card>
     </div>

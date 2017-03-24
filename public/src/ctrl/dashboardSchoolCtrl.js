@@ -30,6 +30,66 @@
 
         self.AuthenticationControl()
 
+        $scope.closeAndOpen = function(param) {
+            if (param == "opening") {
+                self.cp = true
+                $scope.filter = "opening"
+            } else if (param == "closed") {
+                self.cp = false
+                $scope.filter = "closed"
+            }
+        }
+
+        $scope.sendFormAddTutor = function(param) {
+            $mdDialog.hide(param)
+        }
+
+        $scope.addTutor = function(ev) {
+            $mdDialog.show({
+                contentElement: '#addTutor',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            }).then(function(item) {
+                console.log(item);
+                swal({
+                        title: "กำลังเพิ่มข้อมูล..",
+                        text: "I will close in few seconds.",
+                        timer: 2000,
+                        showConfirmButton: false
+                    })
+                    // dataService.createCourse(item, self.currentId).then(function(snp) {
+                    //     self.course = snp[0].data
+                    //     console.log(snp);
+                    // })
+                setTimeout(function() {
+                    SweetAlert.swal("เพิ่มข้อมูลเรียบร้อยแล้ว!", "This data has been added.", "success")
+                    $scope.selectedIndex = self.course.length
+                }, 1000)
+            }, function() {
+                console.log("canceled dailog")
+            })
+        };
+
+        $scope.sendFormAddStudent = function(param) {
+            $mdDialog.hide({
+                createTime: getDateTime(),
+                courseId: param.courseId,
+                displayName: param.firstname + " " + param.lastname,
+                tel: param.tel
+            })
+        }
+
+        $scope.checkStudent = function() {
+            $scope.dateStudentNow = getDateTime()
+            AuthenticationControl()
+        };
+
+        $scope.checkTutor = function() {
+            $scope.dateTutorNow = getDateTime()
+            AuthenticationControl()
+        };
+
         $scope.createCourse = function(param) {
             var item = {
                 name: param.name,
@@ -42,66 +102,9 @@
             $mdDialog.hide(item)
         }
 
-        $scope.addStudent = function(param) {
-            var item = {
-                name: param.name,
-                eventTime: param.time,
-                dateTime: param.date,
-                details: param.details,
-                status: "opening",
-                createTime: getDateTime()
-            }
-            $mdDialog.hide(item)
-        }
-
-        $scope.openAddStudentForm = function(ev) {
-            $mdDialog.show({
-                ontentElement: '#myDialog',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            }).then(function(item) {
-                swal({
-                    title: "กำลังเพิ่มข้อมูล..",
-                    text: "I will close in few seconds.",
-                    timer: 2000,
-                    showConfirmButton: false
-                })
-                console.log(item)
-                    // dataService.createCourse(item, self.currentId).then(function(snp) {
-                    //     self.course = snp[0].data
-                    //     console.log(snp);
-                    // })
-                setTimeout(function() {
-                    SweetAlert.swal("เพิ่มข้อมูลเรียบร้อยแล้ว!", "This data has been added.", "success")
-                    $scope.selectedIndex = self.course.length
-                }, 1000)
-            }, function() {
-                console.log("canceled dailog")
-            })
-        }
-
-        $scope.closeAndOpen = function(param) {
-            if (param == "opening") {
-                self.cp = true
-                $scope.filter = "opening"
-            } else if (param == "closed") {
-                self.cp = false
-                $scope.filter = "closed"
-            }
-        }
-        $scope.showPrerenderedDialog = function(ev) {
-            $mdDialog.show({
-                contentElement: '#myDialog',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            });
-        };
         $scope.openCreateForm = function(ev) {
             $mdDialog.show({
-                templateUrl: './src/template/school/create-course.html',
-                controller: dashboardSchoolCtrl,
+                contentElement: '#addCourse',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
@@ -140,7 +143,10 @@
                         self.course = snp[0].data
                         self.countStudent = snp[0].countStudent
                         self.countTutor = snp[0].countTutor
-                        console.log(snp);
+                        self.pendingCountTutor = snp[0].pendingCountTutor
+                        self.pendingCountStudent = snp[0].pendingCountStudent
+                        $scope.dateStudentNow = getDateTime()
+                        $scope.selectedIndex = 0
                     })
                 }
             })

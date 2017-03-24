@@ -3,7 +3,7 @@
 </md-content>
 <div layout="row" layout-xs="column" class="screen-margin" ng-hide="isLoading">
     <div flex>
-        <md-card>
+        <md-card md-colors="::{backgroundColor: 'green-500'}">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">โรงเรียนทั้งหมด</span>
@@ -16,14 +16,10 @@
                     </div>
                 </md-card-title-media>
             </md-card-title>
-            <HR>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-click="openCreateForm($event)">เพิ่มโรงเรียน</md-button>
-            </md-card-actions>
         </md-card>
     </div>
     <div flex>
-        <md-card>
+        <md-card md-colors="::{backgroundColor: 'teal-500'}">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">นักเรียนทั้งหมด</span>
@@ -36,14 +32,10 @@
                     </div>
                 </md-card-title-media>
             </md-card-title>
-            <HR>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button>เพิ่มนักเรียน</md-button>
-            </md-card-actions>
         </md-card>
     </div>
     <div flex>
-        <md-card>
+        <md-card md-colors="::{backgroundColor: 'cyan-700'}">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">ติวเตอร์ทั้งหมด</span>
@@ -56,10 +48,6 @@
                     </div>
                 </md-card-title-media>
             </md-card-title>
-            <HR>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button>เพิ่มติวเตอร์</md-button>
-            </md-card-actions>
         </md-card>
     </div>
 </div>
@@ -74,7 +62,7 @@
                         <md-toolbar>
                             <div class="md-toolbar-tools">
                                 <span>วันที่สมัคร
-                                    {{ i.vale.course.dateTime }}</span>
+                                    {{ i.value.schoolName }}</span>
                                 <span flex></span>
                                 <md-button aria-label="photo" class="md-icon-button" ng-click="showGraph=false">
                                     <i class="material-icons">assignment</i>
@@ -98,12 +86,6 @@
                         </md-toolbar>
                         <div layout="row" layout-xs="column">
                             <div flex layout-margin ng-hide="showGraph">
-                                <md-toolbar class="md-table-toolbar md-default">
-                                    <div class="md-toolbar-tools">
-                                        <span>วิชาที่สอน</span>
-                                    </div>
-                                </md-toolbar>
-                                <!-- exact table from live demo -->
                                 <md-table-container>
                                     <div layout="row" layout-align="center center" ng-show="countAccTutor.length == 0">
                                         <p class="md-display-1">ไม่มีข้อมูล</p>

@@ -40,7 +40,7 @@
             </md-card-title>
             <HR>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button ng-click="showPrerenderedDialog($event)">เพิ่มนักเรียน</md-button>
+                <md-button ng-click="checkStudent()">อัพเดทเมื่อ {{dateStudentNow}}</md-button>
             </md-card-actions>
         </md-card>
     </div>
@@ -60,7 +60,7 @@
             </md-card-title>
             <HR>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button>เพิ่มติวเตอร์</md-button>
+                <md-button ng-disabled="true">ติวเตอร์ที่กำลังรอ {{ul.pendingCountTutor }} คน</md-button>
             </md-card-actions>
         </md-card>
     </div>
@@ -113,8 +113,8 @@
 <div layout="row" layout-xs="column" class="screen-margin" ng-hide="isLoading">
     <div flex="100">
         <md-card md-theme="default" md-theme-watch>
-            <md-tabs md-dynamic-height md-border-bottom md-autoselect md-selected="selectedIndex">
-                <div ng-repeat="i in ul.course | filter : filter">
+            <md-tabs md-dynamic-height md-border-bottom md-selected="selectedIndex">
+                <div ng-repeat="i in ul.course | filter : filter as cnstring">
                     <md-tab label="{{ i.course.name }}" md-active="true">
                         <md-toolbar>
                             <div class="md-toolbar-tools">
@@ -309,19 +309,18 @@
 </div>
 
 <div style="visibility: hidden">
-    <div class="md-dialog-container" id="myDialog">
-        <md-dialog aria-label="เพิ่มนักเรียน">
+    <div class="md-dialog-container" id="addCourse">
+        <md-dialog aria-label="เพิ่มวิชา">
             <md-toolbar>
                 <div class="md-toolbar-tools">
-                    <h2>เพิ่มนักเรียน</h2>
+                    <h2>เพิ่มวิชา</h2>
                     <span flex></span>
                     <md-button class="md-icon-button" ng-click="cancel()">
                         <md-icon md-svg-icon="cancel" aria-label="Close dialog"></md-icon>
                     </md-button>
                 </div>
             </md-toolbar>
-            <md-dialog-content layout-padding style="max-width:800px;max-height:810px; ">
-                {{ul.course}}
+            <md-dialog-content layout-padding>
                 <form name="addCourseForm">
                     <div layout-gt-xs="row">
                         <md-input-container flex-gt-xs>
@@ -354,7 +353,7 @@
                         <textarea ng-model="addCourse.details" md-maxlength="160" rows="5" md-select-on-focus></textarea>
                     </md-input-container>
                     <div layout="row" layout-align="center">
-                        <md-button class="md-primary" ng-click="addStudent(addCourse)" ng-disabled="addCourseForm.$invalid">Create Course</md-button>
+                        <md-button class="md-primary" ng-click="createCourse(addCourse)" ng-disabled="addCourseForm.$invalid">Create Course</md-button>
                     </div>
                 </form>
             </md-dialog-content>
