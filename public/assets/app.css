@@ -1,9 +1,8 @@
-html, body {
-    font-family: 'Muli', 'Prompt', "Helvetica", Arial, sans-serif;
-    font-size: 14px;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
+html,
+body {
+    font-family: "Kanit", "Roboto", "Arial", sans-serif;
+    font-weight: 300;
+    line-height: 1.5em;
 }
 
 
@@ -169,7 +168,16 @@ hljs.no-header:before {
     display: none;
 }
 
-.hljs-tag, .hljs-tag .hljs-title, .hljs-keyword, .hljs-literal, .hljs-strong, .hljs-change, .hljs-winutils, .hljs-flow, .nginx .hljs-title, .tex .hljs-special {
+.hljs-tag,
+.hljs-tag .hljs-title,
+.hljs-keyword,
+.hljs-literal,
+.hljs-strong,
+.hljs-change,
+.hljs-winutils,
+.hljs-flow,
+.nginx .hljs-title,
+.tex .hljs-special {
     color: #E5C3A2;
 }
 
@@ -177,27 +185,82 @@ hljs {
     color: #ddd;
 }
 
-hljs .hljs-constant, .asciidoc .hljs-code, .markdown .hljs-code {
+hljs .hljs-constant,
+.asciidoc .hljs-code,
+.markdown .hljs-code {
     color: #80CBC4;
 }
 
-.hljs-code, .hljs-class .hljs-title, .hljs-header {
+.hljs-code,
+.hljs-class .hljs-title,
+.hljs-header {
     color: white;
 }
 
-.hljs-link_label, .hljs-attribute, .hljs-symbol, .hljs-symbol .hljs-string, .hljs-value, .hljs-params, .hljs-regexp {
+.hljs-link_label,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-symbol .hljs-string,
+.hljs-value,
+.hljs-params,
+.hljs-regexp {
     color: #7DB9F4;
 }
 
-.hljs-link_url, .hljs-tag .hljs-value, .hljs-string, .hljs-bullet, .hljs-subst, .hljs-title, .hljs-emphasis, .hljs-type, .hljs-preprocessor, .hljs-pragma, .ruby .hljs-class .hljs-parent, .hljs-built_in, .django .hljs-template_tag, .django .hljs-variable, .smalltalk .hljs-class, .hljs-javadoc, .django .hljs-filter .hljs-argument, .smalltalk .hljs-localvars, .smalltalk .hljs-array, .hljs-attr_selector, .hljs-pseudo, .hljs-addition, .hljs-stream, .hljs-envvar, .apache .hljs-tag, .apache .hljs-cbracket, .tex .hljs-command, .hljs-prompt, .hljs-name {
+.hljs-link_url,
+.hljs-tag .hljs-value,
+.hljs-string,
+.hljs-bullet,
+.hljs-subst,
+.hljs-title,
+.hljs-emphasis,
+.hljs-type,
+.hljs-preprocessor,
+.hljs-pragma,
+.ruby .hljs-class .hljs-parent,
+.hljs-built_in,
+.django .hljs-template_tag,
+.django .hljs-variable,
+.smalltalk .hljs-class,
+.hljs-javadoc,
+.django .hljs-filter .hljs-argument,
+.smalltalk .hljs-localvars,
+.smalltalk .hljs-array,
+.hljs-attr_selector,
+.hljs-pseudo,
+.hljs-addition,
+.hljs-stream,
+.hljs-envvar,
+.apache .hljs-tag,
+.apache .hljs-cbracket,
+.tex .hljs-command,
+.hljs-prompt,
+.hljs-name {
     color: #9ccc65;
 }
 
-.hljs-comment, .hljs-annotation, .smartquote, .hljs-blockquote, .hljs-horizontal_rule, .hljs-decorator, .hljs-pi, .hljs-doctype, .hljs-deletion, .hljs-shebang, .apache .hljs-sqbracket, .tex .hljs-formula {
+.hljs-comment,
+.hljs-annotation,
+.smartquote,
+.hljs-blockquote,
+.hljs-horizontal_rule,
+.hljs-decorator,
+.hljs-pi,
+.hljs-doctype,
+.hljs-deletion,
+.hljs-shebang,
+.apache .hljs-sqbracket,
+.tex .hljs-formula {
     color: #607D8B;
 }
 
-.coffeescript .javascript, .javascript .xml, .tex .hljs-formula, .xml .javascript, .xml .vbscript, .xml .css, .xml .hljs-cdata {
+.coffeescript .javascript,
+.javascript .xml,
+.tex .hljs-formula,
+.xml .javascript,
+.xml .vbscript,
+.xml .css,
+.xml .hljs-cdata {
     opacity: 0.5;
 }
 
@@ -229,31 +292,38 @@ demo-include {
     text-align: center;
 }
 
-.colorNested .demo-content>div div:nth-child(1), .colorNested-noPad .demo-content>div div:nth-child(1) {
+.colorNested .demo-content>div div:nth-child(1),
+.colorNested-noPad .demo-content>div div:nth-child(1) {
     background-color: #009688;
 }
 
-.colorNested .demo-content>div div:nth-child(2), .colorNested-noPad .demo-content>div div:nth-child(2) {
+.colorNested .demo-content>div div:nth-child(2),
+.colorNested-noPad .demo-content>div div:nth-child(2) {
     background-color: #3949ab;
 }
 
-.colorNested .demo-content>div div:nth-child(3), .colorNested-noPad .demo-content>div div:nth-child(3) {
+.colorNested .demo-content>div div:nth-child(3),
+.colorNested-noPad .demo-content>div div:nth-child(3) {
     background-color: #9c27b0;
 }
 
-.colorNested .demo-content>div div:nth-child(4), .colorNested-noPad .demo-content>div div:nth-child(4) {
+.colorNested .demo-content>div div:nth-child(4),
+.colorNested-noPad .demo-content>div div:nth-child(4) {
     background-color: #8bc34a;
 }
 
-.colorNested .demo-content>div div:nth-child(5), .colorNested-noPad .demo-content>div div:nth-child(5) {
+.colorNested .demo-content>div div:nth-child(5),
+.colorNested-noPad .demo-content>div div:nth-child(5) {
     background-color: #deb867;
 }
 
-.colorNested .demo-content>div div:nth-child(6), .colorNested-noPad .demo-content>div div:nth-child(6) {
+.colorNested .demo-content>div div:nth-child(6),
+.colorNested-noPad .demo-content>div div:nth-child(6) {
     background-color: #FF5722;
 }
 
-.colorNested .demo-content>div div:nth-child(7), .colorNested-noPad .demo-content>div div:nth-child(7) {
+.colorNested .demo-content>div div:nth-child(7),
+.colorNested-noPad .demo-content>div div:nth-child(7) {
     background-color: #03A9F4;
 }
 
@@ -261,7 +331,8 @@ demo-include {
     margin-top: 16px;
 }
 
-.layout-demo :not(.layout-row), .layout-demo :not(.layout-column) {
+.layout-demo :not(.layout-row),
+.layout-demo :not(.layout-column) {
     border: 1px solid #eee;
     padding: 8px;
 }
@@ -294,7 +365,8 @@ demo-include {
     z-index: 1;
 }
 
-[ng-panel].ng-enter.ng-enter-active, [ng-panel].ng-leave {
+[ng-panel].ng-enter.ng-enter-active,
+[ng-panel].ng-leave {
     transform: translate3d(0, 0, 0);
     opacity: 1;
 }
@@ -387,39 +459,44 @@ a {
     transition: border-bottom 0.35s;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin-bottom: 1rem;
     margin-top: 1rem;
 }
 
 h1 {
     font-size: 3.400rem;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 4rem;
 }
 
 h2 {
     font-size: 2.400rem;
-    font-weight: 400;
+    font-weight: 300;
     line-height: 3.2rem;
 }
 
 h3 {
     font-size: 2.000rem;
-    font-weight: 500;
+    font-weight: 300;
     letter-spacing: 0.005em;
 }
 
 h4 {
     font-size: 1.600rem;
-    font-weight: 400;
+    font-weight: 300;
     letter-spacing: 0.010em;
     line-height: 2.4rem;
 }
 
 p {
     font-size: 1.6rem;
-    font-weight: 400;
+    font-weight: 300;
     letter-spacing: 0.010em;
     line-height: 1.6em;
     margin: 0.8em 0 1.6em;
@@ -429,7 +506,8 @@ strong {
     font-weight: 500;
 }
 
-.md-api-table td, .md-api-table th {
+.md-api-table td,
+.md-api-table th {
     padding: 12px 16px;
     text-align: left;
 }
@@ -530,7 +608,8 @@ pre>code.highlight {
     font-weight: 400;
 }
 
-pre, code {
+pre,
+code {
     margin: 0;
     padding: 0;
     font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
@@ -579,7 +658,9 @@ code:not(.highlight) {
     background: transparent;
 }
 
-.site-sidenav, .site-sidenav.md-locked-open-add-active, .site-sidenav.md-locked-open {
+.site-sidenav,
+.site-sidenav.md-locked-open-add-active,
+.site-sidenav.md-locked-open {
     width: 272px;
     min-width: 272px;
     max-width: 272px;
@@ -589,7 +670,8 @@ code:not(.highlight) {
     min-width: 218px;
 }
 
-.docs-menu, .docs-menu ul {
+.docs-menu,
+.docs-menu ul {
     list-style: none;
     padding: 0;
     max-width: 100%;
@@ -629,12 +711,14 @@ code:not(.highlight) {
     width: 100%;
 }
 
-html[dir=rtl] .docs-menu .md-button, body[dir=rtl] .docs-menu .md-button {
+html[dir=rtl] .docs-menu .md-button,
+body[dir=rtl] .docs-menu .md-button {
     unicode-bidi: embed;
     text-align: right;
 }
 
-.docs-menu .md-button:hover, .docs-menu .md-button:focus {
+.docs-menu .md-button:hover,
+.docs-menu .md-button:focus {
     background: #267ED5 !important;
 }
 
@@ -682,12 +766,14 @@ html[dir=rtl] .docs-menu .md-button, body[dir=rtl] .docs-menu .md-button {
     color: rgba(255, 255, 255, 0.54)
 }
 
-html[dir=rtl] .menu-heading, body[dir=rtl] .menu-heading {
+html[dir=rtl] .menu-heading,
+body[dir=rtl] .menu-heading {
     unicode-bidi: embed;
     text-align: right;
 }
 
-.docs-menu li.parentActive, .docs-menu li.parentActive .menu-toggle-list {
+.docs-menu li.parentActive,
+.docs-menu li.parentActive .menu-toggle-list {
     /*background-color: #2C80D2 !important;*/
 }
 
@@ -810,7 +896,8 @@ a.docs-logo {
     width: auto;
 }
 
-.docs-tools .md-button, .docs-tools .md-button md-icon {
+.docs-tools .md-button,
+.docs-tools .md-button md-icon {
     color: #666 !important;
 }
 
@@ -825,7 +912,8 @@ a.docs-logo {
     }
 }
 
-.layout-content, .doc-content {
+.layout-content,
+.doc-content {
     max-width: 864px;
     margin: 16px;
     box-sizing: border-box;
@@ -862,7 +950,8 @@ docs-demo {
     background-color: #2C80D2 !important;
 }
 
-md-tabs.demo-source-tabs md-tab, md-tabs.demo-source-tabs .md-header {
+md-tabs.demo-source-tabs md-tab,
+md-tabs.demo-source-tabs .md-header {
     background-color: #444444 !important;
 }
 
@@ -938,13 +1027,15 @@ md-tabs.demo-source-tabs .active md-tab-label {
     min-height: 224px;
 }
 
-.layout-content .small-demo .demo-content>div[layout], .layout-options .small-demo .demo-content>div.layout {
+.layout-content .small-demo .demo-content>div[layout],
+.layout-options .small-demo .demo-content>div.layout {
     min-height: auto !important;
     max-height: auto !important;
     height: 128px !important;
 }
 
-.small-demo .demo-toolbar, .small-demo .md-toolbar-tools {
+.small-demo .demo-toolbar,
+.small-demo .md-toolbar-tools {
     min-height: 48px;
     max-height: 48px;
 }
@@ -962,7 +1053,8 @@ md-toolbar.demo-toolbar .md-button:hover {
     background: rgba(0, 0, 0, 0.1);
 }
 
-md-toolbar.demo-toolbar .md-button.active, md-toolbar.demo-toolbar .md-button.active md-icon {
+md-toolbar.demo-toolbar .md-button.active,
+md-toolbar.demo-toolbar .md-button.active md-icon {
     color: #418CD6;
 }
 
@@ -1041,12 +1133,16 @@ ul.buckets li a {
     margin-top: 0;
 }
 
-ul.buckets li a, ul.buckets li a md-icon {
+ul.buckets li a,
+ul.buckets li a md-icon {
     color: #666 !important;
     transition: all 0.15s cubic-bezier(0.35, 0, 0.25, 1);
 }
 
-ul.buckets li a:hover, ul.buckets li a:focus, ul.buckets li a:hover md-icon, ul.buckets li a:focus md-icon {
+ul.buckets li a:hover,
+ul.buckets li a:focus,
+ul.buckets li a:hover md-icon,
+ul.buckets li a:focus md-icon {
     color: #106CC8 !important;
     background-color: #ebebeb !important;
 }
@@ -1061,7 +1157,8 @@ ul.buckets li a:hover, ul.buckets li a:focus, ul.buckets li a:hover md-icon, ul.
     padding: 4px;
 }
 
-.api-options-bar .md-button:hover, .api-options-bar .md-button:focus {
+.api-options-bar .md-button:hover,
+.api-options-bar .md-button:focus {
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -1133,7 +1230,8 @@ h3 .method-function-syntax {
     }
 }
 
-.demo-source-container pre, .demo-source-container code {
+.demo-source-container pre,
+.demo-source-container code {
     min-height: 100%;
 }
 
@@ -1146,7 +1244,9 @@ md-content.demo-source-container {
     border-radius: 0;
 }
 
-md-content.demo-source-container>hljs, md-content.demo-source-container>hljs>pre, md-content.demo-source-container>hljs>pre>code.highlight {
+md-content.demo-source-container>hljs,
+md-content.demo-source-container>hljs>pre,
+md-content.demo-source-container>hljs>pre>code.highlight {
     min-height: 100%;
 }
 
@@ -1160,7 +1260,8 @@ md-content.demo-source-container>hljs, md-content.demo-source-container>hljs>pre
     margin-top: 10px;
 }
 
-.api-section, .api-param-section {
+.api-section,
+.api-param-section {
     margin: 3em 0 0;
 }
 
@@ -1197,7 +1298,12 @@ ul.methods>li:first-child>*:first-child {
     padding-top: 0;
 }
 
-[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
     display: none !important;
 }
 
@@ -1274,7 +1380,8 @@ docs-demo .doc-demo-content {
     border-bottom-width: 0;
 }
 
-.autocomplete-custom-template .item-title, .autocomplete-custom-template .item-metadata {
+.autocomplete-custom-template .item-title,
+.autocomplete-custom-template .item-metadata {
     display: block;
     line-height: 2;
 }
@@ -1291,7 +1398,8 @@ docs-demo .doc-demo-content {
     a {
         text-decoration: underline;
     }
-    iframe, hljs pre {
+    iframe,
+    hljs pre {
         border: 1px solid #fff;
     }
 }
@@ -1304,7 +1412,8 @@ docs-demo .doc-demo-content {
     transition: none !important;
 }
 
-table.attributes, table.md-api-table {
+table.attributes,
+table.md-api-table {
     padding-left: 15px;
     margin-bottom: 20px;
 }
@@ -1382,8 +1491,8 @@ table.md-api-table tr td:first-child {
         margin-left: auto;
         margin-right: auto;
     }
-    .screen-nav-margin {
-        max-width: 50em;
+    .screen-nav-margins {
+        max-width: 75em;
         margin-left: auto;
         margin-right: auto;
     }

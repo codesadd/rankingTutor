@@ -1,9 +1,9 @@
-<md-content class="md-padding" layout-xs="column" layout="row" layout-align="space-around center">
+<md-content class="md-padding" layout-xs="column" layout="row" layout-align="space-around center" ng-init="closeAndOpen('opening')">
     <md-progress-circular md-mode="indeterminate" ng-show="isLoading"></md-progress-circular>
 </md-content>
 <div hide-xs layout="row" class="screen-margin" ng-hide="isLoading">
     <div flex-gt-xs="33">
-        <md-card>
+        <md-card md-colors="::{backgroundColor: 'green-500'}">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">วิชาทั้งหมด</span>
@@ -18,18 +18,14 @@
             </md-card-title>
             <HR>
             <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="closeAndOpen('closed')" ng-show="ul.cp">วิชาที่ปิดแล้ว</md-button>
+                <md-button ng-click="closeAndOpen('opening')" ng-hide="ul.cp">วิชาที่กำลังเปิด</md-button>
                 <md-button ng-click="openCreateForm($event)">เพิ่มวิชา</md-button>
-                <!-- <md-button aria-label="label" class="md-icon-button">
-                    <i class="material-icons">history</i>
-                    <md-tooltip md-delay="500">
-                        ประวัติการเปิดวิชา
-                    </md-tooltip>
-                </md-button> -->
             </md-card-actions>
         </md-card>
     </div>
     <div flex-gt-xs="33">
-        <md-card>
+        <md-card md-colors="::{backgroundColor: 'blue-500'}">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">นักเรียน</span>
@@ -44,12 +40,12 @@
             </md-card-title>
             <HR>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button>เพิ่ม</md-button>
+                <md-button ng-click="showPrerenderedDialog($event)">เพิ่มนักเรียน</md-button>
             </md-card-actions>
         </md-card>
     </div>
     <div flex-gt-xs="33">
-        <md-card>
+        <md-card md-colors="::{backgroundColor: 'teal-500'}">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-headline">ติวเตอร์</span>
@@ -64,7 +60,7 @@
             </md-card-title>
             <HR>
             <md-card-actions layout="row" layout-align="end center">
-                <md-button>เพิ่ม</md-button>
+                <md-button>เพิ่มติวเตอร์</md-button>
             </md-card-actions>
         </md-card>
     </div>
@@ -81,12 +77,6 @@
             <HR>
             <md-card-actions layout="row" layout-align="center center">
                 <md-button ng-click="openCreateForm($event)">เพิ่มวิชา</md-button>
-                <!-- <md-button aria-label="label" class="md-icon-button">
-                    <i class="material-icons">history</i>
-                    <md-tooltip md-delay="500">
-                        ประวัติการเปิดวิชา
-                    </md-tooltip>
-                </md-button> -->
             </md-card-actions>
         </md-card>
     </div>
@@ -124,39 +114,28 @@
     <div flex="100">
         <md-card md-theme="default" md-theme-watch>
             <md-tabs md-dynamic-height md-border-bottom md-autoselect md-selected="selectedIndex">
-                <div ng-repeat="i in ul.course">
-                    <md-tab label="course-{{ i.course.name }}" md-active="true">
+                <div ng-repeat="i in ul.course | filter : filter">
+                    <md-tab label="{{ i.course.name }}" md-active="true">
                         <md-toolbar>
                             <div class="md-toolbar-tools">
-                                <span>เริ่มสอนวันที่
-                                    {{ i.course.dateTime }}</span>
+                                <span>วิชา 
+                                    {{ i.course.name }} - {{ filter }}</span>
                                 <span flex></span>
+                                <md-button aria-label="comment" class="md-icon-button" ng-click="ul.closeCourse(i)">
+                                    <i class="material-icons">highlight_off</i>
+                                    <md-tooltip md-delay="500">
+                                        ปิดการสอน
+                                    </md-tooltip>
+                                </md-button>
                                 <md-button aria-label="comment" class="md-icon-button" ng-click="ul.deleteCourse(i)">
                                     <md-icon md-svg-icon="deleteForever"></md-icon>
                                     <md-tooltip md-delay="500">
                                         ลบ
                                     </md-tooltip>
                                 </md-button>
-                                <md-button aria-label="label" class="md-icon-button">
-                                    <md-icon md-svg-icon="edit"></md-icon>
-                                    <md-tooltip md-delay="500">
-                                        แก้ไขวิชา
-                                    </md-tooltip>
-                                </md-button>
-                                <md-button aria-label="photo" class="md-icon-button">
-                                    <md-icon md-svg-icon="addTutor"></md-icon>
-                                    <md-tooltip md-delay="500">
-                                        รายละเอียด
-                                    </md-tooltip>
-                                </md-button>
-                                <md-button aria-label="photo" class="md-icon-button">
-                                    <i class="material-icons">pie_chart</i>
-                                    <md-tooltip md-delay="500">
-                                        แบบประเมิน
-                                    </md-tooltip>
-                                </md-button>
                             </div>
                         </md-toolbar>
+
                         <div layout="row" layout-xs="column">
                             <div flex layout-margin>
                                 <md-toolbar class="md-table-toolbar md-default">
@@ -164,11 +143,7 @@
                                         <span>ติวเตอร์ที่สอน</span>
                                     </div>
                                 </md-toolbar>
-                                <!-- exact table from live demo -->
                                 <md-table-container>
-                                    <div layout="row" layout-align="center center" ng-show="countAccTutor.length == 0">
-                                        <p class="md-display-1">ไม่มีข้อมูล</p>
-                                    </div>
                                     <table md-table ng-hide="countAccTutor.length == 0">
                                         <thead md-head>
                                             <tr md-row>
@@ -325,9 +300,64 @@
                                 <md-table-pagination ng-hide="results.length == 0" md-limit="query.limit" md-page="query.page" md-total="{{i.students.length}}" md-page-select></md-table-pagination>
                             </div>
                         </div>
+
                     </md-tab>
                 </div>
             </md-tabs>
         </md-card>
+    </div>
+</div>
+
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="myDialog">
+        <md-dialog aria-label="เพิ่มนักเรียน">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>เพิ่มนักเรียน</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-icon="cancel" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content layout-padding style="max-width:800px;max-height:810px; ">
+                {{ul.course}}
+                <form name="addCourseForm">
+                    <div layout-gt-xs="row">
+                        <md-input-container flex-gt-xs>
+                            <label>ชื่อ Course</label>
+                            <input required name="courseName" ng-model="addCourse.name" md-maxlength="30" md-select-on-focus>
+                            <div ng-messages="addCourseForm.courseName.$error">
+                                <div ng-message="required">กรอกชื่อวิชา.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <md-select required ng-model="addCourse.time" placeholder="ช่วงเวลาสอน" class="md-block">
+                                <md-option value="morning">9.00 - 12.00</md-option>
+                                <md-option value="afternoon">13.00 - 16.00</md-option>
+                                <md-option value="evening">17.00 - 20.00</md-option>
+                            </md-select>
+                            <div ng-messages="addCourseForm.time.$error">
+                                <div ng-message="required">เลือกช่วงเวลาสอน.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container>
+                            <label>เริ่มสอนวันที่</label>
+                            <md-datepicker ng-model="date" name="dateField" ng-change="addCourse.date = dateToString(date)" ng-required="true"></md-datepicker>
+                            <div ng-messages="addCourseForm.date.$error">
+                                <div ng-message="required">เลือกวันที่เริ่มสอน.</div>
+                            </div>
+                        </md-input-container>
+                    </div>
+                    <md-input-container class="md-block">
+                        <label>รายละเอียด</label>
+                        <textarea ng-model="addCourse.details" md-maxlength="160" rows="5" md-select-on-focus></textarea>
+                    </md-input-container>
+                    <div layout="row" layout-align="center">
+                        <md-button class="md-primary" ng-click="addStudent(addCourse)" ng-disabled="addCourseForm.$invalid">Create Course</md-button>
+                    </div>
+                </form>
+            </md-dialog-content>
+        </md-dialog>
     </div>
 </div>

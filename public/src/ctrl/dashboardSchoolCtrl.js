@@ -12,8 +12,10 @@
         self.courseKey
         self.course = []
         self.students = []
+        self.cp
         $scope.selectedIndex = 0
         self.deleteCourse = deleteCourse
+        self.closeCourse = closeCourse
         self.acceptStudent = acceptStudent
         self.acceptTutor = acceptTutor
         self.AuthenticationControl = AuthenticationControl
@@ -34,11 +36,68 @@
                 eventTime: param.time,
                 dateTime: param.date,
                 details: param.details,
+                status: "opening",
                 createTime: getDateTime()
             }
             $mdDialog.hide(item)
         }
 
+        $scope.addStudent = function(param) {
+            var item = {
+                name: param.name,
+                eventTime: param.time,
+                dateTime: param.date,
+                details: param.details,
+                status: "opening",
+                createTime: getDateTime()
+            }
+            $mdDialog.hide(item)
+        }
+
+        $scope.openAddStudentForm = function(ev) {
+            $mdDialog.show({
+                ontentElement: '#myDialog',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            }).then(function(item) {
+                swal({
+                    title: "กำลังเพิ่มข้อมูล..",
+                    text: "I will close in few seconds.",
+                    timer: 2000,
+                    showConfirmButton: false
+                })
+                console.log(item)
+                    // dataService.createCourse(item, self.currentId).then(function(snp) {
+                    //     self.course = snp[0].data
+                    //     console.log(snp);
+                    // })
+                setTimeout(function() {
+                    SweetAlert.swal("เพิ่มข้อมูลเรียบร้อยแล้ว!", "This data has been added.", "success")
+                    $scope.selectedIndex = self.course.length
+                }, 1000)
+            }, function() {
+                console.log("canceled dailog")
+            })
+        }
+
+        $scope.closeAndOpen = function(param) {
+            if (param == "opening") {
+                self.cp = true
+                $scope.filter = "opening"
+            } else if (param == "closed") {
+                self.cp = false
+                $scope.filter = "closed"
+            }
+        }
+        $scope.showPrerenderedDialog = function(ev) {
+            $mdDialog.show({
+                contentElement: '#myDialog',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true
+            });
+        };
         $scope.openCreateForm = function(ev) {
             $mdDialog.show({
                 templateUrl: './src/template/school/create-course.html',
@@ -113,11 +172,47 @@
                         })
                         setTimeout(function() {
                             SweetAlert.swal("ลบข้อมูลเรียบร้อยแล้ว!", "This data has been deleted.", "success")
-                            $scope.selectedIndex = index - 1
+                            $scope.selectedIndex = 0
                         }, 1000)
 
                     } else {
                         SweetAlert.swal("ยกเลิกการลบข้อมูลเรียบร้อย", "This data is safe :)", "error")
+                    }
+                })
+        }
+
+        function closeCourse(course) {
+            var index = self.course.indexOf(course)
+            SweetAlert.swal({
+                    title: "ต้องการปิดการเรียนวิชา " + course.course.name + " ?",
+                    text: "Your will not be able to change this Data !!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, do it!",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+                        swal({
+                            title: "กำลังปิด..",
+                            text: "I will close in few seconds.",
+                            timer: 2000,
+                            showConfirmButton: false
+                        })
+                        dataService.closeCourse(course.courseId, self.currentId).then(function(snp) {
+                            self.course = snp[0].data
+                            console.log(snp)
+                        })
+                        setTimeout(function() {
+                            SweetAlert.swal("ปิดการเรียนเรียบร้อยแล้ว!", "This data has been deleted.", "success")
+                            $scope.selectedIndex = 0
+                        }, 1000)
+
+                    } else {
+                        SweetAlert.swal("ยกเลิกการปิดวิชาเรียบร้อย", "This data is safe :)", "error")
                     }
                 })
         }

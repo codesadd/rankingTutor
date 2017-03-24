@@ -1,7 +1,7 @@
-<md-dialog aria-label="เพิ่มวิชา">
+<md-dialog aria-label="เพิ่มนักเรียน">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>เพิ่มวิชา</h2>
+            <h2>เพิ่มนักเรียน</h2>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="cancel()">
                 <md-icon md-svg-icon="cancel" aria-label="Close dialog"></md-icon>
@@ -9,6 +9,7 @@
         </div>
     </md-toolbar>
     <md-dialog-content layout-padding style="max-width:800px;max-height:810px; ">
+        ดหดกดหกดก
         <form name="addCourseForm">
             <div layout-gt-xs="row">
                 <md-input-container flex-gt-xs>
@@ -41,7 +42,7 @@
                 <textarea ng-model="addCourse.details" md-maxlength="160" rows="5" md-select-on-focus></textarea>
             </md-input-container>
             <div layout="row" layout-align="center">
-                <md-button class="md-primary" ng-click="createCourse(addCourse)" ng-disabled="addCourseForm.$invalid">Create Course</md-button>
+                <md-button class="md-primary" ng-click="addStudent(addCourse)" ng-disabled="addCourseForm.$invalid">Create Course</md-button>
             </div>
         </form>
     </md-dialog-content>

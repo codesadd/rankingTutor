@@ -4,7 +4,7 @@
     angular
         .module('funfun')
         .controller('signInCtrl', [
-            '$scope', '$mdDialog', '$firebaseAuth', '$location', 'localStorageService', '$route','SweetAlert',
+            '$scope', '$mdDialog', '$firebaseAuth', '$location', 'localStorageService', '$route', 'SweetAlert',
             signInCtrl
         ])
 
@@ -22,12 +22,12 @@
                     console.log("Hello Admin")
                     localStorageService.set("checkAdmin", text)
                     $mdDialog.hide()
+
+                    $location.path('/admin');
                     setTimeout(function() {
                         location.reload();
-                        setTimeout(function() {
-                            $location.path('/admin');
-                        }, 1000)
                     }, 1000)
+
                 } else {
                     auth.$signInWithEmailAndPassword(email, password).then(function(firebaseUser) {
                         checkLoginFromDb(firebaseUser)
@@ -37,7 +37,7 @@
                         var errorCode = error.code
                         var errorMessage = error.message
                         // [START_EXCLUDE]
-                          SweetAlert.swal("กรุณาสมัครสมาชิก หรือ email และ password ไม่ถูกต้อง!", error.message , "error")
+                        SweetAlert.swal("กรุณาสมัครสมาชิก หรือ email และ password ไม่ถูกต้อง!", error.message, "error")
                         console.log("Please SignUp to Website Authentication failed:", error)
                         // ...
                     })
@@ -89,7 +89,7 @@
                 $mdDialog.hide()
                 location.reload()
             }).catch(function(error) {
-                SweetAlert.swal("ชื่อบัญชีนี้ไม่ถูกต้อง! กรุณาสมัครสมาชิก", error.message , "error")
+                SweetAlert.swal("ชื่อบัญชีนี้ไม่ถูกต้อง! กรุณาสมัครสมาชิก", error.message, "error")
                 console.log("Please SignUp to Website Authentication failed:", error)
                 firebase.auth().signOut().then(function() {
                     localStorageService.clearAll()

@@ -29,7 +29,7 @@ function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, 
         .icon("done", "./assets/svg/ic_done_white_48px.svg", 512)
         .icon("phone", "./assets/svg/phone.svg", 512);
 
-    $mdThemingProvider.theme('default').primaryPalette('blue-grey').accentPalette('blue-grey');
+    $mdThemingProvider.theme('default').primaryPalette('deep-purple').accentPalette('deep-purple');
 
     $routeProvider.when('/', {
         templateUrl: 'src/template/index.html',
