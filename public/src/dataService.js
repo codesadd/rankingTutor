@@ -11,8 +11,8 @@
     firebase.initializeApp(config);
 
     function UserService($q, $http, $firebaseArray, $firebaseObject) {
-        // var url = "https://sleepy-shore-93571.herokuapp.com/api/v1/"
-        var url = "Http://localhost:3000/api/v1/"
+        var url = "https://sleepy-shore-93571.herokuapp.com/api/v1/"
+            // var url = "Http://localhost:3000/api/v1/"
 
         var self = this;
         // Promise-based API
