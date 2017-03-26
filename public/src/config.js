@@ -8,6 +8,8 @@ angular.module('starterApp', [
     'ngMessages',
     'md.data.table',
     'oitozero.ngSweetAlert',
+    'ngEditor',
+    'ngSanitize'
 ]).config(ApplicationConfig);
 
 function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, localStorageServiceProvider, ChartJsProvider, $httpProvider) {

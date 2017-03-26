@@ -5,11 +5,12 @@
             <md-card-content layout-padding>
                 <h1 class="md-display-1">
                     {{ul.course[0].value.name}}</h1>
-                <h3 class="md-headline">เริ่มเรียน
-                    {{ul.course[0].value.dateTime}}</h3>
-                <h3 class="md-title">เวลาสอน
-                    {{ul.course[0].value.eventTime}}</h3>
-                <p>{{ ul.course[0].value.details }}</p>
+                <h3 class="md-headline">เริ่มเรียน {{ul.course[0].value.dateTime}}
+                </h3>
+                <h3 class="md-title">เวลาสอน {{ul.course[0].value.eventTime}}
+                </h3>
+                <hr class="hr">
+                <div ng-bind-html="deliberatelyTrustDangerousSnippet()"></div>
             </md-card-content>
         </md-card>
     </div>

@@ -2,11 +2,11 @@
     angular
         .module('funfun')
         .controller('dashboardSchoolCtrl', [
-            '$scope', '$firebaseAuth', '$log', '$mdDialog', '$location', 'dataService', 'SweetAlert',
+            '$scope', '$firebaseAuth', '$log', '$mdDialog', '$location', 'dataService', 'SweetAlert', 'NgEditor',
             dashboardSchoolCtrl
         ])
 
-    function dashboardSchoolCtrl($scope, $firebaseAuth, $log, $mdDialog, $location, dataService, SweetAlert) {
+    function dashboardSchoolCtrl($scope, $firebaseAuth, $log, $mdDialog, $location, dataService, SweetAlert, NgEditor) {
         var self = this
         self.currentId
         self.courseKey
@@ -27,6 +27,21 @@
             limit: 5,
             page: 1
         }
+        $scope.addCourse = {
+            content: '',
+            name: '',
+            time: '',
+            date: ''
+        };
+        $scope.doc = { content: '' };
+        $scope.editor = new NgEditor({
+            top: 0,
+            uploadUrl: 'apis/image/',
+            uploadHeaders: {
+                'Authorization': 'Bearer ' + '',
+                'uid': ''
+            }
+        });
 
         self.AuthenticationControl()
 
@@ -40,45 +55,8 @@
             }
         }
 
-        $scope.sendFormAddTutor = function(param) {
-            $mdDialog.hide(param)
-        }
 
-        $scope.addTutor = function(ev) {
-            $mdDialog.show({
-                contentElement: '#addTutor',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true
-            }).then(function(item) {
-                console.log(item);
-                swal({
-                        title: "กำลังเพิ่มข้อมูล..",
-                        text: "I will close in few seconds.",
-                        timer: 2000,
-                        showConfirmButton: false
-                    })
-                    // dataService.createCourse(item, self.currentId).then(function(snp) {
-                    //     self.course = snp[0].data
-                    //     console.log(snp);
-                    // })
-                setTimeout(function() {
-                    SweetAlert.swal("เพิ่มข้อมูลเรียบร้อยแล้ว!", "This data has been added.", "success")
-                    $scope.selectedIndex = self.course.length
-                }, 1000)
-            }, function() {
-                console.log("canceled dailog")
-            })
-        };
 
-        $scope.sendFormAddStudent = function(param) {
-            $mdDialog.hide({
-                createTime: getDateTime(),
-                courseId: param.courseId,
-                displayName: param.firstname + " " + param.lastname,
-                tel: param.tel
-            })
-        }
 
         $scope.checkStudent = function() {
             $scope.dateStudentNow = getDateTime()
@@ -91,11 +69,12 @@
         };
 
         $scope.createCourse = function(param) {
+            console.log(param);
             var item = {
                 name: param.name,
                 eventTime: param.time,
                 dateTime: param.date,
-                details: param.details,
+                details: param.content,
                 status: "opening",
                 createTime: getDateTime()
             }

@@ -310,7 +310,7 @@
 
 <div style="visibility: hidden">
     <div class="md-dialog-container" id="addCourse">
-        <md-dialog aria-label="เพิ่มวิชา">
+        <md-dialog aria-label="เพิ่มวิชา" style="width: 80%">
             <md-toolbar>
                 <div class="md-toolbar-tools">
                     <h2>เพิ่มวิชา</h2>
@@ -325,7 +325,7 @@
                     <div layout-gt-xs="row">
                         <md-input-container flex-gt-xs>
                             <label>ชื่อ Course</label>
-                            <input required name="courseName" ng-model="addCourse.name" md-maxlength="30" md-select-on-focus>
+                            <input required name="courseName" ng-model="addCourse.name" md-maxlength="50" md-select-on-focus>
                             <div ng-messages="addCourseForm.courseName.$error">
                                 <div ng-message="required">กรอกชื่อวิชา.</div>
                             </div>
@@ -348,10 +348,11 @@
                             </div>
                         </md-input-container>
                     </div>
-                    <md-input-container class="md-block">
-                        <label>รายละเอียด</label>
-                        <textarea ng-model="addCourse.details" md-maxlength="160" rows="5" md-select-on-focus></textarea>
-                    </md-input-container>
+                    <div layout="row" layout-align="center">
+                        <div class="rel padding-10" style="width: 100%">
+                            <ng-editor ng-model="addCourse.content" editor="editor" ng-required="true"></ng-editor>
+                        </div>
+                    </div>
                     <div layout="row" layout-align="center">
                         <md-button class="md-primary" ng-click="createCourse(addCourse)" ng-disabled="addCourseForm.$invalid">Create Course</md-button>
                     </div>

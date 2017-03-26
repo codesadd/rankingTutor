@@ -2,11 +2,11 @@
     angular
         .module('funfun')
         .controller('infoCourseCtrl', [
-            'dataService', '$location', 'localStorageService', '$scope', '$firebaseAuth','SweetAlert',
+            'dataService', '$location', 'localStorageService', '$scope', '$firebaseAuth', 'SweetAlert', '$sce',
             infoCourseCtrl
         ])
 
-    function infoCourseCtrl(dataService, $location, localStorageService, $scope, $firebaseAuth,SweetAlert) {
+    function infoCourseCtrl(dataService, $location, localStorageService, $scope, $firebaseAuth, SweetAlert, $sce) {
         var self = this
         self.schoolSelected = []
         self.course = []
@@ -71,7 +71,7 @@
         function registerStd() {
             dataService.registerStd(self.schoolSelected, self.course, self.currentUser).then(function(snp) {
                 if (snp != "") {
-                  SweetAlert.swal("สมัครเรียนเรียบร้อยแล้ว!", "รอการยืนยันจากโรงเรียนกวดวิชา", "success")
+                    SweetAlert.swal("สมัครเรียนเรียบร้อยแล้ว!", "รอการยืนยันจากโรงเรียนกวดวิชา", "success")
                     checkRegisterStudent(self.schoolSelectId, self.courseSelectId, self.currentUser.uid)
                 }
             })
@@ -107,8 +107,9 @@
                     self.course.push(item)
                 })
                 console.log(self.course)
-                //self.count = Object.keys(self.course.student).length
-
+                $scope.deliberatelyTrustDangerousSnippet = function() {
+                    return $sce.trustAsHtml(self.course[0].value.details);
+                };
             })
         }
 

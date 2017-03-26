@@ -36,7 +36,7 @@
 </div>
 <div layout="column" layout-xs="column" layout-align="center" class="screen-margin">
     <div flex>
-        <div dir-paginate="it in ul.courses | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+        <div dir-paginate="it in ul.courses | filter:'opening' | itemsPerPage: pageSize" current-page="currentPage">
             <md-card>
                 <md-card-title>
                     <md-card-title-text>
