@@ -35,9 +35,14 @@
             <span flex></span>
             <div ng-controller="navCtrl as ul">
                 <div hide-xs ng-hide="hide">
-                    <md-button class="md-accent md-raised" ng-click="signin($event)">เข้าสู่ระบบ</md-button>
-                    <md-button class="md-accent md-raised" ng-click="signup($event)">สมัครสมาชิก</md-button>
+                    <md-button ng-click="signin($event)">เข้าสู่ระบบ</md-button>
+                    <md-button ng-click="signup($event)">สมัครสมาชิก</md-button>
                 </div>
+                <!--<div ng-if="school">
+                    this School User
+                </div>
+                <div ng-if="tutor"> this tutor</div>
+                <div ng-if="student"> this student</div>-->
                 <div layout-xs hide-gt-xs ng-hide="hide">
                     <md-menu>
                         <md-button class="md-icon-button" aria-label="More">
@@ -46,6 +51,9 @@
                         <md-menu-content width="4">
                             <md-menu-item>
                                 <md-button ng-click="signin($event)">เข้าสู่ระบบ</md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-href="#/register" class="button-logo">ลงทะเบียน</md-button>
                             </md-menu-item>
                         </md-menu-content>
                     </md-menu>
