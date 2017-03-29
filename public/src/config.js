@@ -12,7 +12,7 @@ angular.module('starterApp', [
     'ngSanitize'
 ]).config(ApplicationConfig);
 
-function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, localStorageServiceProvider, ChartJsProvider, $httpProvider) {
+function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, localStorageServiceProvider, ChartJsProvider) {
 
     $mdIconProvider.defaultIconSet("./assets/svg/avatars.svg", 512)
         .icon("menu", "./assets/svg/menu.svg", 512)
@@ -73,7 +73,6 @@ function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, 
         redirectTo: '/'
     });
     // use the HTML5 History API
-
 
     localStorageServiceProvider.setPrefix('starterApp');
 
