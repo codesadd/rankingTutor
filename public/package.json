@@ -21,6 +21,7 @@
     "angular-animate": "^1.5.5",
     "angular-aria": "^1.5.5",
     "angular-chart.js": "^1.0.3",
+    "angular-jk-carousel": "^0.5.0",
     "angular-local-storage": "^0.2.7",
     "angular-material": "git+https://github.com/angular/bower-material.git#master",
     "angular-material-data-table": "^0.10.10",

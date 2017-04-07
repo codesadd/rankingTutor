@@ -1,4 +1,6 @@
-<div layout="row" layout-xs="column" layout-align="center" class="screen-margin">
+<md-progress-circular md-mode="indeterminate" ng-show="isLoading" class="progress-bar">
+</md-progress-circular>
+<div layout="row" layout-xs="column" layout-align="center" class="screen-margin" ng-hide="isLoading">
     <md-chips></md-chips>
     <div flex>
         <md-card>
@@ -16,7 +18,7 @@
     </div>
 </div>
 
-<div layout="row" layout-xs="column" layout-align="center" class="screen-margin">
+<div layout="row" layout-xs="column" layout-align="center" class="screen-margin" ng-hide="isLoading">
     <div flex>
         <md-card ng-show="checkStd">
             <md-button aria-label="register" ng-disabled="ul.disbleRegister" ng-click="ul.registerStd()">{{labalRegister}}</md-button>

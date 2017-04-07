@@ -90,7 +90,7 @@
                                     <div layout="row" layout-align="center center" ng-show="countAccTutor.length == 0">
                                         <p class="md-display-1">ไม่มีข้อมูล</p>
                                     </div>
-                                    <table md-table ng-hide="countAccTutor.length == 0">
+                                    <table md-table md-row-select="true" ng-model="selected" ng-hide="countAccTutor.length == 0">
                                         <thead md-head>
                                             <tr md-row>
                                                 <th md-column>ชื่อวิชา</th>
@@ -109,18 +109,11 @@
                                                 <td md-cell>{{el.eventTime}}</td>
                                                 <td md-cell>{{ul.fetchStudentAcc(el.students)}}</td>
                                                 <td md-cell>{{ul.fetchStudentPen(el.students)}}</td>
-                                                <td md-cell>
-                                                    <md-button class="md-fab md-mini md-primary" aria-label="Eat cake">
-                                                        <md-icon md-svg-icon="info"></md-icon>
-                                                        <md-tooltip md-delay="500">
-                                                            รายละเอียด
-                                                        </md-tooltip>
-                                                    </md-button>
-                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </md-table-container>
+                                <md-table-pagination ng-hide="countCourse.length == 0" md-limit="query.limit" md-page="query.page" md-total="{{ul.fetchCourse(i.value.courses).length}}" md-page-select></md-table-pagination>
                             </div>
                             <div flex layout="row" layout-xs="column" layout-padding ng-show="showGraph">
                                 <div flex>
@@ -141,4 +134,36 @@
 </div>
 <hr class="hr screen-margin">
 <div layout="row" layout-xs="column" class="screen-margin" ng-hide="isLoading">
+    <div flex="100">
+        <md-card>
+            <md-table-container>
+                <table md-table md-row-select="true" ng-model="selected">
+                    <thead md-head md-colors="::{backgroundColor: 'amber-500'}">
+                        <tr md-row>
+                            <th md-column>
+                                <span>อันดับ</span>
+                            </th>
+                            <th md-column>
+                                <span>ชื่อ</span>
+                            </th>
+                            <th md-column md-numeric>Ranking</th>
+                            <th md-column md-numeric>เจ้าของโรงเรียน</th>
+                            <th md-column md-numeric>อีเมล</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="it in ul.schools | limitTo : query.limit | orderBy:-persent as countSchool" ng-click="goToSchoolPage(it.id)" style="cursor:pointer">
+                            <td md-cell>{{ $index+1 }}</td>
+                            <td md-cell>{{ it.value.schoolName }}</td>
+                            <td md-cell> {{ it.persent }}% จากนักเรียน {{ it.countPollByStd}} คน</td>
+                            <td md-cell>{{it.value.displayName}}</td>
+                            <td md-cell>{{it.value.email}}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+            <md-table-pagination ng-hide="countSchool.length == 0" md-limit="query.limit" md-page="query.page" md-total="{{ul.schools.length}}" md-page-select></md-table-pagination>
+        </md-card>
+    </div>
 </div>

@@ -13,6 +13,7 @@
         self.ckeckPending = ckeckPending
         self.ckeckAccepted = ckeckAccepted
         self.doingPoll = doingPoll
+        $scope.isLoading = true
 
         $firebaseAuth().$onAuthStateChanged(function(user) {
             if (user == null) {
@@ -28,6 +29,7 @@
                             self.course = snp[1].course
                             console.log(self.course);
                         }
+                        $scope.isLoading = false
                     })
                 } else if (localStorageService.get("status") == "student") {
                     dataService.getStudent(user.uid).then(function(snp) {
@@ -38,6 +40,7 @@
                             self.course = snp[1].course
                             console.log(self.course);
                         }
+                        $scope.isLoading = false
                     })
                 }
             }

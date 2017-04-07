@@ -20,9 +20,7 @@
             localStorageService.get("status") == "school" ? self.checkSchoolNav = true : self.checkSchoolNav = false
             localStorageService.get("status") == "student" ? self.checkStdNav = true : self.checkStdNav = false
             localStorageService.get("status") == "tutor" ? self.checkTutorNav = true : self.checkTutorNav = false
-            if (localStorageService.get("checkAdmin") == undefined) {
-                console.log("hello user");
-            } else if (localStorageService.get("checkAdmin").email == "admin@system") {
+            if (localStorageService.get("checkAdmin") == undefined) {} else if (localStorageService.get("checkAdmin").email == "admin@system") {
                 self.checkAdminNav = true
                 $scope.hide = true
             }

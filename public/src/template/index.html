@@ -1,10 +1,27 @@
-<div layout="row" layout-xs="column" class="screen-margin">
+<md-progress-circular md-mode="indeterminate" ng-show="isLoading" class="progress-bar">
+</md-progress-circular>
+
+<div layout="row" layout-xs="column" class="screen-margin" ng-hide="isLoading">
     <div flex layout-margin>
-        <p class="md-headline">อันดับโรงเรียนกวดวิชา</p>
+        <p class="md-headline">News</p>
     </div>
 </div>
-<div layout="row" layout-align="space-between center" class="screen-margin" layout-wrap>
-    <div flex="100" hide-gt-xs layout="column" ng-repeat="it in ul.schools | orderBy:'-persent'">
+<div layout="column" layout-align="center center" class="screen-margin" ng-hide="isLoading" hide-xs>
+    <jk-carousel data="schools" item-template-url="'src/template/item-template.html'" max-width="950" max-height="350" currentIndex="0" auto-slide="true" auto-slide-time="5000">
+    </jk-carousel>
+</div>
+<div layout="column" layout-align="center center" class="screen-margin" ng-hide="isLoading" hide-gt-xs>
+    <jk-carousel data="schools" item-template-url="'src/template/item-template-mobile.html'" max-width="950" max-height="500" currentIndex="0" auto-slide="true" auto-slide-time="5000">
+    </jk-carousel>
+</div>
+<hr class="hr screen-margin" ng-hide="isLoading">
+<div layout="row" layout-xs="column" class="screen-margin" ng-hide="isLoading">
+    <div flex layout-margin>
+        <p class="md-headline">โรงเรียนกวดวิชา</p>
+    </div>
+</div>
+<div layout="row" layout-align="space-between center" class="screen-margin" ng-hide="isLoading" layout-wrap>
+    <div flex="100" hide-gt-xs layout="column" ng-repeat="it in schools | orderBy:'-persent'">
         <md-card>
             <md-card-title>
                 <md-card-title-text>
@@ -18,14 +35,14 @@
             <md-card-actions layout="row" layout-align="end center">
                 <md-button ng-disabled="true">{{it.value.view + 0}} view
                 </md-button>
-                <md-button ng-click="ul.goToSchoolPage(it.id)">info</md-button>
+                <md-button ng-click="goToSchoolPage(it.id)">info</md-button>
             </md-card-actions>
         </md-card>
     </div>
     <div flex-gt-xs="100" hide-xs>
         <md-card>
             <md-table-container>
-                <table md-table>
+                <table md-table md-row-select="true" ng-model="selected">
                     <thead md-head>
                         <tr md-row>
                             <th md-column>
@@ -34,27 +51,19 @@
                             <th md-column>
                                 <span>ชื่อ</span>
                             </th>
-                            <th md-column md-numeric>Ranking</th>
+                            <th md-column md-numeric>คอร์สเรียน</th>
                             <th md-column md-numeric>เบอร์โทรศัพท์</th>
-                            <th md-column md-numeric hide-gt-xs>อีเมล</th>
-                            <th md-column md-numeric>ตัวเลือก</th>
+                            <th md-column md-numeric>อีเมล</th>
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row ng-repeat="it in ul.schools | limitTo : 4 | orderBy:'-persent'">
+                        <tr md-row ng-repeat="it in schools | limitTo : 4 | orderBy:'-persent'" ng-click="goToSchoolPage(it.id)" style="cursor:pointer">
                             <td md-cell>{{ $index+1 }}</td>
                             <td md-cell>{{ it.value.schoolName }}</td>
-                            <td md-cell> {{ it.persent }}% จากนักเรียน {{ it.countPollByStd}} คน</td>
+                            <td md-cell>{{it.countCourse}}</td>
                             <td md-cell>{{it.value.tel}}</td>
-                            <td md-cell hide-gt-xs>{{it.value.email}}</td>
-                            <td md-cell>
-                                <md-button class="md-fab md-mini md-accent" aria-label="Eat cake" ng-click="ul.goToSchoolPage(it.id)">
-                                    <md-icon md-svg-icon="info"></md-icon>
-                                    <md-tooltip md-delay="500">
-                                        รายละเอียด
-                                    </md-tooltip>
-                                </md-button>
-                            </td>
+                            <td md-cell>{{it.value.email}}</td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -64,56 +73,3 @@
     </div>
 
 </div>
-<div layout="row" layout-xs="column" class="screen-margin">
-    <div flex>
-        <HR class="hr">
-    </div>
-</div>
-
-<!--<div layout="row" layout-xs="column" class="screen-margin">
-    <div flex layout-margin>
-        <p class="md-headline">อันดับติวเตอร์</p>
-    </div>
-</div>
-<div layout="row" layout-align="space-between center" class="screen-margin" layout-wrap>
-    <div flex-gt-xs="100" hide-xs>
-        <md-card>
-            <md-table-container>
-                <table md-table>
-                    <thead md-head>
-                        <tr md-row>
-                            <th md-column>
-                                <span>อันดับ</span>
-                            </th>
-                            <th md-column>
-                                <span>ชื่อ</span>
-                            </th>
-                            <th md-column md-numeric>Ranking</th>
-                            <th md-column md-numeric>เบอร์โทรศัพท์</th>
-                            <th md-column md-numeric hide-gt-xs>อีเมล</th>
-                            <th md-column md-numeric>ตัวเลือก</th>
-                        </tr>
-                    </thead>
-                    <tbody md-body>
-                        <tr md-row ng-repeat="it in ul.schools | limitTo : 4 | orderBy:'-persent'">
-                            <td md-cell>{{ $index+1 }}</td>
-                            <td md-cell>{{ it.value.schoolName }}</td>
-                            <td md-cell> {{ it.persent }}% จากนักเรียน {{ it.countPollByStd}} คน</td>
-                            <td md-cell>{{it.value.tel}}</td>
-                            <td md-cell hide-gt-xs>{{it.value.email}}</td>
-                            <td md-cell>
-                                <md-button class="md-fab md-mini md-accent" aria-label="Eat cake" ng-click="ul.goToSchoolPage(it.id)">
-                                    <md-icon md-svg-icon="info"></md-icon>
-                                    <md-tooltip md-delay="500">
-                                        รายละเอียด
-                                    </md-tooltip>
-                                </md-button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </md-table-container>-->
-<!-- <md-table-pagination ng-hide="countAccTutor.length == 0" md-limit="query.limit" md-page="query.page" md-total="{{i.tutors.length}}" md-page-select></md-table-pagination> -->
-<!--</md-card>
-    </div>
-</div>-->

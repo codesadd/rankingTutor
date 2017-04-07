@@ -1,4 +1,7 @@
-<div layout="row" layout-xs="column" layout-align="center" class="screen-margin">
+<md-progress-circular md-mode="indeterminate" ng-show="isLoading" class="progress-bar">
+</md-progress-circular>
+
+<div layout="row" layout-xs="column" layout-align="center" class="screen-margin" ng-hide="isLoading">
     <div flex>
         <md-card>
             <div layout="row" layout-align="center center">
@@ -34,7 +37,7 @@
     </div>
 
 </div>
-<div layout="column" layout-xs="column" layout-align="center" class="screen-margin">
+<div layout="column" layout-xs="column" layout-align="center" class="screen-margin" ng-hide="isLoading">
     <div flex>
         <div dir-paginate="it in ul.courses | filter:'opening' | itemsPerPage: pageSize" current-page="currentPage">
             <md-card>

@@ -1,0 +1,20 @@
+<md-card md-colors="::{backgroundColor: 'blue-500'}" ng-controller="dashboardIndexCtrl" ng-click="goToSchoolPage(slideItem.id)" layout-padding>
+    <md-card-header style="padding-bottom: 0px">
+        <md-card-avatar>
+            <img class="md-user-avatar" src="{{slideItem.value.photoURL}}" />
+        </md-card-avatar>
+        <md-card-header-text>
+            <span class="md-title">{{slideItem.value.displayName}}</span>
+            <span class="md-subhead">{{slideItem.value.schoolName}}</span>
+        </md-card-header-text>
+    </md-card-header>
+    <md-card-content style="
+    position: relative;
+    margin: 10px 10%;
+    width: 70% !important;
+  ">
+        <div class="author" style="text-align: center">
+            <i>{{slideItem.value.biography}}</i>
+        </div>
+    </md-card-content>
+</md-card>

@@ -8,10 +8,12 @@
     <meta name="description" content="">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="node_modules/angular-material/angular-material.css" />
-    <link rel="stylesheet" href="node_modules/angular-material-data-table/dist/md-data-table.css">
+    <link rel="stylesheet" href="node_modules/angular-material-data-table/dist/md-data-table.css" />
+    <link rel="stylesheet" href="assets/css/mdRatingBar.min.css">
     <link href="lib/sweetAlert/sweet-alert.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/app.css" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/app.css" />
+    <link rel="stylesheet" href="node_modules/angular-jk-carousel/dist/jk-carousel.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
     <link href='https://fonts.googleapis.com/css?family=Kanit:400,700,300|Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <style type="text/css">
@@ -30,13 +32,13 @@
     <md-toolbar ng-if="true" md-whiteframe="1" md-colors="::{backgroundColor: 'default-primary-800'}">
         <div class="md-toolbar-tools screen-nav-margin" ng-controller="slidebarCtrl">
             <h2>
-                <md-button ng-href="#/" class="button-logo">Funfunc</md-button>
+                <a ng-href="#/"><img class="funfunc-logo" src="assets/img/logo.png"></a>
             </h2>
             <span flex></span>
             <div ng-controller="navCtrl as ul">
                 <div hide-xs ng-hide="hide">
                     <md-button ng-click="signin($event)">เข้าสู่ระบบ</md-button>
-                    <md-button ng-click="signup($event)">สมัครสมาชิก</md-button>
+                    <md-button ng-href="#/register">สมัครสมาชิก</md-button>
                 </div>
                 <!--<div ng-if="school">
                     this School User
@@ -63,6 +65,11 @@
                         <md-icon md-svg-icon="more" ng-click="$mdOpenMenu($event)"></md-icon>
                     </md-button>
                     <md-menu-content width="4">
+                        <md-menu-item ng-show="ul.checkAdminNav">
+                            <md-button ng-href="#/admin">
+                                <p>admin</p>
+                            </md-button>
+                        </md-menu-item>
                         <md-menu-item ng-show="ul.checkSchoolNav">
                             <md-button ng-href="#/profile-school">
                                 <p>ข้อมูลส่วนตัว</p>
@@ -106,12 +113,12 @@
     <md-content class="main-content">
         <div ng-view></div>
     </md-content>
-    <script src="node_modules/angular/angular.js"></script>
-    <script src="node_modules/angular-messages/angular-messages.js"></script>
-    <script src="node_modules/angular-animate/angular-animate.js"></script>
-    <script src="node_modules/angular-aria/angular-aria.js"></script>
-    <script src="node_modules/angular-route/angular-route.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.3/angular-sanitize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-messages.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-aria.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-sanitize.min.js"></script>
     <script src="node_modules/angularfire/dist/angularfire.min.js"></script>
     <script src="node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
     <script src="node_modules/angular-material/angular-material.js"></script>
@@ -123,6 +130,8 @@
     <script src="lib/sweetAlert/sweet-alert.min.js"></script>
     <script src="assets/js/ngEditor.js"></script>
     <script src="assets/js/angular-file-upload.min.js"></script>
+    <script src="node_modules/angular-jk-carousel/dist/jk-carousel.js"></script>
+    <script type="text/javascript" src="lib/mdRatingBar.min.js"></script>
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
     <script src="./src/module.js"></script>

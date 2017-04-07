@@ -12,6 +12,7 @@
         self.updateLike = updateLike
         self.schoolSelected = []
         self.courses = []
+        $scope.isLoading = true
         $scope.currentPage = 1
         $scope.pageSize = 5
 
@@ -23,6 +24,7 @@
                 .loadInfoSchool(id)
                 .then(function(school) {
                     self.schoolSelected = school
+                    $scope.isLoading = false
                 })
         }
 

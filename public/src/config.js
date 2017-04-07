@@ -1,5 +1,7 @@
 angular.module('starterApp', [
     'funfun',
+    'jkAngularCarousel',
+    'mdRatingBar',
     'ngRoute',
     'firebase',
     'LocalStorageModule',
@@ -9,10 +11,11 @@ angular.module('starterApp', [
     'md.data.table',
     'oitozero.ngSweetAlert',
     'ngEditor',
-    'ngSanitize'
+    'ngSanitize',
+    'ngAnimate',
 ]).config(ApplicationConfig);
 
-function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, localStorageServiceProvider, ChartJsProvider) {
+function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, localStorageServiceProvider, ChartJsProvider, $locationProvider) {
 
     $mdIconProvider.defaultIconSet("./assets/svg/avatars.svg", 512)
         .icon("menu", "./assets/svg/menu.svg", 512)
@@ -73,7 +76,7 @@ function ApplicationConfig($mdThemingProvider, $mdIconProvider, $routeProvider, 
         redirectTo: '/'
     });
     // use the HTML5 History API
-
+    $locationProvider.html5Mode(false).hashPrefix('');
     localStorageServiceProvider.setPrefix('starterApp');
 
     ChartJsProvider.setOptions({

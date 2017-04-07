@@ -19,6 +19,7 @@
         self.registerTutor = registerTutor
         $scope.checkStd = false
         $scope.checkTutor = false
+        $scope.isLoading = true
 
         $firebaseAuth().$onAuthStateChanged(function(user) {
             self.currentUser = user
@@ -116,6 +117,7 @@
         function getSchool() {
             dataService.loadInfoSchool(self.schoolSelectId).then(function(school) {
                 self.schoolSelected = school
+                $scope.isLoading = false
             })
         }
 

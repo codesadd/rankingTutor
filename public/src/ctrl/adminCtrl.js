@@ -14,7 +14,7 @@
         self.fetchStudentAcc = fetchStudentAcc
         self.removeSchool = removeSchool
         self.fetchChartData = fetchChartData
-
+        $scope.selected = []
         $scope.query = {
             limit: 5,
             page: 1
@@ -34,7 +34,7 @@
                 self.countSchool = res[0].countSchool
                 self.countStudent = res[0].countStudent
                 self.schools = res[0].schools
-                //console.log(res[0].schools);
+                console.log(res);
             })
         } else {
             swal("คุณไม่สามารถเข้าถึงระบบนี้ได้", "This data can be access by admin only.", "warning")
@@ -63,19 +63,19 @@
 
         function fetchChartData(item) {
             if (item == undefined) {
-              self.data = [
-                  [r1=0, r2=0, r3=0, r4=0, r5=0, r6=0]
-              ];
-              self.series = [textTitle="จากนักเรียนทั้งหมด 0 คน"];
+                self.data = [
+                    [r1 = 0, r2 = 0, r3 = 0, r4 = 0, r5 = 0, r6 = 0]
+                ];
+                self.series = [textTitle = "จากนักเรียนทั้งหมด 0 คน"];
             } else {
                 $scope.labels = [];
                 $scope.data = [];
 
                 var t1, t2, t3, t4, t5, t6
                 t1 = t2 = t3 = t4 = t5 = t6 = 0
-                console.log(item);
+                    // console.log(item);
                 Object.keys(item).forEach(function(course) {
-                  var count = 0
+                    var count = 0
                     Object.keys(item[course].dataPoll).forEach(function(id) {
                         count++
                         if (count == 1) {
@@ -100,13 +100,13 @@
                 r4 = parseInt((t4 / (5 * Object.keys(item).length)) * 100)
                 r5 = parseInt((t5 / (5 * Object.keys(item).length)) * 100)
                 r6 = parseInt((t6 / (5 * Object.keys(item).length)) * 100)
-                //console.log(Object.keys(item).length);
+                    //console.log(Object.keys(item).length);
                 var textTitle = "จากนักเรียนทั้งหมด " + Object.keys(item).length + " คน"
                 self.labels = ["สถานที่เหมาะสม", "สิ่งอำนวยความสะดวก", "การจัดการเวลา", "ความสะอาด", "เอกสาร", "อาหาร"];
                 self.data = [
                     [r1, r2, r3, r4, r5, r6]
                 ];
-                console.log(self.data);
+                // console.log(self.data);
                 self.series = [textTitle];
                 self.options = {
                     legend: {
