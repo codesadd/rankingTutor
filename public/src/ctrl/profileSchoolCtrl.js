@@ -3,16 +3,17 @@
     angular
         .module('funfun')
         .controller('ProfileSchoolCtrl', [
-            '$scope', 'localStorageService', '$firebaseAuth', '$location', '$firebaseObject', 'ChartJs', 'dataService',
+            '$scope', 'localStorageService', '$firebaseAuth', '$location', '$firebaseObject', 'ChartJs', 'dataService', 'SweetAlert',
             ProfileSchoolCtrl
         ]);
 
 
-    function ProfileSchoolCtrl($scope, localStorageService, $firebaseAuth, $location, $firebaseObject, ChartJs, dataService) {
+    function ProfileSchoolCtrl($scope, localStorageService, $firebaseAuth, $location, $firebaseObject, ChartJs, dataService, SweetAlert) {
         var self = this;
         self.user = [];
         self.school = [];
         self.selectedId = null;
+        self.userId
         self.updateInfoSchool = updateInfoSchool;
 
         $firebaseAuth().$onAuthStateChanged(function(user) {
@@ -21,6 +22,7 @@
             } else {
                 dataService.loadInfoSchool(user.uid).then(function(snp) {
                     self.school = snp;
+                    self.userId = user.uid
                     getInfoCourse(user.uid)
                 });
             }
@@ -72,9 +74,17 @@
         }
 
         function updateInfoSchool(param) {
-            dataService.updateSchoolInfo(param, self.school[0].id).then(function(snp) {
-                self.school = snp;
-                console.log(snp);
+            firebase.database().ref('schools').child(self.userId).update(param, function(error) {
+                // body...
+                if (error) {
+                    console.log("Data could not be saved." + error);
+                    // self.infoSchools.push({ status: 400 })
+                } else {
+                    SweetAlert.swal("อัพเดทข้อมูลเรียบร้อยแล้ว!", "This data has been updated.", "success")
+                    setTimeout(function() {
+                        location.reload()
+                    }, 1000)
+                }
             })
 
         }

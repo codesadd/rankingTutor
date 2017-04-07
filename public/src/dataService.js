@@ -11,14 +11,13 @@
     firebase.initializeApp(config);
 
     function UserService($q, $http, $firebaseArray, $firebaseObject) {
-        var url = "https://sleepy-shore-93571.herokuapp.com/api/v1/"
-            // var url = "http://localhost:3000/api/v1/"
+        // var url = "https://sleepy-shore-93571.herokuapp.com/api/v1/"
+        var url = "http://localhost:3000/api/v1/"
 
         var self = this;
         // Promise-based API
         return {
             createCourse: createCourse,
-            updateSchoolInfo: updateSchoolInfo,
             loadInfoSchool: loadInfoSchool,
             loadAllCourse: loadAllCourse,
             loadAllSchools: loadAllSchools,
@@ -233,18 +232,6 @@
                     uid: uid
                 }
             });
-            return (request.then(handleSuccess, handleError));
-        }
-
-        function updateSchoolInfo(params, uid) {
-
-            var request = $http({
-                method: "post",
-                url: url + "updateschool/" + uid,
-                data: params,
-                headers: { 'Content-Type': 'application/json' }
-            });
-
             return (request.then(handleSuccess, handleError));
         }
 

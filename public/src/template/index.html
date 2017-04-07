@@ -46,10 +46,9 @@
                     <thead md-head>
                         <tr md-row>
                             <th md-column>
-                                <span>อันดับ</span>
                             </th>
                             <th md-column>
-                                <span>ชื่อ</span>
+                                <span>รายชื่อ</span>
                             </th>
                             <th md-column md-numeric>คอร์สเรียน</th>
                             <th md-column md-numeric>เบอร์โทรศัพท์</th>
@@ -58,7 +57,6 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row ng-repeat="it in schools | limitTo : 4 | orderBy:'-persent'" ng-click="goToSchoolPage(it.id)" style="cursor:pointer">
-                            <td md-cell>{{ $index+1 }}</td>
                             <td md-cell>{{ it.value.schoolName }}</td>
                             <td md-cell>{{it.countCourse}}</td>
                             <td md-cell>{{it.value.tel}}</td>
