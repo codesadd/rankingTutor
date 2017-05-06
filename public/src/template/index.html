@@ -7,11 +7,11 @@
     </div>
 </div>
 <div layout="column" layout-align="center center" class="screen-margin" ng-hide="isLoading" hide-xs>
-    <jk-carousel data="schools" item-template-url="'src/template/item-template.html'" max-width="950" max-height="350" currentIndex="0" auto-slide="true" auto-slide-time="5000">
+    <jk-carousel data="schools" item-template-url="'src/template/item-template.html'" max-width="950" max-height="300" currentIndex="0" auto-slide="true" auto-slide-time="5000">
     </jk-carousel>
 </div>
 <div layout="column" layout-align="center center" class="screen-margin" ng-hide="isLoading" hide-gt-xs>
-    <jk-carousel data="schools" item-template-url="'src/template/item-template-mobile.html'" max-width="950" max-height="500" currentIndex="0" auto-slide="true" auto-slide-time="5000">
+    <jk-carousel data="schools" item-template-url="'src/template/item-template-mobile.html'" max-width="950" max-height="550" currentIndex="0" auto-slide="true" auto-slide-time="5000">
     </jk-carousel>
 </div>
 <hr class="hr screen-margin" ng-hide="isLoading">
@@ -55,10 +55,10 @@
                     </thead>
                     <tbody md-body>
                         <tr md-row ng-repeat="it in schools | limitTo : 4 | orderBy:'-persent'" ng-click="goToSchoolPage(it.id)" style="cursor:pointer">
-                            <td md-cell>{{ it.value.schoolName }}</td>
-                            <td md-cell>{{it.countCourse}}</td>
-                            <td md-cell>{{it.value.tel}}</td>
-                            <td md-cell>{{it.value.email}}</td>
+                            <td md-cell><img src="{{it.value.photoURL}}" class="avatar-index">{{ it.value.schoolName }}</td>
+                            <td md-cell>{{it.countCourse}} <i class="fa fa-book" aria-hidden="true"></i></td>
+                            <td md-cell>{{it.value.tel}} <i class="fa fa-phone-square" aria-hidden="true"></i></td>
+                            <td md-cell>{{it.value.email}} <i class="fa fa-envelope" aria-hidden="true"></i></td>
 
                         </tr>
                     </tbody>

@@ -91,7 +91,7 @@
                         text: "การทำแบบประเมินไม่สามารถแก้ไขข้อมูลได้!!",
                         type: "warning",
                         showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
+                        confirmButtonColor: "#A5DC86",
                         confirmButtonText: "Yes, send it!",
                         cancelButtonText: "No, cancel plx!",
                         closeOnConfirm: false,
@@ -124,8 +124,8 @@
         function getTutorId() {
             var returnItem = null
             if (self.course[0].value.tutors == undefined) {
-                SweetAlert.swal("ไม่มีข้อมูลติวเตอร์", "undefined tutor!", "error")
-                $location.path('/dashboard-user')
+                // SweetAlert.swal("ไม่มีข้อมูลติวเตอร์", "undefined tutor!", "error")
+                // $location.path('/dashboard-user')
             } else {
                 var keyTutor = Object.keys(self.course[0].value.tutors)
                 keyTutor.forEach(function(key) {

@@ -112,10 +112,54 @@ md-toolbar h1 {
     font-weight: 400;
 }
 
+.notification-label {
+    width: 14px;
+    height: 14px;
+    line-height: 16px;
+    text-align: center;
+    border-radius: 50%;
+    position: absolute;
+    font-size: 12px;
+    top: 6px;
+    right: 6px;
+    background-color: #E75753;
+    color: white;
+}
+
+.notification-label-on-tab {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    position: absolute;
+    font-size: 12px;
+    top: 0px;
+    right: 4px;
+    background-color: #E75753;
+    color: white;
+}
+
 .avatar {
     position: relative;
     width: 128px;
     height: 128px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0px;
+    vertical-align: middle;
+    zoom: 0.70;
+    transform: translateZ(0);
+    -webkit-transform: scale(0.70);
+    -moz-transform: scale(0.70);
+}
+
+.avatar-index {
+    position: relative;
+    width: 50px;
+    height: 50px;
     border: 1px solid #ddd;
     border-radius: 50%;
     display: inline-block;

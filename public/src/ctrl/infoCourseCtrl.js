@@ -81,6 +81,7 @@
         function registerTutor() {
             dataService.registerTutor(self.schoolSelected, self.course, self.currentUser).then(function(snp) {
                 if (snp != "") {
+                    SweetAlert.swal("สมัครสอนเรียบร้อยแล้ว!", "รอการยืนยันจากโรงเรียนกวดวิชา", "success")
                     checkRegisterTutor(self.schoolSelectId, self.courseSelectId, self.currentUser.uid)
                 }
             })

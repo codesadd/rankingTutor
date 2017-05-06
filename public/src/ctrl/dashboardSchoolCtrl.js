@@ -33,6 +33,22 @@
             time: '',
             date: ''
         };
+
+        $scope.menu = [{
+            1: {
+                name: "ลายละเอียด",
+                link: true
+            },
+            2: {
+                name: "นักเรียน",
+                link: false
+            },
+            3: {
+                name: "ติวเตอร์",
+                link: false
+            },
+        }]
+
         $scope.doc = { content: '' };
         $scope.editor = new NgEditor({
             top: 0,
@@ -55,8 +71,27 @@
             }
         }
 
+        $scope.test = function(i) {
+            $scope.listMenu = true
+            $scope.mm = i
+            console.log(i)
+        }
 
+        $scope.goto = function(param) {
+            console.log(param)
+            $scope.linkDashboard = true
+            Object.keys($scope.menu[0]).forEach(function(item) {
+                if (item == param) {
+                    $scope.menu[0][item].link = true
+                } else {
+                    $scope.menu[0][item].link = false
+                }
+            })
+        }
 
+        $scope.fetchStudent = function(item, param) {
+            //console.log(item, param)
+        }
 
         $scope.checkStudent = function() {
             $scope.dateStudentNow = getDateTime()
@@ -75,6 +110,7 @@
                 eventTime: param.time,
                 dateTime: param.date,
                 details: param.content,
+                numStd: param.numStd,
                 status: "opening",
                 createTime: getDateTime()
             }
@@ -126,6 +162,7 @@
                         self.pendingCountStudent = snp[0].pendingCountStudent
                         $scope.dateStudentNow = getDateTime()
                         $scope.selectedIndex = 0
+                        console.log(snp[0].data)
                     })
                 }
             })

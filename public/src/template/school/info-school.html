@@ -17,8 +17,9 @@
         </md-card>
         <md-card>
             <md-card-content>
-                <span class="md-subhead">Biography</span> -
-                <span class="md-body-1">{{ul.schoolSelected[0].value.biography}}</span>
+                <span class="md-subhead">ที่อยู่</span> :
+                <span class="md-body-1">{{ul.schoolSelected[0].value.address}}  อ.{{ul.schoolSelected[0].value.city}}  จ.{{ul.schoolSelected[0].value.state}}  {{ul.schoolSelected[0].value.postalCode}}</span>
+                <span class="md-body-1" style="padding-left:15px">โทร: {{ul.schoolSelected[0].value.tel}} </span>
             </md-card-content>
         </md-card>
     </div>
