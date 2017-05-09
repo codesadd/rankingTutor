@@ -2,11 +2,11 @@
     angular
         .module('funfun')
         .controller('dashboardSchoolCtrl', [
-            '$scope', '$firebaseAuth', '$log', '$mdDialog', '$location', 'dataService', 'SweetAlert', 'NgEditor',
+            '$scope', '$firebaseAuth', '$log', '$mdDialog', '$location', 'dataService', 'SweetAlert', 'NgEditor','$sce',
             dashboardSchoolCtrl
         ])
 
-    function dashboardSchoolCtrl($scope, $firebaseAuth, $log, $mdDialog, $location, dataService, SweetAlert, NgEditor) {
+    function dashboardSchoolCtrl($scope, $firebaseAuth, $log, $mdDialog, $location, dataService, SweetAlert, NgEditor, $sce) {
         var self = this
         self.currentId
         self.courseKey
@@ -74,11 +74,9 @@
         $scope.test = function(i) {
             $scope.listMenu = true
             $scope.mm = i
-            console.log(i)
         }
 
         $scope.goto = function(param) {
-            console.log(param)
             $scope.linkDashboard = true
             Object.keys($scope.menu[0]).forEach(function(item) {
                 if (item == param) {
@@ -89,8 +87,24 @@
             })
         }
 
-        $scope.fetchStudent = function(item, param) {
-            //console.log(item, param)
+        $scope.fetchStudent = function(items, param) {
+            return items.filter(item => item.std_status == param).length
+        }
+
+        $scope.checkPayment = function(ev, infoStd, infoCourse) {
+            console.log(infoStd, infoCourse)
+            $scope.infoStudent = infoStd
+            $scope.infoCourse = infoCourse
+            $mdDialog.show({
+                contentElement: '#showPayment',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+            }).then(function(item) {
+               console.log(item)
+            }, function() {
+                console.log("canceled dailog")
+            })
         }
 
         $scope.checkStudent = function() {
@@ -132,11 +146,9 @@
                 })
                 dataService.createCourse(item, self.currentId).then(function(snp) {
                     self.course = snp[0].data
-                    console.log(snp);
                 })
                 setTimeout(function() {
                     SweetAlert.swal("เพิ่มข้อมูลเรียบร้อยแล้ว!", "This data has been added.", "success")
-                    $scope.selectedIndex = self.course.length
                 }, 1000)
             }, function() {
                 console.log("canceled dailog")
@@ -262,10 +274,11 @@
                         })
                         dataService.acceptStudent(self.currentId, courseId, student.std_id).then(function(snp) {
                             self.course = snp[0].data
+                            $scope.mm =  self.course.filter(course => course.courseId === courseId)[0]
+                           
                         })
                         setTimeout(function() {
                             SweetAlert.swal("ยืนยันข้อมูลเรียบร้อยแล้ว!", "This data has been accepted.", "success")
-                            $scope.selectedIndex = index
                         }, 2000)
 
                     } else {
@@ -307,6 +320,10 @@
                         SweetAlert.swal("ยกเลิกการยืนยันข้อมูลเรียบร้อย", "This data is pending :)", "error")
                     }
                 })
+        }
+
+        $scope.detail = function(detail) {
+            return $sce.trustAsHtml(detail);
         }
 
         $scope.dateToString = function(param) {

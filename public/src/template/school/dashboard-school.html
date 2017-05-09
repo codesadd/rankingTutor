@@ -122,19 +122,19 @@
             <md-list style="padding:0px" ng-hide="listMenu">
                 <md-list-item ng-repeat="i in ul.course | filter : filter as cnstring" ng-click="test(i)" class="noright">
                     <p>{{ i.course.name }}</p>
-                    <md-button ng-disabled="true">Registered {{fetchStudent(i.students,'accepted')}}/{{i.course.numStd }} คน</md-button>
-                    <md-button aria-label="comment" class="md-icon-button">
+                    <md-button ng-disabled="true">เปิดรับ {{i.course.numStd }} คน,ชำระเงินแล้ว {{fetchStudent(i.students,'accepted')}} คน</md-button>
+                    <md-button aria-label="comment" class="md-icon-button" ng-hide="fetchStudent(i.students,'pending') == 0">
                         <span class="notification-label">{{fetchStudent(i.students,'pending')}}</span>
                         <i class="material-icons" style="color:cadetblue">payment</i>
                         <md-tooltip md-delay="500">แจ้งชำระเงิน</md-tooltip>
                     </md-button>
-                    <md-button aria-label="comment" class="md-icon-button">
+                    <md-button aria-label="comment" class="md-icon-button" ng-hide="fetchStudent(i.students,'waiting') == 0">
                         <span class="notification-label">{{fetchStudent(i.students,'waiting')}}</span>
                         <i class="material-icons" style="color:cadetblue">face</i>
                         <md-tooltip md-delay="500">นักเรียนที่สมัคร</md-tooltip>
                     </md-button>
-                    <md-button aria-label="comment" class="md-icon-button">
-                        <span class="notification-label">{{fetchStudent(i.tutors,'pending')}}</span>
+                    <md-button aria-label="comment" class="md-icon-button" ng-hide="fetchStudent(i.tutors,'pending') == 0">
+                        <span class="notification-label">fetchStudent(i.tutors,'pending')</span>
                         <i class="material-icons" style="color:blueviolet">account_circle</i>
                         <md-tooltip md-delay="500">ติวเตอร์ที่สนใจ</md-tooltip>
                     </md-button>
@@ -145,13 +145,13 @@
                         <md-menu-content>
                             <md-menu-item style="margin-left:auto; margin-right:auto">
                                 <md-button aria-label="comment" class="md-icon-button" ng-click="ul.deleteCourse(i)">
-                                    <i class="material-icons" style="color:red">delete</i>
+                                    <i class="material-icons">delete</i>
                                     <md-tooltip md-delay="500">ลบวิชานี้</md-tooltip>
                                 </md-button>
                             </md-menu-item>
                             <md-menu-item style="margin-left:auto; margin-right:auto">
                                 <md-button aria-label="comment" class="md-icon-button" ng-click="ul.closeCourse(i)">
-                                    <i class="material-icons" style="color:darkorange">settings_power</i>
+                                    <i class="material-icons">settings_power</i>
                                     <md-tooltip md-delay="500">ปิดการสอน</md-tooltip>
                                 </md-button>
                             </md-menu-item>
@@ -167,17 +167,18 @@
                         </md-nav-item>
                         <md-nav-item md-nav-click="goto('2')" name="page2">
                             {{menu[0][2].name}}
-                            <span class="notification-label-on-tab">23{{fetchStudent(i.students,'pending')}}</span>
+                            <span class="notification-label-on-tab" ng-hide="results.length==0">{{results.length}}</span>
                         </md-nav-item>
                         <md-nav-item md-nav-click="goto('3')" name="page3">
                             {{menu[0][3].name}}
-                            <span class="notification-label-on-tab">11{{fetchStudent(i.tutors,'pending')}}</span>
+                            <span class="notification-label-on-tab" ng-hide="countAccPending.length == 0">{{countAccPending.length}}</span>
                         </md-nav-item>
                     </md-nav-bar>
                     <div layout="row" layout-xs="column" ng-show="menu[0][1].link">
                         <md-content layout-padding>
                             <span>วิชา : {{mm.course.name}}</span>
                             <span>เริ่มสอนวันที่ : {{mm.course.dateTime}}</span>
+                            <div ng-bind-html="detail(mm.course.details)"></div>
                         </md-content>
                     </div>
                     <div layout="row" layout-xs="column" ng-show="menu[0][2].link">
@@ -231,22 +232,23 @@
                                 <table md-table ng-hide="results.length == 0">
                                     <thead md-head md-on-reorder="ul.course">
                                         <tr md-row>
-                                            <th md-column>
+                                            <th md-column md-numeric>
                                                 <span>ชื่อ</span>
                                             </th>
-                                            <th md-column hide-xs>สถานะ</th>
-                                            <th md-column layout-align="center">Action</th>
+                                            <th md-column md-numeric hide-xs>สถานะ</th>
+                                            <th md-column md-numeric>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody md-body>
                                         <tr layout-align="center" md-row ng-repeat="el in mm.students | limitTo: query.limit: (query.page - 1) * query.limit | filter :{ std_status: 'pending' } as results">
-                                            <td md-cell>{{el.value.displayName}}</td>
-                                            <td md-cell hide-xs>{{el.std_status}}</td>
-                                            <td md-cell>
-                                                <md-button class="md-fab md-mini md-primary" aria-label="Eat cake" ng-click="ul.acceptStudent(el, i.courseId, i)">
-                                                    <md-icon md-svg-icon="done"></md-icon>
+                                            <td md-cell md-numeric>{{el.value.displayName}}</td>
+                                            <td md-cell md-numeric  hide-xs>{{el.std_status}}</td>
+                                            <td md-cell md-numeric>
+                                                <md-button class="md-icon-button" aria-label="Eat cake" ng-click="checkPayment($event, el, mm)">
+                                                    <!--ul.acceptStudent(el, mm.courseId, mm)-->
+                                                    <i class="material-icons">assignment</i>
                                                     <md-tooltip md-delay="500">
-                                                        ยืนยันการสมัคร
+                                                        ตรวจสอบการชำระเงิน
                                                     </md-tooltip>
                                                 </md-button>
                                             </td>
@@ -345,6 +347,41 @@
                 </md-content>
             </div>
         </md-card>
+    </div>
+</div>
+
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="showPayment">
+        <md-dialog aria-label="เพิ่มวิชา" style="width: 80%">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>ตวรจสอบการชำระเงิน</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-icon="cancel" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content layout="row" layout-padding>
+                <md-content flex="50">
+                    <md-card>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">ชื่อ : {{infoStudent.value.displayName}}</span>
+                                <span class="md-subhead">email : {{infoStudent.value.email}}</span>
+                                <span class="md-subhead">tel : {{infoStudent.value.tel}}</span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                                <div class="md-media-sm card-media"><img src="{{infoStudent.value.photoURL}}" class="avatar"></div>
+                            </md-card-title-media>
+                        </md-card-title>
+                </md-card>
+                </md-content>
+                <md-content flex="50">
+                    test
+                </md-content>
+            </md-dialog-content>
+        </md-dialog>
     </div>
 </div>
 
