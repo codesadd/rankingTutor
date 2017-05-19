@@ -2,7 +2,7 @@
   'use strict';
 
   // Prepare the 'users' module for subsequent registration of controllers and delegates
-  angular.module('funfun', [ 'ngMaterial']);
+  angular.module('funfun', ['ngMaterial']);
 
 
 })();

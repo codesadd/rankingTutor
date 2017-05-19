@@ -245,7 +245,6 @@
                                             <td md-cell md-numeric  hide-xs>{{el.std_status}}</td>
                                             <td md-cell md-numeric>
                                                 <md-button class="md-icon-button" aria-label="Eat cake" ng-click="checkPayment($event, el, mm)">
-                                                    <!--ul.acceptStudent(el, mm.courseId, mm)-->
                                                     <i class="material-icons">assignment</i>
                                                     <md-tooltip md-delay="500">
                                                         ตรวจสอบการชำระเงิน
@@ -364,6 +363,7 @@
             </md-toolbar>
             <md-dialog-content layout="row" layout-padding>
                 <md-content flex="50">
+                    ข้อมูลผู้สมัคร
                     <md-card>
                         <md-card-title>
                             <md-card-title-text>
@@ -375,10 +375,24 @@
                                 <div class="md-media-sm card-media"><img src="{{infoStudent.value.photoURL}}" class="avatar"></div>
                             </md-card-title-media>
                         </md-card-title>
-                </md-card>
+                    </md-card>
+                     ข้อมูลผู้ชำระเงิน
+                    <md-card>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-subhead">ชื่อ : {{infoStudent.payment.name}}</span>
+                                <span class="md-subhead">ชื่อธนาคาร : {{infoStudent.payment.bankName}}</span>
+                                <span class="md-subhead">วันที่ : {{infoStudent.payment.date}} เวลา : {{infoStudent.payment.time}}</span>
+                                <span class="md-subhead">tel : {{infoStudent.payment.tel}}</span>
+                            </md-card-title-text>
+                        </md-card-title>
+                    </md-card>
+                    <md-button class="md-primary" ng-click="ul.acceptStudent(infoStudent, infoCourse)">ยืนยันการสมัคร</md-button>
                 </md-content>
                 <md-content flex="50">
-                    test
+                    <md-card>
+                        <img src="{{infoStudent.payment.imageURL}}" style="width:100%"/>
+                    </md-card>
                 </md-content>
             </md-dialog-content>
         </md-dialog>

@@ -6,7 +6,9 @@
     var config = {
         authDomain: "fun-fun-53400.firebaseapp.com",
         apiKey: "AIzaSyDIpDDBTd08Lwh8uYYybwJQvHwZEe6ACjE",
-        databaseURL: "https://fun-fun-53400.firebaseio.com"
+        databaseURL: "https://fun-fun-53400.firebaseio.com",
+        storageBucket: "fun-fun-53400.appspot.com"
+        
     };
     firebase.initializeApp(config);
 

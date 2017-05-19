@@ -40,7 +40,15 @@
 </div>
 <div layout="column" layout-xs="column" layout-align="center" class="screen-margin" ng-hide="isLoading">
     <div flex>
-        <div dir-paginate="it in ul.courses | filter:'opening' | itemsPerPage: pageSize" current-page="currentPage">
+        <md-card>
+            <md-input-container class="md-block" flex-gt-sm>
+            <label><md-icon ng-bind="'search'"></md-icon>ค้นหาวิชาที่สนใจ</label>
+            <input ng-model="search">
+        </md-input-container>
+        </md-card>
+    </div> 
+    <div flex>
+        <div dir-paginate="it in ul.courses | filter:'opening' |filter:search | itemsPerPage: pageSize" current-page="currentPage">
             <md-card>
                 <md-card-title>
                     <md-card-title-text>

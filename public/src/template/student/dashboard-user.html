@@ -44,11 +44,9 @@
                             </md-card-title>
                             <md-card-actions layout="row" layout-align="end center">
                                 <md-button class="md-raised md-primary" ng-show="ul.ckeckAccepted(value.infoRegister.status)">ลงทะเบียนเรียบร้อย</md-button>
-                                <md-button class="md-raised md-warn" ng-show="ul.ckeckPending(value.infoRegister.status)">รอการยืนยัน</md-button>
+                                <md-button class="md-raised md-primary" ng-show="ul.ckeckPending(value.infoRegister.status)" ng-click="confirmPayment($event, value)">ยืนยันการชำระเงิน</md-button>
                                 </md-button>
-                                <md-button ng-disabled="true">สมัครวันที่ {{value.infoRegister.dateRegister}}
-                                </md-button>
-                                <md-button ng-click="ul.doingPoll(value.course.courseId, value.school.schoolId)" ng-show="!{{value.checkPoll}}" ng-disabled="ul.ckeckPending(value.infoRegister.status)">ทำแบบประเมิน</md-button>
+                                <md-button ng-click="ul.doingPoll(value.course.courseId, value.school.schoolId)" ng-show="!{{value.checkPoll}}" ng-hide="ul.ckeckPending(value.infoRegister.status)">ทำแบบประเมิน</md-button>
                             </md-card-actions>
                         </md-card>
                     </div>
@@ -56,7 +54,7 @@
             </md-tab>
             <md-tab label="วิชาที่ผ่านการยืนยัน">
                 <md-content class="md-padding">
-                    <div ng-repeat="(key, value) in ul.course  | filter : 'accepted'">
+                    <div ng-repeat="(key, value) in ul.course  | filter : 'pending'">
                         <md-card md-theme-watch ng-show="!ul.ckeckPending(value.infoRegister.status)">
                             <md-card-title>
                                 <md-card-title-text>
@@ -88,7 +86,7 @@
             </md-tab>
             <md-tab label="วิชาที่ยังรอการยืนยัน">
                 <md-content class="md-padding">
-                    <div ng-repeat="(key, value) in ul.course  | filter : 'pending'">
+                    <div ng-repeat="(key, value) in ul.course  | filter : 'waiting'">
                         <md-card md-theme-watch ng-show="ul.ckeckPending(value.infoRegister.status)">
                             <md-card-title>
                                 <md-card-title-text>
@@ -116,4 +114,74 @@
         </md-tabs>
     </div>
 
+</div>
+
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="confirmPayment">
+        <md-dialog aria-label="เพิ่มวิชา">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>ตวรจสอบการชำระเงิน</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-icon="cancel" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-progress-linear md-mode="determinate" ng-value="{{loading}}"></md-progress-linear>
+            <md-dialog-content layout="row" layout-align="center" layout-padding>
+                    <form name="inputPayment">
+                        <div layout-gt-xs="column">
+                            <md-input-container>
+                                <label>ชื่อ-นามสกุล ผู้โอน</label>
+                                <input required name="name" ng-model="payment.name"/>
+                                <div ng-messages="inputPayment.name.$error">
+                                    <div ng-message="required">กรอกชื่อผู้โอน.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container>
+                                <label>ธนาคาร</label>
+                                <md-select ng-model="payment.bankName" name="bankName" required>
+                                    <md-option value="กรุงเทพ">กรุงเทพ</md-option>
+                                    <md-option value="กสิกร">กสิกร</md-option>
+                                    <md-option value="กรุงศรี">กรุงศรี</md-option>
+                                    <md-option value="ไทยพาณิช">ไทยพาณิช</md-option>
+                                    <md-option value="ทหารไทย">ทหารไทย</md-option>
+                                </md-select>
+                                <div ng-messages="inputPayment.bankName.$error">
+                                    <div ng-message="required">กรอกเลือกธนาคาร.</div>
+                                </div>
+                            </md-input-container>
+                            <div layout="row">
+                                 <md-input-container>
+                                <label>เวลาที่โอน</label>
+                                <md-datepicker md-hide-icons="calendar" ng-model="ss" name="date1" ng-change="payment.date = dateToString(ss)" required></md-datepicker>
+                                <div ng-messages="inputPayment.date1.$error">
+                                    <div ng-message="required">เลือกวันที่เริ่มสอน.</div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container>
+                                <label>เวลาที่โอน</label>
+                                <input required name="time" ng-model="payment.time" ng-pattern="/^[0-9]{2}[.][0-9]{2}$/">
+                                <div ng-messages="inputPayment.time.$error">
+                                    <div ng-message="pattern">ตัวอย่าง 08.30</div>
+                                    <div ng-message="required">กรุณากรอกช่วงเวลาที่สอน.</div>
+                                </div>
+                            </md-input-container>
+                            </div>
+                            <md-input-container>
+                                <label>เบอร์ติดต่อ</label>
+                                <input required name="tel" ng-model="payment.tel" ng-pattern="/^[0-9]{3}[-][0-9]{3}-[0-9]{4}$/">
+                                <div ng-messages="inputPayment.tel.$error">
+                                    <div ng-message="pattern">ตัวอย่าง 091-234-5678</div>
+                                    <div ng-message="required">กรุณากรอกช่วงเวลาที่สอน.</div>
+                                </div>
+                            </md-input-container>
+                                <input id="input-file-id" type="file"/>
+                                <md-button class="md-raised md-primary" ng-click="submitPayment(payment)">ยืนยัน</md-button>
+                        </div>
+                    </form>
+            </md-dialog-content>
+        </md-dialog>
+    </div>
 </div>

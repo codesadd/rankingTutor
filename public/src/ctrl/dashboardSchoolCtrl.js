@@ -144,6 +144,7 @@
                     timer: 2000,
                     showConfirmButton: false
                 })
+                console.log(item)
                 dataService.createCourse(item, self.currentId).then(function(snp) {
                     self.course = snp[0].data
                 })
@@ -251,10 +252,9 @@
                 })
         }
 
-        function acceptStudent(student, courseId, i) {
-            var index = self.course.indexOf(i)
+        function acceptStudent(infoStudent, infoCourse) {
             SweetAlert.swal({
-                    title: "ยืนยันการเข้าเรียนของ " + student.value.displayName + " ?",
+                    title: "ยืนยันการเข้าเรียนของ " + infoStudent.value.displayName + " ?",
                     text: "Your will not be able to change this Data !!",
                     type: "info",
                     showCancelButton: true,
@@ -272,13 +272,14 @@
                             timer: 1000,
                             showConfirmButton: false
                         })
-                        dataService.acceptStudent(self.currentId, courseId, student.std_id).then(function(snp) {
+                        dataService.acceptStudent(self.currentId, infoCourse.courseId, infoStudent.std_id).then(function(snp) {
                             self.course = snp[0].data
-                            $scope.mm =  self.course.filter(course => course.courseId === courseId)[0]
-                           
+                            console.log(self.course)
+                            $scope.mm =  self.course.filter(course => course.courseId === infoCourse.courseId)[0]
                         })
                         setTimeout(function() {
                             SweetAlert.swal("ยืนยันข้อมูลเรียบร้อยแล้ว!", "This data has been accepted.", "success")
+                            $mdDialog.hide()
                         }, 2000)
 
                     } else {
