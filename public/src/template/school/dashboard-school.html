@@ -199,7 +199,6 @@
                                                 <span>ชื่อ</span>
                                             </th>
                                             <th md-column md-numeric>เบอร์โทรศัพท์</th>
-                                            <th md-column md-numeric hide-gt-xs>อีเมล</th>
                                             <th md-column md-numeric>Action</th>
                                         </tr>
                                     </thead>
@@ -207,10 +206,12 @@
                                         <tr md-row ng-repeat="el in mm.students | limitTo: query.limit: (query.page - 1) * query.limit | filter : { std_status: 'accepted' } as countAcc">
                                             <td md-cell>{{el.value.displayName}}</td>
                                             <td md-cell>{{el.value.tel}}</td>
-                                            <td md-cell hide-gt-xs>{{el.value.email}}</td>
                                             <td md-cell>
-                                                <md-button class="md-fab md-mini md-primary" aria-label="Eat cake">
-                                                    <md-icon md-svg-icon="info"></md-icon>
+                                                <md-button class="md-icon-button" aria-label="Eat cake" ng-click="showPayment($event, el, mm)">
+                                                    <i class="material-icons">assignment</i>
+                                                    <md-tooltip md-delay="500">
+                                                        ตรวจสอบการชำระเงิน
+                                                    </md-tooltip>
                                                 </md-button>
                                             </td>
                                         </tr>
@@ -325,7 +326,7 @@
                                             <td md-cell>{{el.value.displayName}}</td>
                                             <td md-cell hide-xs>{{el.value.tel}}</td>
                                             <td md-cell>
-                                                <md-button class="md-fab md-mini md-primary" aria-label="Eat cake" ng-click="ul.acceptTutor(el, i.courseId, i)">
+                                                <md-button class="md-fab md-mini md-primary" aria-label="Eat cake" ng-click="ul.acceptTutor(el, mm)">
                                                     <md-icon md-svg-icon="done"></md-icon>
                                                     <md-tooltip md-delay="500">
                                                         ยืนยันการสมัคร
@@ -387,9 +388,59 @@
                             </md-card-title-text>
                         </md-card-title>
                     </md-card>
-                    <md-button class="md-primary" ng-click="ul.acceptStudent(infoStudent, infoCourse)">ยืนยันการสมัคร</md-button>
                 </md-content>
                 <md-content flex="50">
+                    <md-card>
+                        <img src="{{infoStudent.payment.imageURL}}" style="width:100%"/>
+                    </md-card>
+                </md-content>
+            </md-dialog-content>
+        </md-dialog>
+    </div>
+</div>
+
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="checkPayment">
+        <md-dialog aria-label="เพิ่มวิชา" style="width: 80%">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>ตวรจสอบการชำระเงิน</h2>
+                    <span flex></span>
+                    <md-button class="md-icon-button" ng-click="cancel()">
+                        <md-icon md-svg-icon="cancel" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content layout="row" layout-padding>
+                <md-content flex="50">
+                    ข้อมูลผู้สมัคร
+                    <md-card>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">ชื่อ : {{infoStudent.value.displayName}}</span>
+                                <span class="md-subhead">email : {{infoStudent.value.email}}</span>
+                                <span class="md-subhead">tel : {{infoStudent.value.tel}}</span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                                <div class="md-media-sm card-media"><img src="{{infoStudent.value.photoURL}}" class="avatar"></div>
+                            </md-card-title-media>
+                        </md-card-title>
+                    </md-card>
+                     ข้อมูลผู้ชำระเงิน
+                    <md-card>
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-subhead">ชื่อ : {{infoStudent.payment.name}}</span>
+                                <span class="md-subhead">ชื่อธนาคาร : {{infoStudent.payment.bankName}}</span>
+                                <span class="md-subhead">วันที่ : {{infoStudent.payment.date}} เวลา : {{infoStudent.payment.time}}</span>
+                                <span class="md-subhead">tel : {{infoStudent.payment.tel}}</span>
+                            </md-card-title-text>
+                        </md-card-title>
+                    </md-card>
+                    <md-button class="md-primary" ng-click="ul.acceptStudent(infoStudent, infoCourse)">ยืนยันการสมัคร</md-button>
+                </md-content>
+                <md-content flex>
+                    ข้อมูลการโอน
                     <md-card>
                         <img src="{{infoStudent.payment.imageURL}}" style="width:100%"/>
                     </md-card>

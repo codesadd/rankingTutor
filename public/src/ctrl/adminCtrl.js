@@ -61,7 +61,7 @@
                 });
         }
 
-        function fetchChartData(item) {
+        function fetchChartData(item, infoTtest, resultTtest) {
             if (item == undefined) {
                 self.data = [
                     [r1 = 0, r2 = 0, r3 = 0, r4 = 0, r5 = 0, r6 = 0]
@@ -74,6 +74,8 @@
                 var t1, t2, t3, t4, t5, t6
                 t1 = t2 = t3 = t4 = t5 = t6 = 0
                     // console.log(item);
+                    var countBeforeTest = 0
+                    var countAfterTest = 0
                 Object.keys(item).forEach(function(course) {
                     var count = 0
                     Object.keys(item[course].dataPoll).forEach(function(id) {
@@ -93,7 +95,12 @@
                         }
                         $scope.labels.push(item[course].dataPoll[id].title)
                     })
+                    countBeforeTest = countBeforeTest + item[course].ttest.before
+                    countAfterTest = countAfterTest + item[course].ttest.after
                 })
+                var persentTtestInBefore = (countBeforeTest / (5 * Object.keys(item).length)) * 100
+                var persentTtestInAfter = (countAfterTest / (5 * Object.keys(item).length)) * 100
+                console.log(persentTtestInAfter, persentTtestInBefore, (countBeforeTest/Object.keys(item).length), (countAfterTest/Object.keys(item).length))
                 r1 = parseInt((t1 / (5 * Object.keys(item).length)) * 100)
                 r2 = parseInt((t2 / (5 * Object.keys(item).length)) * 100)
                 r3 = parseInt((t3 / (5 * Object.keys(item).length)) * 100)
@@ -121,7 +128,8 @@
                         }
                     }
                 }
-                $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+                var ttestText = "T-test โดยรวมมีค่าเป็น "+ resultTtest 
+                $scope.labels = [ttestText];
                 $scope.series = ['ก่อนเรียน', 'หลังเรียน'];
                 $scope.options = {
                     legend: {
@@ -139,8 +147,8 @@
                     }
                 };
                 $scope.data = [
-                    [2, 3, 3, 2, 1, 3, 1],
-                    [4, 5, 4, 4, 3, 4, 4]
+                    [(countBeforeTest/Object.keys(item).length)],
+                    [(countAfterTest/Object.keys(item).length)]
                 ];
             }
         }

@@ -58,7 +58,7 @@
         <md-card md-theme="default" md-theme-watch>
             <md-tabs md-dynamic-height md-border-bottom md-autoselect md-selected="selectedIndex">
                 <div ng-repeat="i in ul.schools">
-                    <md-tab label="โรงเรียน - {{ i.value.schoolName }}" md-active="true" ng-click="ul.fetchChartData(i.value.poll)">
+                    <md-tab label="โรงเรียน - {{ i.value.schoolName }}" ng-click="ul.fetchChartData(i.value.poll, i.infoTtest, i.ttestResult)">
                         <md-toolbar>
                             <div class="md-toolbar-tools">
                                 <span>วันที่สมัคร

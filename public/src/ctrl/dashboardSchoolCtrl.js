@@ -96,6 +96,22 @@
             $scope.infoStudent = infoStd
             $scope.infoCourse = infoCourse
             $mdDialog.show({
+                contentElement: '#checkPayment',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+            }).then(function(item) {
+               console.log(item)
+            }, function() {
+                console.log("canceled dailog")
+            })
+        }
+
+         $scope.showPayment = function(ev, infoStd, infoCourse) {
+            console.log(infoStd, infoCourse)
+            $scope.infoStudent = infoStd
+            $scope.infoCourse = infoCourse
+            $mdDialog.show({
                 contentElement: '#showPayment',
                 parent: angular.element(document.body),
                 targetEvent: ev,
@@ -288,8 +304,7 @@
                 })
         }
 
-        function acceptTutor(tutor, courseId, i) {
-            var index = self.course.indexOf(i)
+        function acceptTutor(tutor, infoCourse) {
             SweetAlert.swal({
                     title: "ยืนยันการเข้าสอนของ " + tutor.value.displayName + " ?",
                     text: "Your will not be able to recover this Data !!",
@@ -309,12 +324,12 @@
                             timer: 1000,
                             showConfirmButton: false
                         })
-                        dataService.acceptTutor(self.currentId, courseId, tutor.tutor_id).then(function(snp) {
+                        dataService.acceptTutor(self.currentId, infoCourse.courseId, tutor.tutor_id).then(function(snp) {
                             self.course = snp[0].data
+                            $scope.mm =  self.course.filter(course => course.courseId === infoCourse.courseId)[0]
                         })
                         setTimeout(function() {
                             SweetAlert.swal("ยืนยันข้อมูลเรียบร้อยแล้ว!", "This data has been accepted.", "success")
-                            $scope.selectedIndex = index
                         }, 2000)
 
                     } else {
